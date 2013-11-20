@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+    <h:head>  
+  		<title>STALKNET</title>
+  		<style>
+			/*html, body {height:100%;margin:0;}*/
+			.panelGridCenter {
+    			margin: 0 auto;
+    			margin-top: 20%;
+			}
+		</style>
+    </h:head>  
+    <h:body>
+    	<h:form>  
+	       	<p:panelGrid columns="2" styleClass="panelGridCenter" >  
+			    <f:facet name="header">  
+			        Вход в STALKNET 
+			    </f:facet>  
+			    <h:outputLabel for="login" value="Логин:" />  
+			    <p:inputText id="login" value="#{login.loginName}" label="Логин" />  
+			  
+			    <h:outputLabel for="pass" value="Пароль:" />  
+			    <p:inputText id="pass" value="#{login.pass}" required="true" label="Пароль"/>  
+			  
+			    <f:facet name="footer">  
+			    	<p:commandButton type="button" value="Регистрация" disabled="true" icon="ui-icon-pencil" />
+			        <p:commandButton value="Вход" actionListener="#{login.loginAction()}" icon="ui-icon-arrowreturnthick-1-e" style="margin-left: 35px;"/>  
+			    </f:facet>
+			</p:panelGrid>
+		</h:form>
+    </h:body>  
+</html> 
