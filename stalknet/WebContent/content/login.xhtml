@@ -15,20 +15,27 @@
 		</style>
     </h:head>  
     <h:body>
-    	<h:form>  
-	       	<p:panelGrid columns="2" styleClass="panelGridCenter" >  
+    	<h:form> 
+    		 
+	       	<p:panelGrid columns="3" styleClass="panelGridCenter" >  
 			    <f:facet name="header">  
 			        Вход в STALKNET 
 			    </f:facet>  
 			    <h:outputLabel for="login" value="Логин:" />  
-			    <p:inputText id="login" value="#{login.loginName}" label="Логин" />  
-			  
-			    <h:outputLabel for="pass" value="Пароль:" />  
-			    <p:inputText id="pass" value="#{login.pass}" required="true" label="Пароль"/>  
-			  
+			    <p:inputText id="login" value="#{core.loginName}" required="true" label="Логин">
+			    	<f:validateLength minimum="3" />  
+			    </p:inputText>  
+			  	<p:message for="login" display="icon" />  
+			  	
+			    <h:outputLabel for="pass" value="Пароль:" />
+			    <p:inputText id="pass" value="#{core.pass}" required="true" label="Пароль">  
+			  		<f:validateLength minimum="3" />  
+			    </p:inputText>
+			    <p:message for="pass" display="icon"/>  
+			    
 			    <f:facet name="footer">  
 			    	<p:commandButton type="button" value="Регистрация" disabled="true" icon="ui-icon-pencil" />
-			        <p:commandButton value="Вход" actionListener="#{login.loginAction()}" icon="ui-icon-arrowreturnthick-1-e" style="margin-left: 35px;"/>  
+			        <p:commandButton value="Вход" action="#{core.loginAction()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="margin-left: 35px;"/>  
 			    </f:facet>
 			</p:panelGrid>
 		</h:form>

@@ -8,20 +8,21 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
-public class Login implements Serializable {
+public class Core implements Serializable {
 
 	private static final long serialVersionUID = -8116411976966855458L;
-	private static final Logger logger = Logger.getLogger(Login.class.getName());
+	private static final Logger logger = Logger.getLogger(Core.class.getName());
 	
 	private String loginName;
 	private String pass;
+	private String passEnc;
 	
 	public String loginAction() {
 		//String login, String pass
 		
 		logger.info("loginAction called! LoginName="+loginName);
-		
-		return "/content/users.jsp";
+		this.passEnc=com.nargott.Utils.MD5(loginName);
+		return "/content/testPage.jsp";
 	}
 
 	public String getLoginName() {
@@ -38,6 +39,14 @@ public class Login implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public String getPassEnc() {
+		return passEnc;
+	}
+
+	public void setPassEnc(String passEnc) {
+		this.passEnc = passEnc;
 	}
 	
 	

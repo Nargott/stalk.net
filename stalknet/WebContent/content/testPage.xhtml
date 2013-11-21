@@ -9,15 +9,7 @@
     <h:body>  
     	<f:view>
 	        <h:form>  
-			    <p:dataTable var="test" value="#{testPage.tests}">  
-			        <p:column headerText="ID">  
-			            <h:outputText value="#{test.id}" />  
-			        </p:column>  
-			  
-			        <p:column headerText="Name">  
-			            <h:outputText value="#{test.name}" />  
-			        </p:column>    
-			    </p:dataTable>  
+			    <h:outputText value="#{core.passEnc}"></h:outputText>
 			</h:form>
 		</f:view>
     </h:body>  
