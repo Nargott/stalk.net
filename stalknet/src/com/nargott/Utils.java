@@ -4,7 +4,7 @@ public class Utils {
 
 	static public String MD5(String src) {
 		try {
-	        java.security.MessageDigest md = java.security.MessageDigest.getInstance("sha512");
+	        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 	        byte[] array = md.digest(src.getBytes());
 	        StringBuffer sb = new StringBuffer();
 	        for (int i = 0; i < array.length; ++i) {
