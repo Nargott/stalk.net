@@ -22,7 +22,8 @@ public class Core implements Serializable {
 		
 		logger.info("loginAction called! LoginName="+loginName);
 		this.passEnc=com.nargott.Utils.MD5(loginName);
-		return "/content/testPage.jsp";
+		//return "/content/testPage.jsp";
+		return "/templates/tabMenu.jsp";
 	}
 
 	public String getLoginName() {

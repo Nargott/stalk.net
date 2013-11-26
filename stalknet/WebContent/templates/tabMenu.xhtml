@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+	  <h:head>
+	    <title>
+	      Welcome to STALKNET
+	    </title>
+	    <style>
+			html, body {height:100%;margin:0;overflow:hidden;background:#121212;}
+			/*.tabPDA {
+    			margin: 0 auto;
+    			margin-top: 0%;
+    			height:100%;
+			}*/
+		</style>
+		<script type="text/javascript">
+              $(document).ready(function() {
+                  docHeight= jQuery(document).height();
+                  $(".tabPDA").css("height",(docHeight-90));
+              });
+              $(window).resize(function() {
+            	  docHeight= jQuery(document).height();
+                  $(".tabPDA").css("height",(docHeight-90));
+              });
+            
+        </script>
+	  </h:head>
+	<h:body>
+		<p:tabMenu activeIndex="0">  
+		    <p:menuitem value="Overview" url="/ui/tabMenu.jsf" icon="ui-icon-star"/>  
+		    <p:menuitem value="Demos" url="/ui/tabMenuDemos.jsf" icon="ui-icon-search" />  
+		    <p:menuitem value="Documentation" url="/ui/tabMenuDocumentation.jsf" icon="ui-icon-document"/>  
+		    <p:menuitem value="Support" url="/ui/tabMenuSupport.jsf" icon="ui-icon-wrench"/>  
+		    <p:menuitem value="Social" url="/ui/tabMenuSocial.jsf" icon="ui-icon-person" />  
+		</p:tabMenu>  
+	</h:body>
+</html>
