@@ -6,6 +6,11 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.model.menu.DefaultMenuItem;  
+import org.primefaces.model.menu.DefaultMenuModel;  
+import org.primefaces.model.menu.DefaultSubMenu;  
+import org.primefaces.model.menu.MenuModel;
+
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
 public class Core implements Serializable {
@@ -17,15 +22,32 @@ public class Core implements Serializable {
 	private String pass;
 	private String passEnc;
 	
+	private MenuModel menuModel;
+	
 	public String loginAction() {
 		//String login, String pass
 		
 		logger.info("loginAction called! LoginName="+loginName);
 		this.passEnc=com.nargott.Utils.MD5(loginName);
 		//return "/content/testPage.jsp";
+		this.genPdaUi();
 		return "/templates/tabMenu.jsp";
 	}
 
+	public void genPdaUi() {
+		menuModel = new DefaultMenuModel();
+		
+        DefaultMenuItem item = new DefaultMenuItem("External");  
+        item.setUrl("http://www.primefaces.org");  
+        item.setIcon("ui-icon-home");  
+        item.setTitle("External");
+        menuModel.addElement(item);
+        //menuModel.
+        logger.info("Element is added! "+menuModel.getElements().size());
+        //this.menuModel.addElement(item);
+		
+	}
+	
 	public String getLoginName() {
 		return loginName;
 	}
@@ -50,6 +72,8 @@ public class Core implements Serializable {
 		this.passEnc = passEnc;
 	}
 	
-	
+	public MenuModel getMenuModel() {  
+        return menuModel;  
+    }
 
 }
