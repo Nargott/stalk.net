@@ -19,11 +19,20 @@ public class UsersDAO {
 	private EntityManager em; //Создаётся EntityManager
 	
 	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
-	public List<User> getListUsers() { //Получить список тестов
+	public List<User> getListUsers() { 
 		try{
 			List<User> t = (List<User>) em.createQuery("select u from User u").getResultList(); //Получаем список всех записей в модели
 			logger.info("List size = "+t.size()); //Выведем на уровень инфо, сколько записей получили
 			return t; 
-		} catch (Exception e) {logger.severe("!Exception in TestDAO:getListTests() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.severe("!Exception in TestDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+	}
+	
+	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
+	public User getUser(String login, String pass) {
+		try{
+			logger.info("User.getUser called, login = "+login);
+			User u = (User) em.createQuery("select u from User u where u.name=:un").setParameter("un", login).setParameter("up", pass).getSingleResult(); //Получаем список всех записей в модели
+			return u; 
+		} catch (Exception e) {logger.severe("!Exception in TestDAO:getUser() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
 }
