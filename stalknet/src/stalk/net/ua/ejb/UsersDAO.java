@@ -24,15 +24,18 @@ public class UsersDAO {
 			List<User> t = (List<User>) em.createQuery("select u from User u").getResultList(); //Получаем список всех записей в модели
 			logger.info("List size = "+t.size()); //Выведем на уровень инфо, сколько записей получили
 			return t; 
-		} catch (Exception e) {logger.severe("!Exception in TestDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.severe("!Exception in UsersDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
 	
-	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
 	public User getUser(String login, String pass) {
+		logger.info("User.getUser called, login = "+login+", pass = "+pass);
 		try{
-			logger.info("User.getUser called, login = "+login);
-			User u = (User) em.createQuery("select u from User u where u.name=:un").setParameter("un", login).setParameter("up", pass).getSingleResult(); //Получаем список всех записей в модели
+			User u = (User) em.createQuery("SELECT OBJECT(u) FROM User u WHERE u.name = :un AND u.pass = :up")
+					.setParameter("un", login)
+					.setParameter("up", pass)
+					.getSingleResult();
+			logger.info("User.getUser selected, user.name = "+u.getName());
 			return u; 
-		} catch (Exception e) {logger.severe("!Exception in TestDAO:getUser() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.severe("!Exception in UsersDAO:getUser("+login+","+pass+") = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
 }

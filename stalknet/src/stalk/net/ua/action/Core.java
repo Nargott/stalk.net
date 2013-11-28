@@ -1,8 +1,10 @@
 package stalk.net.ua.action;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,30 +21,37 @@ public class Core implements Serializable {
 
 	private static final long serialVersionUID = -8116411976966855458L;
 	private static final Logger logger = Logger.getLogger(Core.class.getName());
+
+	@EJB UsersDAO userDAO;
 	
-	private User user;
-	private UsersDAO userDAO;
-	private String loginName;
-	private String pass;
-	private String passEnc;
+	private User user = new User();
+	private User selUser = new User();
+	private List<User> usersList;
+	
+	private String login = "";
+	private String pass = "";
 	
 	private MenuModel menuModel;
+	
 	public String loginAction() throws Exception {
 		//String login, String pass
-		logger.info("loginAction called! LoginName="+loginName);
-		this.passEnc=com.nargott.Utils.MD5(pass);
-		userDAO = new UsersDAO();
-		user=userDAO.getUser(loginName, com.nargott.Utils.MD5(pass));
-		if (user!=null) {logger.info("user "+user.getName());}
-		//return "/content/testPage.jsp";
-		genPdaUi();
-		return "/templates/menuBar.jsp";
+		logger.info("loginAction called! LoginName ="+this.user.getName());
+		setUser(userDAO.getUser(login, com.nargott.Utils.MD5(pass)));
+		//setUser(usersDAO.getListUsers().get(11));
+		if (this.user!=null) {
+			logger.info("user "+user.getName());
+			genMenu();
+			setUsersList(userDAO.getListUsers());
+			setSelUser(this.user);
+			//return "/templates/menuBar.jsp";
+			return "/content/users.jsp";
+		} else {
+			return "/content/login.jsp";
+		}
 	}
 
-	public void genPdaUi() {
+	public void genMenu() {
 		this.menuModel = new DefaultMenuModel();
-		
-        //First submenu  
           
         DefaultMenuItem item = new DefaultMenuItem("Профиль");  
         item.setUrl("http://www.primefaces.org");  
@@ -53,38 +62,49 @@ public class Core implements Serializable {
         item.setIcon("ui-icon-person");
         this.menuModel.addElement(item);
           
-        //Second submenu  
-        /*DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");  
-  
-        item = new DefaultMenuItem("Save");  
-        item.setIcon("ui-icon-disk");  
-        item.setCommand("#{menuBean.save}");  
-        item.setUpdate("messages");  
-        secondSubmenu.addElement(item);  
-          
-        item = new DefaultMenuItem("Delete");  
-        item.setIcon("ui-icon-close");  
-        item.setCommand("#{menuBean.delete}");  
-        item.setAjax(false);  
-        secondSubmenu.addElement(item);  
-          
-        item = new DefaultMenuItem("Redirect");  
-        item.setIcon("ui-icon-search");  
-        item.setCommand("#{menuBean.redirect}");  
-        secondSubmenu.addElement(item);  
-  
-        menuModel.addElement(secondSubmenu);*/
+        
         logger.info("Element is added! "+menuModel.getElements().size());
-        //this.menuModel.addElement(item);
 		
 	}
 	
-	public String getLoginName() {
-		return loginName;
+	public MenuModel getMenuModel() {  
+        return menuModel;  
+    }
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<User> getUsersList() {
+		return usersList;
+	}
+
+	public void setUsersList(List<User> usersList) {
+		this.usersList = usersList;
+	}
+
+	public int getUsersListSize() {
+		return this.usersList.size();
+	}
+	
+	public User getSelUser() {
+		return selUser;
+	}
+
+	public void setSelUser(User selUser) {
+		this.selUser = selUser;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getPass() {
@@ -94,17 +114,7 @@ public class Core implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-
-	public String getPassEnc() {
-		return passEnc;
-	}
-
-	public void setPassEnc(String passEnc) {
-		this.passEnc = passEnc;
-	}
 	
-	public MenuModel getMenuModel() {  
-        return menuModel;  
-    }
-
+		
+	
 }
