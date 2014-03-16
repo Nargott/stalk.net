@@ -17,19 +17,19 @@
        				<h:outputText value="Список пользователей (#{core.usersListSize})" />
        			</f:facet>
        			<h:form id="leftForm">
-	       			<p:dataTable var="user" value="#{core.usersList}" rowKey="#{user.uid}"  
+	       			<p:dataTable var="user" value="#{core.usersList}" rowKey="#{user.id}"  
 	                 	selection="#{core.selUser}" selectionMode="single">
 	                 	
 	                 	<p:ajax event="rowSelect" update=":rightForm:display" />  
 	                 	
 				        <p:column headerText="ID">
-				            <h:outputText value="#{user.uid}" />
+				            <h:outputText value="#{user.id}" />
 				        </p:column>
 				        <p:column headerText="Имя">
-				            <h:outputText value="#{user.name}" />
+				            <h:outputText value="#{user.login}" />
 				        </p:column>
 				        <p:column headerText="email">
-				            <h:outputText value="#{user.mail}" />
+				            <h:outputText value="#{user.email}" />
 				        </p:column>
 				    </p:dataTable>
 				</h:form>    
@@ -41,9 +41,9 @@
        			<h:form id="rightForm">
        				<h:panelGrid id="display" columns="2" cellpadding="4">
        					<h:outputText value="ID:" />
-       					<h:outputText value="#{core.selUser.uid}" />
+       					<h:outputText value="#{core.selUser.id}" />
        					<h:outputText value="Name:" />   
-				        <h:outputText value="#{core.selUser.name}" />
+				        <h:outputText value="#{core.selUser.login}" />
 				        
 				    </h:panelGrid>    
 		        </h:form>

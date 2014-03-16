@@ -2,6 +2,7 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -15,133 +16,110 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int uid;
+	private int id;
 
-	private int access;
+	@Temporal(TemporalType.DATE)
+	private Date birthdate;
 
-	private int created;
+	private int city;
 
-	@Lob
-	private String data;
+	private int country;
 
-	private String init;
+	@Temporal(TemporalType.DATE)
+	private Date created;
 
-	private String language;
+	private String email;
 
-	private int login;
+	private String fio;
 
-	private String mail;
+	@Temporal(TemporalType.DATE)
+	private Date lastlogin;
 
-	private byte mode;
-
-	private String name;
+	private String login;
 
 	private String pass;
 
+	private String phone;
+
 	private String picture;
 
-	private String signature;
+	private int region;
 
-	@Column(name="signature_format")
-	private short signatureFormat;
-
-	private byte sort;
-
-	private byte status;
-
-	private String theme;
-
-	private byte threshold;
-
-	private String timezone;
-
-	@Column(name="timezone_id")
-	private int timezoneId;
-
-	@Column(name="timezone_name")
-	private String timezoneName;
+	private int rights;
 
 	public User() {
 	}
 
-	public int getUid() {
-		return this.uid;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setUid(int uid) {
-		this.uid = uid;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getAccess() {
-		return this.access;
+	public Date getBirthdate() {
+		return this.birthdate;
 	}
 
-	public void setAccess(int access) {
-		this.access = access;
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
-	public int getCreated() {
+	public int getCity() {
+		return this.city;
+	}
+
+	public void setCity(int city) {
+		this.city = city;
+	}
+
+	public int getCountry() {
+		return this.country;
+	}
+
+	public void setCountry(int country) {
+		this.country = country;
+	}
+
+	public Date getCreated() {
 		return this.created;
 	}
 
-	public void setCreated(int created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 
-	public String getData() {
-		return this.data;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getInit() {
-		return this.init;
+	public String getFio() {
+		return this.fio;
 	}
 
-	public void setInit(String init) {
-		this.init = init;
+	public void setFio(String fio) {
+		this.fio = fio;
 	}
 
-	public String getLanguage() {
-		return this.language;
+	public Date getLastlogin() {
+		return this.lastlogin;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setLastlogin(Date lastlogin) {
+		this.lastlogin = lastlogin;
 	}
 
-	public int getLogin() {
+	public String getLogin() {
 		return this.login;
 	}
 
-	public void setLogin(int login) {
+	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getMail() {
-		return this.mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public byte getMode() {
-		return this.mode;
-	}
-
-	public void setMode(byte mode) {
-		this.mode = mode;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getPass() {
@@ -152,6 +130,14 @@ public class User implements Serializable {
 		this.pass = pass;
 	}
 
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getPicture() {
 		return this.picture;
 	}
@@ -160,76 +146,20 @@ public class User implements Serializable {
 		this.picture = picture;
 	}
 
-	public String getSignature() {
-		return this.signature;
+	public int getRegion() {
+		return this.region;
 	}
 
-	public void setSignature(String signature) {
-		this.signature = signature;
+	public void setRegion(int region) {
+		this.region = region;
 	}
 
-	public short getSignatureFormat() {
-		return this.signatureFormat;
+	public int getRights() {
+		return this.rights;
 	}
 
-	public void setSignatureFormat(short signatureFormat) {
-		this.signatureFormat = signatureFormat;
-	}
-
-	public byte getSort() {
-		return this.sort;
-	}
-
-	public void setSort(byte sort) {
-		this.sort = sort;
-	}
-
-	public byte getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(byte status) {
-		this.status = status;
-	}
-
-	public String getTheme() {
-		return this.theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = theme;
-	}
-
-	public byte getThreshold() {
-		return this.threshold;
-	}
-
-	public void setThreshold(byte threshold) {
-		this.threshold = threshold;
-	}
-
-	public String getTimezone() {
-		return this.timezone;
-	}
-
-	public void setTimezone(String timezone) {
-		this.timezone = timezone;
-	}
-
-	public int getTimezoneId() {
-		return this.timezoneId;
-	}
-
-	public void setTimezoneId(int timezoneId) {
-		this.timezoneId = timezoneId;
-	}
-
-	public String getTimezoneName() {
-		return this.timezoneName;
-	}
-
-	public void setTimezoneName(String timezoneName) {
-		this.timezoneName = timezoneName;
+	public void setRights(int rights) {
+		this.rights = rights;
 	}
 
 }

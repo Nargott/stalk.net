@@ -1,7 +1,7 @@
 package stalk.net.ua.ejb;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -24,18 +24,18 @@ public class UsersDAO {
 			List<User> t = (List<User>) em.createQuery("select u from User u").getResultList(); //Получаем список всех записей в модели
 			logger.info("List size = "+t.size()); //Выведем на уровень инфо, сколько записей получили
 			return t; 
-		} catch (Exception e) {logger.severe("!Exception in UsersDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
 	
 	public User getUser(String login, String pass) {
 		logger.info("User.getUser called, login = "+login+", pass = "+pass);
 		try{
-			User u = (User) em.createQuery("SELECT OBJECT(u) FROM User u WHERE u.name = :un AND u.pass = :up")
+			User u = (User) em.createQuery("SELECT OBJECT(u) FROM User u WHERE u.login = :un AND u.pass = :up")
 					.setParameter("un", login)
 					.setParameter("up", pass)
 					.getSingleResult();
-			logger.info("User.getUser selected, user.name = "+u.getName());
+			logger.info("User.getUser selected, user.login = "+u.getLogin());
 			return u; 
-		} catch (Exception e) {logger.severe("!Exception in UsersDAO:getUser("+login+","+pass+") = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:getUser("+login+","+pass+") = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
 }

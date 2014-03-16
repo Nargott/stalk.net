@@ -2,7 +2,8 @@ package stalk.net.ua.action;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -35,21 +36,28 @@ public class Core implements Serializable {
 	
 	public String loginAction() throws Exception {
 		//String login, String pass
-		logger.info("loginAction called! LoginName ="+this.user.getName());
+		BasicConfigurator.configure();
+		logger.info("loginAction called! LoginName ="+this.user.getLogin());
 		setUser(userDAO.getUser(login, com.nargott.Utils.MD5(pass)));
 		//setUser(usersDAO.getListUsers().get(11));
 		if (this.user!=null) {
-			logger.info("user "+user.getName());
+			logger.info("user "+user.getLogin());
 			genMenu();
 			setUsersList(userDAO.getListUsers());
 			setSelUser(this.user);
 			//return "/templates/menuBar.jsp";
 			return "/content/users.jsp";
 		} else {
+			setUser(null);
 			return "/content/login.jsp";
 		}
 	}
-
+	
+	public String getMD5(String str) {
+		String res = com.nargott.Utils.MD5(str);
+		return res;
+	}
+	
 	public void genMenu() {
 		this.menuModel = new DefaultMenuModel();
           
