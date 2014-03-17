@@ -14,8 +14,8 @@
 		<class>stalk.net.ua.model.ItemsType</class>
 		<class>stalk.net.ua.model.Quest</class>
 		<class>stalk.net.ua.model.Region</class>
-		<class>stalk.net.ua.model.Sequence</class>
 		<class>stalk.net.ua.model.Stalker</class>
+		<class>stalk.net.ua.model.Test</class>
 		<class>stalk.net.ua.model.User</class>
 		<properties>
 			<property name="eclipselink.logging.logger" value="ServerLogger"/>

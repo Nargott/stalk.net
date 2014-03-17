@@ -3,6 +3,7 @@ package stalk.net.ua.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -46,6 +47,10 @@ public class User implements Serializable {
 	private int region;
 
 	private int rights;
+
+	//bi-directional many-to-one association to Stalker
+	@OneToMany(mappedBy="userBean")
+	private List<Stalker> stalkers;
 
 	public User() {
 	}
@@ -160,6 +165,28 @@ public class User implements Serializable {
 
 	public void setRights(int rights) {
 		this.rights = rights;
+	}
+
+	public List<Stalker> getStalkers() {
+		return this.stalkers;
+	}
+
+	public void setStalkers(List<Stalker> stalkers) {
+		this.stalkers = stalkers;
+	}
+
+	public Stalker addStalker(Stalker stalker) {
+		getStalkers().add(stalker);
+		stalker.setUserBean(this);
+
+		return stalker;
+	}
+
+	public Stalker removeStalker(Stalker stalker) {
+		getStalkers().remove(stalker);
+		stalker.setUserBean(null);
+
+		return stalker;
 	}
 
 }
