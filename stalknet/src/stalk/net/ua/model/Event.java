@@ -2,7 +2,7 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 
 /**
@@ -17,6 +17,14 @@ public class Event implements Serializable {
 	@Id
 	private int id;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_end")
+	private Date dateEnd;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_start")
+	private Date dateStart;
+
 	@Lob
 	private String description;
 
@@ -27,14 +35,6 @@ public class Event implements Serializable {
 	@JoinColumn(name="type")
 	private EventType eventType;
 
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="eventBean")
-	private List<Quest> quests;
-
-	//bi-directional many-to-one association to Stalker
-	@OneToMany(mappedBy="eventBean")
-	private List<Stalker> stalkers;
-
 	public Event() {
 	}
 
@@ -44,6 +44,22 @@ public class Event implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getDateEnd() {
+		return this.dateEnd;
+	}
+
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
+	public Date getDateStart() {
+		return this.dateStart;
+	}
+
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
 	}
 
 	public String getDescription() {
@@ -68,50 +84,6 @@ public class Event implements Serializable {
 
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
-	}
-
-	public List<Quest> getQuests() {
-		return this.quests;
-	}
-
-	public void setQuests(List<Quest> quests) {
-		this.quests = quests;
-	}
-
-	public Quest addQuest(Quest quest) {
-		getQuests().add(quest);
-		quest.setEventBean(this);
-
-		return quest;
-	}
-
-	public Quest removeQuest(Quest quest) {
-		getQuests().remove(quest);
-		quest.setEventBean(null);
-
-		return quest;
-	}
-
-	public List<Stalker> getStalkers() {
-		return this.stalkers;
-	}
-
-	public void setStalkers(List<Stalker> stalkers) {
-		this.stalkers = stalkers;
-	}
-
-	public Stalker addStalker(Stalker stalker) {
-		getStalkers().add(stalker);
-		stalker.setEventBean(this);
-
-		return stalker;
-	}
-
-	public Stalker removeStalker(Stalker stalker) {
-		getStalkers().remove(stalker);
-		stalker.setEventBean(null);
-
-		return stalker;
 	}
 
 }

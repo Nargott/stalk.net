@@ -49,7 +49,7 @@ public class Core implements Serializable {
 			return "/content/users.jsp";
 		} else {
 			setUser(null);
-			return "/content/login.jsp";
+			return "/content/main.jsp";
 		}
 	}
 	
@@ -60,8 +60,12 @@ public class Core implements Serializable {
 	
 	public void genMenu() {
 		this.menuModel = new DefaultMenuModel();
-          
-        DefaultMenuItem item = new DefaultMenuItem("Профиль");  
+        
+		DefaultMenuItem item = new DefaultMenuItem("Главная");  
+        item.setUrl("/content/main.jsf");  
+        item.setIcon("ui-icon-home");
+        this.menuModel.addElement(item);
+        item = new DefaultMenuItem("Профиль");  
         item.setUrl("http://www.primefaces.org");  
         item.setIcon("ui-icon-home");
         this.menuModel.addElement(item);
