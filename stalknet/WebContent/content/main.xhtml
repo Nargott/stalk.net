@@ -19,8 +19,7 @@
        			<h:form id="leftForm">
     				<p:accordionPanel value="#{mainPage.newsList}" var="new" multiple="true"> 
 		       			<p:tab title="#{new.name}"> 
-		     				<h:outputText  
-					                value="#{new.description}" />  
+		     				<h:outputText value="#{new.description}" escape="false" />  
 					    </p:tab> 
      				</p:accordionPanel>
 				</h:form>    
@@ -30,13 +29,11 @@
        				<h:outputText value="Ближайшее событие (игра)" />
        			</f:facet>
        			<h:form id="rightForm">
-       				<h:panelGrid id="display" columns="2" cellpadding="4">
-       					<h:outputText value="ID:" />
-       					<h:outputText value="#{core.selUser.id}" />
-       					<h:outputText value="Name:" />   
-				        <h:outputText value="#{core.selUser.login}" />
-				        
-				    </h:panelGrid>    
+       				<p:outputPanel deferred="true">
+       					<p:panel header="#{mainPage.lastEvent.name}" footer="Дата и время проведения: #{mainPage.getEventTime(mainPage.lastEvent)}">  
+					        <h:outputText value="#{mainPage.lastEvent.description}" />  
+					    </p:panel>  
+       				</p:outputPanel>   
 		        </h:form>
 		    </ui:define>
 		</ui:composition>

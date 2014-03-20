@@ -1,6 +1,7 @@
 package stalk.net.ua.action;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,7 +9,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import stalk.net.ua.ejb.EventsDAO;
 import stalk.net.ua.ejb.NewsDAO;
+import stalk.net.ua.model.Event;
 import stalk.net.ua.model.New;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
@@ -18,28 +21,44 @@ public class MainPage implements Serializable {
 
 	private static final Logger logger = Logger.getLogger(UsersPage.class.getName());
 	
-	@EJB NewsDAO newsDAO; //Подключим наш ДАО-класс
+	@EJB NewsDAO newsDAO;
+	@EJB EventsDAO eventsDAO;
 
 	List<New> newsList;
-	
+	Event lastEvent;
 	
 	/*public List<New> getNews() { //Метод для получения списка тестов
 		logger.info("MainPage:getNews() called!");
 		return newsDAO.getListNews(); //Вот так просто :)
 	}*/
 	
+	public String getEventTime(Event e) {
+		logger.info("MainPage:getEventTime called!");
+		SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		return formatter.format(e.getDateStart()) + " - " + formatter.format(e.getDateEnd());
+	}
+	
 	public List<New> getNewsList() {
 		logger.info("MainPage:getNewsList() called!");
-		if (newsList!=null) {return newsList;} 
-		else {
-			setNewsList(newsDAO.getListNews());
-			return newsList;
-		}
-		
+		if (newsList==null)	setNewsList(newsDAO.getListNews());
+		return newsList;
 	}
 
 	public void setNewsList(List<New> newsList) {
 		this.newsList = newsList;
 	}
+	
+	public Event getLastEvent() {
+		logger.info("MainPage:getLastEvent() called!");
+		if (lastEvent==null) setLastEvent(eventsDAO.getListLastEvent().get(0));
+		return lastEvent;
+	}
+
+	public void setLastEvent(Event lastEvent) {
+		this.lastEvent = lastEvent;
+	}
+	
+	
+	
 
 }
