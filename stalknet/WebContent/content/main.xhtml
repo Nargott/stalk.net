@@ -30,7 +30,7 @@
        			</f:facet>
        			<h:form id="rightForm">
        				<p:outputPanel deferred="true">
-       					<p:panel header="#{mainPage.lastEvent.name}" footer="Дата и время проведения: #{mainPage.getEventTime(mainPage.lastEvent)}">  
+       					<p:panel header="#{mainPage.lastEvent.name}" footer="#{mainPage.getEventTime(mainPage.lastEvent)}">  
 					        <h:outputText value="#{mainPage.lastEvent.description}" />  
 					    </p:panel>  
        				</p:outputPanel>   

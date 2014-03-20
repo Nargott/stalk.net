@@ -35,7 +35,7 @@ public class MainPage implements Serializable {
 	public String getEventTime(Event e) {
 		logger.info("MainPage:getEventTime called!");
 		SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		return formatter.format(e.getDateStart()) + " - " + formatter.format(e.getDateEnd());
+		return "Начало игры: " + formatter.format(e.getDateStart()) + " <BR /> Окончание игры: " + formatter.format(e.getDateEnd());
 	}
 	
 	public List<New> getNewsList() {
