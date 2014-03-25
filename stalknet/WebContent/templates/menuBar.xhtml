@@ -6,6 +6,9 @@
       xmlns:p="http://primefaces.org/ui">
       
 	  <h:head>
+	  	<f:metadata>
+			<f:event type="preRenderView" listener="#{core.fiscal()}" />
+		</f:metadata>
 	    <title><ui:insert name="title" /></title>
 	    <style>
 			html, body {height:100%;margin:0;overflow:hidden;background:#121212;}
