@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+	    xmlns:h="http://java.sun.com/jsf/html"  
+	    xmlns:f="http://java.sun.com/jsf/core"  
+	    xmlns:p="http://primefaces.org/ui">  
+    <h:head>  
+  		<title>Hello, Stalker!</title>
+    </h:head>  
+    <h:body>  
+    	<f:view contentType="text/html">
+    	<ui:composition template="/templates/menuBar.xhtml">
+		    <ui:define name="title">
+		        STALKNET
+		    </ui:define>
+		    <ui:define name="left">
+		        <f:facet name="header">
+       				<h:outputText value="Метки" />
+       			</f:facet>
+       			<h:form id="leftForm">
+	       			
+				</h:form>    
+		    </ui:define>
+		    <ui:define name="right">
+		        <f:facet name="header">
+       				<h:outputText value="Карта" />
+       			</f:facet>
+       			<h:form id="rightForm">
+       				   <p:gmap center="50.169669,28.272972" zoom="15" type="HYBRID" style="width:640px;height:480px" model="#{mapPage.polygonModel}" mapTypeControl="false" navigationControl="false" />  
+		        </h:form>
+		    </ui:define>
+		</ui:composition>
+		</f:view>
+    </h:body>  
+</html> 

@@ -98,6 +98,13 @@ public class Core implements Serializable {
         item.setUrl("/content/users.jsf");  
         item.setIcon("ui-icon-star");
         this.menuModel.addElement(item);
+        item = new DefaultMenuItem("Квесты");  
+        item.setUrl("/content/quests.jsf");  
+        item.setIcon("ui-icon-note");
+        item = new DefaultMenuItem("Карта");  
+        item.setUrl("/content/map.jsf");  
+        item.setIcon("ui-icon-image");
+        this.menuModel.addElement(item);
         item = new DefaultMenuItem("Выход");  
         //item.setUrl("http://www.primefaces.org");
         item.setAjax(false);
