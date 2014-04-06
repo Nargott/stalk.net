@@ -2,6 +2,7 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -24,6 +25,10 @@ public class City implements Serializable {
 	//bi-directional many-to-one association to Region
 	@ManyToOne
 	private Region region;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="cityBean")
+	private List<User> users;
 
 	public City() {
 	}
@@ -58,6 +63,28 @@ public class City implements Serializable {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public User addUser(User user) {
+		getUsers().add(user);
+		user.setCityBean(this);
+
+		return user;
+	}
+
+	public User removeUser(User user) {
+		getUsers().remove(user);
+		user.setCityBean(null);
+
+		return user;
 	}
 
 }

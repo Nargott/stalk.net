@@ -6,13 +6,13 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the news database table.
+ * The persistent class for the tidings database table.
  * 
  */
 @Entity
-@Table(name="news")
-@NamedQuery(name="New.findAll", query="SELECT n FROM New n")
-public class New implements Serializable {
+@Table(name="tidings")
+@NamedQuery(name="Tiding.findAll", query="SELECT t FROM Tiding t")
+public class Tiding implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,9 +27,12 @@ public class New implements Serializable {
 
 	private String name;
 
-	private int publisher;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="publisher")
+	private User user;
 
-	public New() {
+	public Tiding() {
 	}
 
 	public int getId() {
@@ -64,12 +67,12 @@ public class New implements Serializable {
 		this.name = name;
 	}
 
-	public int getPublisher() {
-		return this.publisher;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setPublisher(int publisher) {
-		this.publisher = publisher;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

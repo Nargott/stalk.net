@@ -22,18 +22,16 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 
-	private int city;
-
-	private int country;
-
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
+
+	private Object description;
 
 	private String email;
 
 	private String fio;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastlogin;
 
 	private String login;
@@ -44,13 +42,20 @@ public class User implements Serializable {
 
 	private String picture;
 
-	private int region;
-
 	private int rights;
 
 	//bi-directional many-to-one association to Stalker
 	@OneToMany(mappedBy="userBean")
 	private List<Stalker> stalkers;
+
+	//bi-directional many-to-one association to City
+	@ManyToOne
+	@JoinColumn(name="city")
+	private City cityBean;
+
+	//bi-directional many-to-one association to Tiding
+	@OneToMany(mappedBy="user")
+	private List<Tiding> tidings;
 
 	public User() {
 	}
@@ -71,28 +76,20 @@ public class User implements Serializable {
 		this.birthdate = birthdate;
 	}
 
-	public int getCity() {
-		return this.city;
-	}
-
-	public void setCity(int city) {
-		this.city = city;
-	}
-
-	public int getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(int country) {
-		this.country = country;
-	}
-
 	public Date getCreated() {
 		return this.created;
 	}
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public Object getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(Object description) {
+		this.description = description;
 	}
 
 	public String getEmail() {
@@ -151,14 +148,6 @@ public class User implements Serializable {
 		this.picture = picture;
 	}
 
-	public int getRegion() {
-		return this.region;
-	}
-
-	public void setRegion(int region) {
-		this.region = region;
-	}
-
 	public int getRights() {
 		return this.rights;
 	}
@@ -187,6 +176,36 @@ public class User implements Serializable {
 		stalker.setUserBean(null);
 
 		return stalker;
+	}
+
+	public City getCityBean() {
+		return this.cityBean;
+	}
+
+	public void setCityBean(City cityBean) {
+		this.cityBean = cityBean;
+	}
+
+	public List<Tiding> getTidings() {
+		return this.tidings;
+	}
+
+	public void setTidings(List<Tiding> tidings) {
+		this.tidings = tidings;
+	}
+
+	public Tiding addTiding(Tiding tiding) {
+		getTidings().add(tiding);
+		tiding.setUser(this);
+
+		return tiding;
+	}
+
+	public Tiding removeTiding(Tiding tiding) {
+		getTidings().remove(tiding);
+		tiding.setUser(null);
+
+		return tiding;
 	}
 
 }

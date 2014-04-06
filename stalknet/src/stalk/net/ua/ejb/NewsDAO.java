@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContextType;
 
 import stalk.net.ua.action.Core;
 //import stalk.net.ua.action.NewsPage;
-import stalk.net.ua.model.New;
+import stalk.net.ua.model.Tiding;
 
 @Stateful //Означает, что хранить данные вне сессий, можно назвать "кэшем"
 public class NewsDAO {
@@ -22,9 +22,9 @@ public class NewsDAO {
 	private EntityManager em; //Создаётся EntityManager
 	
 	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
-	public List<New> getListNews() { 
+	public List<Tiding> getListNews() { 
 		try{
-			List<New> t = (List<New>) em.createQuery("select n from New n").getResultList(); //Получаем список всех записей в модели
+			List<Tiding> t = (List<Tiding>) em.createQuery("select n from Tiding n").getResultList(); //Получаем список всех записей в модели
 			logger.info("List size = "+t.size()); //Выведем на уровень инфо, сколько записей получили
 			return t; 
 		} catch (Exception e) {logger.fatal("!Exception in NewsDAO:getListUsers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось

@@ -3,6 +3,7 @@ package stalk.net.ua.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -25,8 +26,7 @@ public class Event implements Serializable {
 	@Column(name="date_start")
 	private Date dateStart;
 
-	@Lob
-	private String description;
+	private Object description;
 
 	private String name;
 
@@ -34,6 +34,14 @@ public class Event implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="type")
 	private EventType eventType;
+
+	//bi-directional many-to-one association to Quest
+	@OneToMany(mappedBy="eventBean")
+	private List<Quest> quests;
+
+	//bi-directional many-to-one association to Stalker
+	@OneToMany(mappedBy="eventBean")
+	private List<Stalker> stalkers;
 
 	public Event() {
 	}
@@ -62,11 +70,11 @@ public class Event implements Serializable {
 		this.dateStart = dateStart;
 	}
 
-	public String getDescription() {
+	public Object getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(Object description) {
 		this.description = description;
 	}
 
@@ -84,6 +92,50 @@ public class Event implements Serializable {
 
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
+	}
+
+	public List<Quest> getQuests() {
+		return this.quests;
+	}
+
+	public void setQuests(List<Quest> quests) {
+		this.quests = quests;
+	}
+
+	public Quest addQuest(Quest quest) {
+		getQuests().add(quest);
+		quest.setEventBean(this);
+
+		return quest;
+	}
+
+	public Quest removeQuest(Quest quest) {
+		getQuests().remove(quest);
+		quest.setEventBean(null);
+
+		return quest;
+	}
+
+	public List<Stalker> getStalkers() {
+		return this.stalkers;
+	}
+
+	public void setStalkers(List<Stalker> stalkers) {
+		this.stalkers = stalkers;
+	}
+
+	public Stalker addStalker(Stalker stalker) {
+		getStalkers().add(stalker);
+		stalker.setEventBean(this);
+
+		return stalker;
+	}
+
+	public Stalker removeStalker(Stalker stalker) {
+		getStalkers().remove(stalker);
+		stalker.setEventBean(null);
+
+		return stalker;
 	}
 
 }

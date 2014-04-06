@@ -7,17 +7,16 @@
 		<jta-data-source>jdbc/stalknet</jta-data-source>
 		<class>stalk.net.ua.model.City</class>
 		<class>stalk.net.ua.model.Country</class>
+		<class>stalk.net.ua.model.Event</class>
+		<class>stalk.net.ua.model.EventType</class>
 		<class>stalk.net.ua.model.Fraction</class>
 		<class>stalk.net.ua.model.Item</class>
 		<class>stalk.net.ua.model.ItemsType</class>
 		<class>stalk.net.ua.model.Quest</class>
 		<class>stalk.net.ua.model.Region</class>
 		<class>stalk.net.ua.model.Stalker</class>
-		<class>stalk.net.ua.model.Test</class>
+		<class>stalk.net.ua.model.Tiding</class>
 		<class>stalk.net.ua.model.User</class>
-		<class>stalk.net.ua.model.New</class>
-		<class>stalk.net.ua.model.Event</class>
-		<class>stalk.net.ua.model.EventType</class>
 		<properties>
 			<property name="eclipselink.logging.logger" value="ServerLogger"/>
 			<property name="eclipselink.logging.level.sql" value="FINE"/>

@@ -18,8 +18,7 @@ public class Fraction implements Serializable {
 	@Id
 	private int id;
 
-	@Lob
-	private String description;
+	private Object description;
 
 	private int influence;
 
@@ -52,11 +51,11 @@ public class Fraction implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescription() {
+	public Object getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(Object description) {
 		this.description = description;
 	}
 

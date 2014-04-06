@@ -2,6 +2,7 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -19,13 +20,11 @@ public class Quest implements Serializable {
 
 	private String code;
 
-	@Lob
-	private String description;
+	private Object description;
 
 	private int experience;
 
-	@Lob
-	private String hint;
+	private Object hint;
 
 	private String image;
 
@@ -41,6 +40,15 @@ public class Quest implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="event")
 	private Event eventBean;
+
+	//bi-directional many-to-one association to Quest
+	@ManyToOne
+	@JoinColumn(name="parent")
+	private Quest quest;
+
+	//bi-directional many-to-one association to Quest
+	@OneToMany(mappedBy="quest")
+	private List<Quest> quests;
 
 	//bi-directional many-to-one association to Stalker
 	@ManyToOne
@@ -81,11 +89,11 @@ public class Quest implements Serializable {
 		this.code = code;
 	}
 
-	public String getDescription() {
+	public Object getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(Object description) {
 		this.description = description;
 	}
 
@@ -97,11 +105,11 @@ public class Quest implements Serializable {
 		this.experience = experience;
 	}
 
-	public String getHint() {
+	public Object getHint() {
 		return this.hint;
 	}
 
-	public void setHint(String hint) {
+	public void setHint(Object hint) {
 		this.hint = hint;
 	}
 
@@ -151,6 +159,36 @@ public class Quest implements Serializable {
 
 	public void setEventBean(Event eventBean) {
 		this.eventBean = eventBean;
+	}
+
+	public Quest getQuest() {
+		return this.quest;
+	}
+
+	public void setQuest(Quest quest) {
+		this.quest = quest;
+	}
+
+	public List<Quest> getQuests() {
+		return this.quests;
+	}
+
+	public void setQuests(List<Quest> quests) {
+		this.quests = quests;
+	}
+
+	public Quest addQuest(Quest quest) {
+		getQuests().add(quest);
+		quest.setQuest(this);
+
+		return quest;
+	}
+
+	public Quest removeQuest(Quest quest) {
+		getQuests().remove(quest);
+		quest.setQuest(null);
+
+		return quest;
 	}
 
 	public Stalker getStalker1() {

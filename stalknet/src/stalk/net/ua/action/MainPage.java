@@ -12,7 +12,7 @@ import javax.faces.bean.SessionScoped;
 import stalk.net.ua.ejb.EventsDAO;
 import stalk.net.ua.ejb.NewsDAO;
 import stalk.net.ua.model.Event;
-import stalk.net.ua.model.New;
+import stalk.net.ua.model.Tiding;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
@@ -24,7 +24,7 @@ public class MainPage implements Serializable {
 	@EJB NewsDAO newsDAO;
 	@EJB EventsDAO eventsDAO;
 
-	List<New> newsList;
+	List<Tiding> newsList;
 	Event lastEvent;
 	
 	/*public List<New> getNews() { //Метод для получения списка тестов
@@ -38,13 +38,13 @@ public class MainPage implements Serializable {
 		return "Начало игры: " + formatter.format(e.getDateStart()) + " <BR /> Окончание игры: " + formatter.format(e.getDateEnd());
 	}
 	
-	public List<New> getNewsList() {
+	public List<Tiding> getNewsList() {
 		logger.info("MainPage:getNewsList() called!");
 		if (newsList==null)	setNewsList(newsDAO.getListNews());
 		return newsList;
 	}
 
-	public void setNewsList(List<New> newsList) {
+	public void setNewsList(List<Tiding> newsList) {
 		this.newsList = newsList;
 	}
 	
