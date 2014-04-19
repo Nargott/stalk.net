@@ -1,6 +1,8 @@
 package stalk.net.ua.action;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -8,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.UploadedFile;
 
+import stalk.net.ua.ejb.CitiesDAO;
 import stalk.net.ua.ejb.CountriesDAO;
 import stalk.net.ua.ejb.RegionsDAO;
 import stalk.net.ua.model.City;
@@ -16,8 +19,11 @@ import stalk.net.ua.model.Region;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
-public class Registrator {
+public class Registrator implements Serializable {
+	private static final long serialVersionUID = 2445411524555680008L;
 
+	private static final Logger logger = Logger.getLogger(UsersPage.class.getName());
+	
 	private String login;
 	private String pass;
 	private String passConfirm;
@@ -31,11 +37,13 @@ public class Registrator {
 	private Country country;
 	private Region region;
 	private City city;
-	
+		
 	@EJB CountriesDAO countriesDAO;
 	@EJB RegionsDAO regionsDAO;
+	@EJB CitiesDAO citiesDAO;
 	private List<Country> countries;
 	private List<Region> regions;
+	private List<City> cities;
 	
 	public List<Country> getCountries() {
 		if (countries==null) {return countriesDAO.getCountriesList();}
@@ -45,10 +53,20 @@ public class Registrator {
 		this.countries = countries;
 	}
 	
-	//TODO Regions is not f'ck load. I don't know why :/
-	public void refreshRegions() {
-		if (regions!=null) regions.clear();
-		if (this.country!=null) {regions = regionsDAO.getRegionsList(this.country);}  
+	public void handleRegionsChange() {
+		logger.info("Registrator:handleRegionsChange() called!");
+		if (cities!=null) {cities.clear();}
+		if (regions!=null) {regions.clear();}// else regions = new List<Region>;
+		if (this.country!=null) {regions = regionsDAO.getRegionsList(this.country);} 
+			else {logger.info("Registrator:handleRegionsChange() country is NULL!");}
+	}
+	
+	public void handleCitiesChange() {
+		logger.info("Registrator:handleCitiesChange() called!");
+		
+		if (cities!=null) {cities.clear();}// else regions = new List<Region>;
+		if (this.region!=null) {cities = citiesDAO.getCitiesList(this.region);} 
+			else {logger.info("Registrator:handleCitiesChange() region is NULL!");}
 	}
 	
 	public List<Region> getRegions() {
@@ -58,6 +76,13 @@ public class Registrator {
 		this.regions = regions;
 	}
 
+	public List<City> getCities() {
+		return cities;
+	}
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+	
 	public String getLogin() {
 		return login;
 	}

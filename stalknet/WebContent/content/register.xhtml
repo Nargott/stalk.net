@@ -4,7 +4,9 @@
  	lang="ru" xml:lang="ru" dir="ltr"  
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:f="http://java.sun.com/jsf/core"  
-    xmlns:p="http://primefaces.org/ui">  
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui"
+    xmlns:of="http://omnifaces.org/functions">  
     <f:view contentType="text/html" locale="#{core.locale}" encoding="UTF-8" />
     <h:head>
     	<f:facet name="first">  
@@ -39,6 +41,11 @@
 			.rightStyle {
 				text-align: left;
 			}
+			
+			.placeGrid tr, .placeGrid td {
+			    border: none;
+			    background: none;
+			}
 		</style>
 		<script>
 			PrimeFaces.locales ['ru'] = {
@@ -68,23 +75,8 @@
 			    allDayText: 'Весь день';
 			}
 		</script>
-    </h:head>  
-    <h:body>
-    	<h:form  enctype="multipart/form-data" acceptcharset="utf-8"> 
-    		 
-	       	<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter" columnClasses="leftStyle, rightStyle">  
-			    <f:facet name="header">  
-			        Регистрация в STALKNET 
-			    </f:facet>
-			    
-			    <h:outputLabel for="login" value="Логин (Имя пользователя STALKNET): *" style="font-weight:bold" />  
-	            <p:column style="text-align: left">
-		            <p:inputText id="login" value="#{registrator.login}" required="true" label="Логин"
-		            			requiredMessage="Необходимо ввести логин нового пользователя!"
-								validatorMessage="Неверно введён логин"/>
-		            <p:watermark for="login" value="Логин *" />  
-		            <p:message for="login"/>  
-			  	</p:column>
+    </h:head>
+    <!-- 
 			    <h:outputLabel for="pass" value="Пароль: *" />
 			    <p:column style="text-align: right">
 				    <p:password id="pass" value="#{registrator.pass}" match="passConfirm" label="Пароль" required="true"
@@ -101,6 +93,25 @@
 									validatorMessage="Пароли не совпадают!" />   
 				    <p:message for="pass"/> 
 			    </p:column>
+			    -->  
+    <h:body>
+    	<h:form id="regForm" enctype="multipart/form-data" acceptcharset="utf-8"> 
+    		 
+	       	<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter" columnClasses="leftStyle, rightStyle">  
+			    <f:facet name="header">  
+			        Регистрация в STALKNET 
+			    </f:facet>
+			    
+			    <h:outputLabel for="login" value="Логин: *" style="font-weight:bold" />  
+	            <p:column style="text-align: left">
+		            <p:inputText id="login" value="#{registrator.login}" required="true" label="Логин"
+		            			requiredMessage="Необходимо ввести логин нового пользователя!"
+								validatorMessage="Неверно введён логин"/>
+		            <p:watermark for="login" value="Логин *" />  
+		            <p:message for="login"/>  
+		            <h:outputLabel for="login" value="Имя пользователя STALKNET" style="font-size:small"/>
+			  	</p:column>
+			  	
 			    <h:outputLabel for="email" value="Email-адрес: *" /> 
 			    <p:column style="text-align: right">
 				    <p:inputText id="email" value="#{registrator.email}" required="true" label="email" size="40"
@@ -112,7 +123,7 @@
 					<p:message for="email" />
 			    </p:column>
 			    
-			    <h:outputLabel for="callsign" value="Никнейм в игре (по-русски): *" style="font-weight:bold"/> 
+			    <h:outputLabel for="callsign" value="Никнейм в игре: *" style="font-weight:bold"/> 
 	            <p:column style="text-align: left">
 		            <p:inputText id="callsign" value="#{registrator.callsign}" required="true" label="Позывной"
 		            			requiredMessage="Необходимо ввести позывной!"
@@ -120,7 +131,8 @@
 								<f:validateRegex pattern="^[А-Яа-я0-9_- ]{3,15}$" />
 					</p:inputText>
 		            <p:watermark for="callsign" value="Позывной *" />  
-		            <p:message for="callsign"/>  
+		            <p:message for="callsign"/>
+		            <h:outputLabel for="callsign" value="(по-русски)" style="font-size:small; font-weight:bold"/>
 			  	</p:column>
 			  	
 			  	<h:outputLabel for="photo" value="Фото: " style="font-weight:bold"/>
@@ -136,7 +148,7 @@
 			    
 			    <h:outputLabel for="legend" value="Легенда: " style="font-weight:bold"/>
 			  	<p:column style="text-align: left">
-				  	<p:inputTextarea id="legend" rows="5" cols="100" counter="legendCounter" maxlength="5000"       
+				  	<p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
     								counterTemplate="{0} символов осталось." autoResize="false" />  
   
 					<br /><h:outputText id="legendCounter" style="font-size:small" /> 
@@ -159,43 +171,73 @@
 			    	<p:calendar id="dateBorn" value="#{registrator.dateBorn}" locale="ru" yearRange="1930:2010"  pattern="dd.MM.yyyy" showButtonPanel="true" navigator="true" required="true"
 			    				requiredMessage="Необходимо ввести дату рождения"
 			    				converterMessage="Неверный формат даты рождения"/>
-			    	<p:watermark for="dateBorn" value="26.04.1986" />			 
+			    	<p:watermark for="dateBorn" value="26.04.1986" />
+			    	<p:message for="dateBorn"/>			 
 			    </p:column>
 			    
 			    <h:outputLabel for="phone" value="Телефон: *" style="font-weight:bold" />  
 	            <p:column style="text-align: left">
-	            	<p:inputMask id="phone" value="#{maskController.phone}" mask="+38 (999) 99-99-999" required="true" 
+	            	<p:inputMask id="phone" value="#{registrator.phone}" mask="+38 (999) 99-99-999" required="true" 
 	            				requiredMessage="Необходимо ввести номер телефона!"
 								validatorMessage="Неверно введен номер телефона"/>
 		            <p:watermark for="phone" value="+38 (999) 99-99-999" />  
 		            <p:message for="phone"/>  
 			  	</p:column>
-			    
+			   
 			    <h:outputText value="Откуда вы? *" style="font-weight:bold" />
 			    <p:column style="text-align: left">
-			    	<h:outputLabel for="country" value="Страна: " style="font-weight:bold" />
-			    	<p:selectOneMenu id="country" value="#{registrator.country}"  effect="fade" required="true" >
-			    		<f:selectItem itemLabel="Выбрать" itemValue="" /> 
-			    		<f:selectItems value="#{registrator.countries}"
-			    						 var="c"
-						                 itemValue="#{c}"
-						                 itemLabel="#{c.name}"
-						                 noSelectionValue="Не определено" /> 
-						<p:ajax update="region" listener="#{registrator.refreshRegions}" />
-			    	</p:selectOneMenu>
-			    	<h:outputLabel for="region" value="Регион: " style="font-weight:bold" />
-			    	<p:selectOneMenu id="region" value="#{registrator.region}"  effect="fade" required="true" >
-			    		<f:selectItem itemLabel="Выбрать" itemValue="" />
-			    		<f:selectItems value="#{registrator.regions}"
-			    						 var="r"
-						                 itemValue="#{r}"
-						                 itemLabel="#{r.name}"
-						                 noSelectionValue="Не определено" /> 
-			    	</p:selectOneMenu>
+			    	<p:panelGrid id="place" columns="2" styleClass="placeGrid"> 
+				    	<h:outputLabel for="country" value="Страна: " style="font-weight:bold" />
+				    	<p:selectOneMenu id="country" value="#{registrator.country}"  effect="fade" 
+				    					converter="omnifaces.SelectItemsConverter">
+				    		<f:selectItem itemLabel="Выбрать" noSelectionOption="true" /> 
+				    		<f:selectItems value="#{registrator.countries}"
+				    						 var="c"
+							                 itemValue="#{c}"
+							                 itemLabel="#{c.name}"
+							                 noSelectionValue="" 
+							                  /> 
+							<p:ajax update="region city" listener="#{registrator.handleRegionsChange}" />
+				    	</p:selectOneMenu>
+				    	<h:outputLabel for="region" value="Регион: " style="font-weight:bold" />
+				    	<p:selectOneMenu id="region" value="#{registrator.region}"  effect="fade"
+				    					filter="true" filterMatchMode="startsWith"
+				    					converter="omnifaces.SelectItemsConverter">
+				    		<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
+				    		<f:selectItems value="#{registrator.regions}"
+				    						 var="r"
+							                 itemValue="#{r}"
+							                 itemLabel="#{r.name}"
+							                 noSelectionValue="" /> 
+							<p:ajax update="city" listener="#{registrator.handleCitiesChange}" />
+				    	</p:selectOneMenu>
+				    	<h:outputLabel for="city" value="Город: " style="font-weight:bold" />
+				    	<p:selectOneMenu id="city" value="#{registrator.city}"  effect="fade"
+				    					filter="true" filterMatchMode="startsWith"
+				    					converter="omnifaces.SelectItemsConverter">
+				    		<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
+				    		<f:selectItems value="#{registrator.cities}"
+				    						 var="c"
+							                 itemValue="#{c}"
+							                 itemLabel="#{c.name}"
+							                 noSelectionValue="" /> 
+				    	</p:selectOneMenu>
+			    	</p:panelGrid>
+			    	<p:message for="place"/>
+			    </p:column>
+			    
+			    <h:outputLabel for="captcha" value="CAPTCHA: *" style="font-weight:bold" />
+			    <p:column style="text-align: left">
+				    <p:captcha id="captcha" label="CAPTCHA" language="ru" theme="blackglass" 
+				    			required="true"
+	                    		requiredMessage="Капчу ввести необходимо!"                        
+	                    		validatorMessage="Капчу ввёл неверно ты."
+	                    		secure="true"/>
+	                <p:message for="captcha"/>	
 			    </p:column>
 			    <f:facet name="footer">  
-			    	<p:commandButton value="Вход" action="#" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
-			    	<p:commandButton value="Регистрация" action="#" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 47%;"/>
+			    	<p:commandButton value="Войти" action="#" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
+			    	<p:commandButton value="Зарегистрироваться" action="#" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
 			    </f:facet>
 			</p:panelGrid>
 		</h:form>
