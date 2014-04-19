@@ -48,7 +48,7 @@
 			    <p:message for="pass" display="icon"/>  
 			    
 			    <f:facet name="footer">  
-			    	<p:commandButton type="button" value="Регистрация" disabled="true" icon="ui-icon-pencil" />
+			    	<p:commandButton value="Регистрация" action="#{core.regAction()}" icon="ui-icon-pencil" ajax="false" />
 			        <p:commandButton value="Вход" action="#{core.loginAction()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="margin-left: 35px;"/>  
 			    </f:facet>
 			</p:panelGrid>

@@ -23,7 +23,7 @@ public class EventsDAO {
 	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
 	public List<Event> getListLastEvent() { 
 		try{
-			List<Event> t = (List<Event>) em.createQuery("select e from Event e order by e.id desc").setMaxResults(1).getResultList(); // getResultList(); //Получаем список всех записей в модели
+			List<Event> t = (List<Event>) em.createQuery("select e from Event e order by e.id desc").setMaxResults(1).getResultList(); //Получаем список всех записей в модели
 			logger.info("Last event id = "+t.get(0).getId());
 			return t; 
 		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:getListLastEvent() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось

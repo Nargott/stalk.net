@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 	lang="ru" xml:lang="ru" dir="ltr"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+    <f:view contentType="text/html" locale="#{core.locale}" encoding="UTF-8" />
+    <h:head>
+    	<f:facet name="first">  
+    		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    	</f:facet>	
+  		<title>STALKNET</title>
+  		<style>
+			/*html, body {height:100%;margin:0;}*/
+			body {
+				margin: 0 auto;
+				padding: 0;
+				color: #FFFFFF;
+				background-color: #000000;
+				background-image: url(../resources/img/stalker1.jpg);
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: top center;
+				-webkit-background-size: cover;
+			    -moz-background-size: cover;
+			    -o-background-size: cover;
+			    background-size: cover;
+			}
+			.panelGridCenter {
+    			margin: 0 auto;
+    			margin-top: 2%;
+			}
+			
+			.leftStyle {
+				text-align: right;
+			}
+			
+			.rightStyle {
+				text-align: left;
+			}
+		</style>
+		<script>
+			PrimeFaces.locales ['ru'] = {
+			    closeText: 'Закрыть',
+			    prevText: 'Назад',
+			    nextText: 'Вперёд',
+			    monthNames: ['Январь', 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь','Октябрь','Ноябрь','Декабрь' ],
+			    monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+			    dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Субота'],
+			    dayNamesShort: ['Воск','Пон' , 'Втор' , 'Сред' , 'Четв' , 'Пят' , 'Суб'],
+			    dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср ', 'Чт', 'Пт', 'Сб'],
+			    weekHeader: 'Неделя',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix:'',
+			    timeOnlyTitle: 'Только время',
+			    timeText: 'Время',
+			    hourText: 'Час',
+			    minuteText: 'Минута',
+			    secondText: 'Секунда',
+			    currentText: 'Сегодня',
+			    ampm: false,
+			    month: 'Месяц',
+			    week: 'неделя',
+			    day: 'День',
+			    allDayText: 'Весь день';
+			}
+		</script>
+    </h:head>  
+    <h:body>
+    	<h:form  enctype="multipart/form-data" acceptcharset="utf-8"> 
+    		 
+	       	<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter" columnClasses="leftStyle, rightStyle">  
+			    <f:facet name="header">  
+			        Регистрация в STALKNET 
+			    </f:facet>
+			    
+			    <h:outputLabel for="login" value="Логин (Имя пользователя STALKNET): *" style="font-weight:bold" />  
+	            <p:column style="text-align: left">
+		            <p:inputText id="login" value="#{registrator.login}" required="true" label="Логин"
+		            			requiredMessage="Необходимо ввести логин нового пользователя!"
+								validatorMessage="Неверно введён логин"/>
+		            <p:watermark for="login" value="Логин *" />  
+		            <p:message for="login"/>  
+			  	</p:column>
+			    <h:outputLabel for="pass" value="Пароль: *" />
+			    <p:column style="text-align: right">
+				    <p:password id="pass" value="#{registrator.pass}" match="passConfirm" label="Пароль" required="true"
+				    			    requiredMessage="Необходимо ввести пароль для нового пользователя!"
+									validatorMessage="Пароли не совпадают!">  
+				  		<f:validateLength minimum="5" />  
+				    </p:password>
+				    <p:message for="pass"/> 
+			    </p:column>
+	            <h:outputLabel for="passConfirm" value="Подтверждение пароля: *" />  
+	            <p:column style="text-align: right">
+		            <p:password id="passConfirm" value="#{registrator.passConfirm}" label="Подтверждение пароля" required="true"
+		            				requiredMessage="Необходимо ввести пароль для нового пользователя!"
+									validatorMessage="Пароли не совпадают!" />   
+				    <p:message for="pass"/> 
+			    </p:column>
+			    <h:outputLabel for="email" value="Email-адрес: *" /> 
+			    <p:column style="text-align: right">
+				    <p:inputText id="email" value="#{registrator.email}" required="true" label="email" size="40"
+						requiredMessage="Введите адрес электронной почты."
+						validatorMessage="Неверный формат Email.">
+					  	<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+					<p:watermark for="email" value="Email-адрес *" />
+					<p:message for="email" />
+			    </p:column>
+			    
+			    <h:outputLabel for="callsign" value="Никнейм в игре (по-русски): *" style="font-weight:bold"/> 
+	            <p:column style="text-align: left">
+		            <p:inputText id="callsign" value="#{registrator.callsign}" required="true" label="Позывной"
+		            			requiredMessage="Необходимо ввести позывной!"
+								validatorMessage="Неверно введён позывной. Допустимы только русские буквы">
+								<f:validateRegex pattern="^[А-Яа-я0-9_- ]{3,15}$" />
+					</p:inputText>
+		            <p:watermark for="callsign" value="Позывной *" />  
+		            <p:message for="callsign"/>  
+			  	</p:column>
+			  	
+			  	<h:outputLabel for="photo" value="Фото: " style="font-weight:bold"/>
+			  	<p:column style="text-align: left">
+				  	<p:fileUpload id="photo" value="#{registrator.photo}" mode="simple" 
+				  					sizeLimit="200000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+				  					invalidSizeMessage="Превышен максимальный размер файа в 200Кб!"
+				  					invalidFileMessage="Недопустимый тип файла (не gif, jpg, jpeg или png)"/> 
+				  	<p:watermark for="photo" value="Фото *" />  
+				  	<br /><h:outputLabel for="photo" value="Ваше фото в экипировке, в которой вы собираетесь учавствовать в игре." style="font-size:small"/>
+		            <p:message for="photo"/> 
+			    </p:column>
+			    
+			    <h:outputLabel for="legend" value="Легенда: " style="font-weight:bold"/>
+			  	<p:column style="text-align: left">
+				  	<p:inputTextarea id="legend" rows="5" cols="100" counter="legendCounter" maxlength="5000"       
+    								counterTemplate="{0} символов осталось." autoResize="false" />  
+  
+					<br /><h:outputText id="legendCounter" style="font-size:small" /> 
+				  	<p:watermark for="legend" value="Легенда" />  
+				  	<br /><h:outputLabel for="legendCounter" value="Эта легенда будет видна всем игрокам." style="font-size:small"/>
+		            <p:message for="legend"/> 
+			    </p:column>
+			    
+			    <h:outputLabel for="fio" value="ФИО: *" style="font-weight:bold" />  
+	            <p:column style="text-align: left">
+		            <p:inputText id="fio" value="#{registrator.FIO}" required="true" label="Фамилия, Имя, Отчество"
+		            			requiredMessage="Необходимо ввести Ваши ФИО!"
+								validatorMessage="Неверно введены ФИО"/>
+		            <p:watermark for="fio" value="Фамилия Имя Отчество" />  
+		            <p:message for="fio"/>  
+			  	</p:column>
+			    
+			    <h:outputLabel for="dateBorn" value="Дата рождения: *" style="font-weight:bold" />
+			    <p:column style="text-align: left">
+			    	<p:calendar id="dateBorn" value="#{registrator.dateBorn}" locale="ru" yearRange="1930:2010"  pattern="dd.MM.yyyy" showButtonPanel="true" navigator="true" required="true"
+			    				requiredMessage="Необходимо ввести дату рождения"
+			    				converterMessage="Неверный формат даты рождения"/>
+			    	<p:watermark for="dateBorn" value="26.04.1986" />			 
+			    </p:column>
+			    
+			    <h:outputLabel for="phone" value="Телефон: *" style="font-weight:bold" />  
+	            <p:column style="text-align: left">
+	            	<p:inputMask id="phone" value="#{maskController.phone}" mask="+38 (999) 99-99-999" required="true" 
+	            				requiredMessage="Необходимо ввести номер телефона!"
+								validatorMessage="Неверно введен номер телефона"/>
+		            <p:watermark for="phone" value="+38 (999) 99-99-999" />  
+		            <p:message for="phone"/>  
+			  	</p:column>
+			    
+			    <h:outputText value="Откуда вы? *" style="font-weight:bold" />
+			    <p:column style="text-align: left">
+			    	<h:outputLabel for="country" value="Страна: " style="font-weight:bold" />
+			    	<p:selectOneMenu id="country" value="#{registrator.country}"  effect="fade" required="true" >
+			    		<f:selectItem itemLabel="Выбрать" itemValue="" /> 
+			    		<f:selectItems value="#{registrator.countries}"
+			    						 var="c"
+						                 itemValue="#{c}"
+						                 itemLabel="#{c.name}"
+						                 noSelectionValue="Не определено" /> 
+						<p:ajax update="region" listener="#{registrator.refreshRegions}" />
+			    	</p:selectOneMenu>
+			    	<h:outputLabel for="region" value="Регион: " style="font-weight:bold" />
+			    	<p:selectOneMenu id="region" value="#{registrator.region}"  effect="fade" required="true" >
+			    		<f:selectItem itemLabel="Выбрать" itemValue="" />
+			    		<f:selectItems value="#{registrator.regions}"
+			    						 var="r"
+						                 itemValue="#{r}"
+						                 itemLabel="#{r.name}"
+						                 noSelectionValue="Не определено" /> 
+			    	</p:selectOneMenu>
+			    </p:column>
+			    <f:facet name="footer">  
+			    	<p:commandButton value="Вход" action="#" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
+			    	<p:commandButton value="Регистрация" action="#" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 47%;"/>
+			    </f:facet>
+			</p:panelGrid>
+		</h:form>
+    </h:body>  
+</html> 

@@ -5,10 +5,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2014-04-06T21:14:02.608+0300")
+@Generated(value="Dali", date="2014-04-18T17:47:27.052+0300")
 @StaticMetamodel(Fraction.class)
 public class Fraction_ {
 	public static volatile SingularAttribute<Fraction, Integer> id;
+	public static volatile SingularAttribute<Fraction, String> description;
 	public static volatile SingularAttribute<Fraction, Integer> influence;
 	public static volatile SingularAttribute<Fraction, Integer> money;
 	public static volatile SingularAttribute<Fraction, String> name;

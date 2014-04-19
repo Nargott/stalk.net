@@ -26,7 +26,8 @@ public class Event implements Serializable {
 	@Column(name="date_start")
 	private Date dateStart;
 
-	private Object description;
+	@Lob
+	private String description;
 
 	private String name;
 
@@ -70,11 +71,11 @@ public class Event implements Serializable {
 		this.dateStart = dateStart;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(Object description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

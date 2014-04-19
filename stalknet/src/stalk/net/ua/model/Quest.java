@@ -20,11 +20,13 @@ public class Quest implements Serializable {
 
 	private String code;
 
-	private Object description;
+	@Lob
+	private String description;
 
 	private int experience;
 
-	private Object hint;
+	@Lob
+	private String hint;
 
 	private String image;
 
@@ -89,11 +91,11 @@ public class Quest implements Serializable {
 		this.code = code;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(Object description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -105,11 +107,11 @@ public class Quest implements Serializable {
 		this.experience = experience;
 	}
 
-	public Object getHint() {
+	public String getHint() {
 		return this.hint;
 	}
 
-	public void setHint(Object hint) {
+	public void setHint(String hint) {
 		this.hint = hint;
 	}
 

@@ -25,7 +25,8 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	private Object description;
+	@Lob
+	private String description;
 
 	private String email;
 
@@ -48,14 +49,14 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="userBean")
 	private List<Stalker> stalkers;
 
+	//bi-directional many-to-one association to Tiding
+	@OneToMany(mappedBy="user")
+	private List<Tiding> tidings;
+
 	//bi-directional many-to-one association to City
 	@ManyToOne
 	@JoinColumn(name="city")
 	private City cityBean;
-
-	//bi-directional many-to-one association to Tiding
-	@OneToMany(mappedBy="user")
-	private List<Tiding> tidings;
 
 	public User() {
 	}
@@ -84,11 +85,11 @@ public class User implements Serializable {
 		this.created = created;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(Object description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -178,14 +179,6 @@ public class User implements Serializable {
 		return stalker;
 	}
 
-	public City getCityBean() {
-		return this.cityBean;
-	}
-
-	public void setCityBean(City cityBean) {
-		this.cityBean = cityBean;
-	}
-
 	public List<Tiding> getTidings() {
 		return this.tidings;
 	}
@@ -206,6 +199,14 @@ public class User implements Serializable {
 		tiding.setUser(null);
 
 		return tiding;
+	}
+
+	public City getCityBean() {
+		return this.cityBean;
+	}
+
+	public void setCityBean(City cityBean) {
+		this.cityBean = cityBean;
 	}
 
 }

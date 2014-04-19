@@ -18,15 +18,17 @@ public class Stalker implements Serializable {
 	@Id
 	private int id;
 
-	private Object active;
+	private byte active;
 
 	private String callsign;
 
-	private Object description;
+	@Lob
+	private String description;
 
 	private int experience;
 
-	private Object legend;
+	@Lob
+	private String legend;
 
 	@Column(name="legend_master")
 	private int legendMaster;
@@ -89,11 +91,11 @@ public class Stalker implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -105,11 +107,11 @@ public class Stalker implements Serializable {
 		this.callsign = callsign;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(Object description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -121,11 +123,11 @@ public class Stalker implements Serializable {
 		this.experience = experience;
 	}
 
-	public Object getLegend() {
+	public String getLegend() {
 		return this.legend;
 	}
 
-	public void setLegend(Object legend) {
+	public void setLegend(String legend) {
 		this.legend = legend;
 	}
 

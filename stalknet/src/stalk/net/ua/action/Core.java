@@ -3,22 +3,23 @@ package stalk.net.ua.action;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
-
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
-import org.primefaces.model.menu.DefaultMenuItem;  
-import org.primefaces.model.menu.DefaultMenuModel;  
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
 
-import stalk.net.ua.model.User;
 import stalk.net.ua.ejb.UsersDAO;
+import stalk.net.ua.model.User;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
@@ -38,6 +39,13 @@ public class Core implements Serializable {
 	
 	private MenuModel menuModel;
 	
+	private Locale locale;
+	
+	@PostConstruct
+	public void InitCore() {
+		locale = new Locale("ru","RU");	
+	}
+	
 	public String loginAction() throws Exception {
 		//String login, String pass
 		user = new User();
@@ -56,6 +64,10 @@ public class Core implements Serializable {
 			setUser(null);
 			return "/content/main.jsp";
 		}
+	}
+	
+	public String regAction() throws Exception {
+		return "/content/register.jsp";
 	}
 	
 	public void fiscal() {
@@ -163,5 +175,15 @@ public class Core implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+	
+	
 		
 }

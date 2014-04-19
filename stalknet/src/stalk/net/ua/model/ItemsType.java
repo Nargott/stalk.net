@@ -18,7 +18,8 @@ public class ItemsType implements Serializable {
 	@Id
 	private int id;
 
-	private Object description;
+	@Lob
+	private String description;
 
 	private String name;
 
@@ -37,11 +38,11 @@ public class ItemsType implements Serializable {
 		this.id = id;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(Object description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
