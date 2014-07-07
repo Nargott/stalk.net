@@ -72,7 +72,7 @@
 			    month: 'Месяц',
 			    week: 'неделя',
 			    day: 'День',
-			    allDayText: 'Весь день';
+			    allDayText: 'Весь день'
 			}
 		</script>
     </h:head>
@@ -128,7 +128,7 @@
 		            <p:inputText id="callsign" value="#{registrator.callsign}" required="true" label="Позывной"
 		            			requiredMessage="Необходимо ввести позывной!"
 								validatorMessage="Неверно введён позывной. Допустимы только русские буквы">
-								<f:validateRegex pattern="^[А-Яа-я0-9_- ]{3,15}$" />
+								<f:validateRegex pattern="([А-Яа-я0-9-].{2,})" />
 					</p:inputText>
 		            <p:watermark for="callsign" value="Позывной *" />  
 		            <p:message for="callsign"/>
@@ -148,9 +148,13 @@
 			    
 			    <h:outputLabel for="legend" value="Легенда: " style="font-weight:bold"/>
 			  	<p:column style="text-align: left">
-				  	<p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
-    								counterTemplate="{0} символов осталось." autoResize="false" />  
-  
+				  	<!-- <p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+    								counterTemplate="{0} символов осталось." autoResize="false" /> -->  
+  					<p:editor  id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+    								counterTemplate="{0} символов осталось." autoResize="false"
+    								controls="bold italic underline strikethrough color highlight bullets numbering
+    										 alignleft center alignright justify undo redo	rule link unlink cut copy 
+    										 paste pastetext print source" />
 					<br /><h:outputText id="legendCounter" style="font-size:small" /> 
 				  	<p:watermark for="legend" value="Легенда" />  
 				  	<br /><h:outputLabel for="legendCounter" value="Эта легенда будет видна всем игрокам." style="font-size:small"/>
@@ -170,7 +174,9 @@
 			    <p:column style="text-align: left">
 			    	<p:calendar id="dateBorn" value="#{registrator.dateBorn}" locale="ru" yearRange="1930:2010"  pattern="dd.MM.yyyy" showButtonPanel="true" navigator="true" required="true"
 			    				requiredMessage="Необходимо ввести дату рождения"
-			    				converterMessage="Неверный формат даты рождения"/>
+			    				converterMessage="Неверный формат даты рождения">
+			    				<f:convertDateTime pattern="dd.MM.yyyy" timeZone="GMT+2" />
+			    	</p:calendar>			
 			    	<p:watermark for="dateBorn" value="26.04.1986" />
 			    	<p:message for="dateBorn"/>			 
 			    </p:column>
@@ -213,6 +219,8 @@
 				    	</p:selectOneMenu>
 				    	<h:outputLabel for="city" value="Город: " style="font-weight:bold" />
 				    	<p:selectOneMenu id="city" value="#{registrator.city}"  effect="fade"
+				    					required="true"
+				    					requiredMessage="Необходимо выбрать город! (Сначала выберете страну и регион)"
 				    					filter="true" filterMatchMode="startsWith"
 				    					converter="omnifaces.SelectItemsConverter">
 				    		<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
@@ -223,10 +231,10 @@
 							                 noSelectionValue="" /> 
 				    	</p:selectOneMenu>
 			    	</p:panelGrid>
-			    	<p:message for="place"/>
+			    	<p:message for="city"/>
 			    </p:column>
 			    
-			    <h:outputLabel for="captcha" value="CAPTCHA: *" style="font-weight:bold" />
+			    <!-- <h:outputLabel for="captcha" value="CAPTCHA: *" style="font-weight:bold" />
 			    <p:column style="text-align: left">
 				    <p:captcha id="captcha" label="CAPTCHA" language="ru" theme="blackglass" 
 				    			required="true"
@@ -234,10 +242,10 @@
 	                    		validatorMessage="Капчу ввёл неверно ты."
 	                    		secure="true"/>
 	                <p:message for="captcha"/>	
-			    </p:column>
+			    </p:column>-->
 			    <f:facet name="footer">  
-			    	<p:commandButton value="Войти" action="#" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
-			    	<p:commandButton value="Зарегистрироваться" action="#" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
+			    	<p:button value="Войти" outcome="/content/login.jsp" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
+			    	<p:commandButton value="Зарегистрироваться" action="#{registrator.register}" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
 			    </f:facet>
 			</p:panelGrid>
 		</h:form>

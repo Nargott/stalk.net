@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.UploadedFile;
 
@@ -18,11 +18,11 @@ import stalk.net.ua.model.Country;
 import stalk.net.ua.model.Region;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
-@SessionScoped //Область действия -- сессия
+@RequestScoped //Область действия -- сессия
 public class Registrator implements Serializable {
 	private static final long serialVersionUID = 2445411524555680008L;
 
-	private static final Logger logger = Logger.getLogger(UsersPage.class.getName());
+	private static final Logger logger = Logger.getLogger(Registrator.class.getName());
 	
 	private String login;
 	private String pass;
@@ -67,6 +67,23 @@ public class Registrator implements Serializable {
 		if (cities!=null) {cities.clear();}// else regions = new List<Region>;
 		if (this.region!=null) {cities = citiesDAO.getCitiesList(this.region);} 
 			else {logger.info("Registrator:handleCitiesChange() region is NULL!");}
+	}
+	
+	public String register() {
+		logger.info("login = "+login);
+		logger.info("pass = "+pass);
+		logger.info("passConfirm = "+passConfirm);
+		logger.info("email = "+email);
+		logger.info("callsign = "+callsign);
+		if (photo!=null) {logger.info("photo = "+photo.getFileName());}
+		logger.info("legend = "+legend);
+		logger.info("FIO = "+FIO);
+		logger.info("dateBorn = "+dateBorn.toString());
+		logger.info("phone = "+phone);
+		logger.info("country = "+country.getName());
+		logger.info("region = "+region.getName());
+		logger.info("city = "+city.getName());
+		return "#";
 	}
 	
 	public List<Region> getRegions() {
@@ -147,6 +164,7 @@ public class Registrator implements Serializable {
 		return country;
 	}
 	public void setCountry(Country country) {
+		logger.info("Registrator:setCountry called! Country = "+country.getName());
 		this.country = country;
 	}
 	public Region getRegion() {

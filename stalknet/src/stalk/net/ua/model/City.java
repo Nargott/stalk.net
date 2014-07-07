@@ -1,9 +1,14 @@
 package stalk.net.ua.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  * The persistent class for the city database table.
@@ -86,5 +91,40 @@ public class City implements Serializable {
 
 		return user;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((region == null) ? 0 : region.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		if (id != other.id)
+			return false;
+		if (region == null) {
+			if (other.region != null)
+				return false;
+		} else if (!region.equals(other.region))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "City [id=" + id + ", region=" + region + "]";
+	}
+	
+	
 
 }
