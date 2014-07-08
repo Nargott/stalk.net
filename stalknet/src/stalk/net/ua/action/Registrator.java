@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.UploadedFile;
 
@@ -18,7 +18,7 @@ import stalk.net.ua.model.Country;
 import stalk.net.ua.model.Region;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
-@RequestScoped //Область действия -- сессия
+@SessionScoped //Область действия -- сессия
 public class Registrator implements Serializable {
 	private static final long serialVersionUID = 2445411524555680008L;
 
@@ -54,7 +54,6 @@ public class Registrator implements Serializable {
 	}
 	
 	public void handleRegionsChange() {
-		logger.info("Registrator:handleRegionsChange() called!");
 		if (cities!=null) {cities.clear();}
 		if (regions!=null) {regions.clear();}// else regions = new List<Region>;
 		if (this.country!=null) {regions = regionsDAO.getRegionsList(this.country);} 
@@ -62,8 +61,6 @@ public class Registrator implements Serializable {
 	}
 	
 	public void handleCitiesChange() {
-		logger.info("Registrator:handleCitiesChange() called!");
-		
 		if (cities!=null) {cities.clear();}// else regions = new List<Region>;
 		if (this.region!=null) {cities = citiesDAO.getCitiesList(this.region);} 
 			else {logger.info("Registrator:handleCitiesChange() region is NULL!");}
@@ -171,6 +168,7 @@ public class Registrator implements Serializable {
 		return region;
 	}
 	public void setRegion(Region region) {
+		logger.info("Registrator:setRegion called! Region = "+region.getName());
 		this.region = region;
 	}
 	public City getCity() {
