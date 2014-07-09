@@ -1,5 +1,10 @@
 package stalk.net.ua.action;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
@@ -8,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import stalk.net.ua.ejb.CitiesDAO;
@@ -65,6 +71,27 @@ public class Registrator implements Serializable {
 		if (this.region!=null) {cities = citiesDAO.getCitiesList(this.region);} 
 			else {logger.info("Registrator:handleCitiesChange() region is NULL!");}
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+        try {
+            File targetFolder = new File("/var/uploaded/images");
+            InputStream inputStream = event.getFile().getInputstream();
+            OutputStream out = new FileOutputStream(new File(targetFolder,
+                    event.getFile().getFileName()));
+            logger.info("Registrator:handleFileUpload() getFileName()");
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            inputStream.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public String register() {
 		logger.info("login = "+login);
@@ -161,14 +188,12 @@ public class Registrator implements Serializable {
 		return country;
 	}
 	public void setCountry(Country country) {
-		logger.info("Registrator:setCountry called! Country = "+country.getName());
 		this.country = country;
 	}
 	public Region getRegion() {
 		return region;
 	}
 	public void setRegion(Region region) {
-		logger.info("Registrator:setRegion called! Region = "+region.getName());
 		this.region = region;
 	}
 	public City getCity() {

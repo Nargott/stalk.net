@@ -42,8 +42,7 @@
 				text-align: left;
 			}
 			
-			.placeGrid tr, .placeGrid td {
-			    border: none;
+			.placeGrid tr, .placeGrid td, .placeGrid table {
 			    background: none;
 			}
 		</style>
@@ -137,7 +136,8 @@
 			  	
 			  	<h:outputLabel for="photo" value="Фото: " style="font-weight:bold"/>
 			  	<p:column style="text-align: left">
-				  	<p:fileUpload id="photo" value="#{registrator.photo}" mode="simple" 
+				  	<p:fileUpload id="photo" value="#{registrator.photo}"  mode="advanced" 
+				  					fileUploadListener="#{registrator.handleFileUpload}"
 				  					sizeLimit="200000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 				  					invalidSizeMessage="Превышен максимальный размер файа в 200Кб!"
 				  					invalidFileMessage="Недопустимый тип файла (не gif, jpg, jpeg или png)"/> 
@@ -150,7 +150,7 @@
 			  	<p:column style="text-align: left">
 				  	<!-- <p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
     								counterTemplate="{0} символов осталось." autoResize="false" /> -->  
-  					<p:editor  id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+  					<p:editor  id="legend" value="#{registrator.legend}" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
     								counterTemplate="{0} символов осталось." autoResize="false"
     								controls="bold italic underline strikethrough color highlight bullets numbering
     										 alignleft center alignright justify undo redo	rule link unlink cut copy 
