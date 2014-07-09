@@ -47,7 +47,8 @@
 			  width: 250px;
 			  height: 250px;
 			  background:url('../resources/img/smoke-texture.png') no-repeat;
-			  margin-left:0px
+			  margin-left:0px;
+			  opacity: 0;
 			}
 		</style>
 		
@@ -90,7 +91,7 @@
 					var w = $("#viewport").width()*0.7;
 					for (; a&lt;40; a+=1) {
 						setTimeout(function b() {
-							var a = Math.random() * 5e3 + 10e3, c = $("<div />", {"class": "smoke", css: {opacity: 0, left: Math.random() * w + 20}});
+							var a = Math.random() * 5e3 + 15e3, c = $("<div />", {"class": "smoke", css: {opacity: 0, left: Math.random() * w + 20}});
 							$(c).appendTo("#viewport");
 							$.when($(c).animate({opacity: 1}, {duration: a / 4, easing: "linear", queue: false, complete: function () {
 								$(c).animate({opacity: 0}, {duration: a / 3, easing: "linear", queue: false})
