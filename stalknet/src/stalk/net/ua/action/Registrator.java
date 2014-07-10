@@ -22,6 +22,7 @@ import stalk.net.ua.ejb.RegionsDAO;
 import stalk.net.ua.model.City;
 import stalk.net.ua.model.Country;
 import stalk.net.ua.model.Region;
+import stalk.net.ua.model.User;
 
 @ManagedBean //Означает, что этот бин будет виден для JSF
 @SessionScoped //Область действия -- сессия
@@ -30,26 +31,38 @@ public class Registrator implements Serializable {
 
 	private static final Logger logger = Logger.getLogger(Registrator.class.getName());
 	
-	private String login;
+	/*private String login;
 	private String pass;
 	private String passConfirm;
-	private String email;
+	/*private String email;*/
 	private String callsign;
 	private UploadedFile photo;
-	private String legend;
+	/*private String legend;
 	private String FIO;
 	private String dateBorn;
-	private String phone;
+	private String phone;*/
 	private Country country;
 	private Region region;
 	private City city;
-		
+	
+	private Boolean allFine = false;
+	
+	private User newUser;
+	
 	@EJB CountriesDAO countriesDAO;
 	@EJB RegionsDAO regionsDAO;
 	@EJB CitiesDAO citiesDAO;
 	private List<Country> countries;
 	private List<Region> regions;
 	private List<City> cities;
+	
+	public void clean() {
+		newUser = new User();
+		callsign = "";
+		country = new Country();
+		region = new Region();
+		city = new City();
+	}
 	
 	public List<Country> getCountries() {
 		if (countries==null) {return countriesDAO.getCountriesList();}
@@ -94,19 +107,39 @@ public class Registrator implements Serializable {
     }
 	
 	public String register() {
-		logger.info("login = "+login);
-		logger.info("pass = "+pass);
-		logger.info("passConfirm = "+passConfirm);
-		logger.info("email = "+email);
+		logger.info("login = "+newUser.getLogin());
+		//logger.info("pass = "+pass);
+		//logger.info("passConfirm = "+passConfirm);
+		logger.info("email = "+newUser.getEmail());
 		logger.info("callsign = "+callsign);
-		if (photo!=null) {logger.info("photo = "+photo.getFileName());}
-		logger.info("legend = "+legend);
-		logger.info("FIO = "+FIO);
-		logger.info("dateBorn = "+dateBorn.toString());
-		logger.info("phone = "+phone);
+		if (photo!=null) {
+			try {
+	            File targetFolder = new File(System.getProperty("catalina.base")+"/eclipseApps/stalknet/resources/img/");
+	            InputStream inputStream = photo.getInputstream();
+	            OutputStream out = new FileOutputStream(new File(targetFolder, "photo.jpg"));
+	            int read = 0;
+	            byte[] bytes = new byte[1024];
+
+	            while ((read = inputStream.read(bytes)) != -1) {
+	                out.write(bytes, 0, read);
+	            }
+	            inputStream.close();
+	            out.flush();
+	            out.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			logger.info("photo = "+photo.getFileName());
+		}
+		logger.info("legend = "+newUser.getDescription());
+		logger.info("FIO = "+newUser.getFio());
+		logger.info("dateBorn = "+newUser.getBirthdate().toString());
+		logger.info("phone = "+newUser.getPhone());
 		logger.info("country = "+country.getName());
 		logger.info("region = "+region.getName());
-		logger.info("city = "+city.getName());
+		newUser.setCityBean(city);
+		logger.info("city = "+newUser.getCityBean().getName());
+		
 		return "#";
 	}
 	
@@ -124,30 +157,7 @@ public class Registrator implements Serializable {
 		this.cities = cities;
 	}
 	
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-	public String getPassConfirm() {
-		return passConfirm;
-	}
-	public void setPassConfirm(String passConfirm) {
-		this.passConfirm = passConfirm;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 	public String getCallsign() {
 		return callsign;
 	}
@@ -160,30 +170,7 @@ public class Registrator implements Serializable {
 	public void setPhoto(UploadedFile photo) {
 		this.photo = photo;
 	}
-	public String getLegend() {
-		return legend;
-	}
-	public void setLegend(String legend) {
-		this.legend = legend;
-	}
-	public String getFIO() {
-		return FIO;
-	}
-	public void setFIO(String fIO) {
-		FIO = fIO;
-	}
-	public String getDateBorn() {
-		return dateBorn;
-	}
-	public void setDateBorn(String dateBorn) {
-		this.dateBorn = dateBorn;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+	
 	public Country getCountry() {
 		return country;
 	}
@@ -202,5 +189,23 @@ public class Registrator implements Serializable {
 	public void setCity(City city) {
 		this.city = city;
 	}
+
+	public User getNewUser() {
+		return newUser;
+	}
+
+	public void setNewUser(User newUser) {
+		this.newUser = newUser;
+	}
+
+	public Boolean getAllFine() {
+		return allFine;
+	}
+
+	public void setAllFine(Boolean allFine) {
+		this.allFine = allFine;
+	}
+	
+	
 	
 }

@@ -19,17 +19,20 @@ public class Test implements Serializable {
 	private static final long serialVersionUID = -7145555352313720425L;
 	
 	private UploadedFile photo;
+	private Boolean isSend = false;
 	
 	public String getStr() {
 		System.out.println(System.getProperty("catalina.base"));
 		return "1234";
 	}
 	
+	
+	
 	public String submit() {
 		if (photo!=null) {
 			
 			try {
-	            File targetFolder = new File("D:/WebServers/opt/glassfish4/glassfish/domains/domain1/eclipseApps/stalknet/resources/img/");
+	            File targetFolder = new File(System.getProperty("catalina.base")+"/eclipseApps/stalknet/resources/img/");
 	            InputStream inputStream = photo.getInputstream();
 	            OutputStream out = new FileOutputStream(new File(targetFolder, "photo.jpg"));
 	            int read = 0;
@@ -41,6 +44,7 @@ public class Test implements Serializable {
 	            inputStream.close();
 	            out.flush();
 	            out.close();
+	            isSend=true;
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -58,5 +62,14 @@ public class Test implements Serializable {
 	public void setPhoto(UploadedFile photo) {
 		this.photo = photo;
 	}
+
+	public Boolean getIsSend() {
+		return isSend;
+	}
+
+	public void setIsSend(Boolean isSend) {
+		this.isSend = isSend;
+	}
+	
 	
 }

@@ -12,6 +12,9 @@
     	<f:facet name="first">  
     		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     	</f:facet>	
+    	<f:metadata>
+			<f:event type="preRenderView" listener="#{registrator.clean()}" />
+		</f:metadata>
   		<title>STALKNET</title>
   		<style>
 			/*html, body {height:100%;margin:0;}*/
@@ -78,7 +81,7 @@
     <!-- 
 			    <h:outputLabel for="pass" value="Пароль: *" />
 			    <p:column style="text-align: right">
-				    <p:password id="pass" value="#{registrator.pass}" match="passConfirm" label="Пароль" required="true"
+				    <p:password id="pass" value="#{registrator.callsign}" match="passConfirm" label="Пароль" required="true"
 				    			    requiredMessage="Необходимо ввести пароль для нового пользователя!"
 									validatorMessage="Пароли не совпадают!">  
 				  		<f:validateLength minimum="5" />  
@@ -87,7 +90,7 @@
 			    </p:column>
 	            <h:outputLabel for="passConfirm" value="Подтверждение пароля: *" />  
 	            <p:column style="text-align: right">
-		            <p:password id="passConfirm" value="#{registrator.passConfirm}" label="Подтверждение пароля" required="true"
+		            <p:password id="passConfirm" value="#{registrator.callsign}" label="Подтверждение пароля" required="true"
 		            				requiredMessage="Необходимо ввести пароль для нового пользователя!"
 									validatorMessage="Пароли не совпадают!" />   
 				    <p:message for="pass"/> 
@@ -103,7 +106,7 @@
 			    
 			    <h:outputLabel for="login" value="Логин: *" style="font-weight:bold" />  
 	            <p:column style="text-align: left">
-		            <p:inputText id="login" value="#{registrator.login}" required="true" label="Логин"
+		            <p:inputText id="login" value="#{registrator.newUser.login}" required="true" label="Логин"
 		            			requiredMessage="Необходимо ввести логин нового пользователя!"
 								validatorMessage="Неверно введён логин"/>
 		            <p:watermark for="login" value="Логин *" />  
@@ -113,7 +116,7 @@
 			  	
 			    <h:outputLabel for="email" value="Email-адрес: *" /> 
 			    <p:column style="text-align: right">
-				    <p:inputText id="email" value="#{registrator.email}" required="true" label="email" size="40"
+				    <p:inputText id="email" value="#{registrator.newUser.email}" required="true" label="email" size="40"
 						requiredMessage="Введите адрес электронной почты."
 						validatorMessage="Неверный формат Email.">
 					  	<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -136,7 +139,7 @@
 			  	
 			  	<h:outputLabel for="photo" value="Фото: " style="font-weight:bold"/>
 			  	<p:column style="text-align: left">
-				  	<p:fileUpload id="photo" value="#{registrator.photo}"  mode="advanced" 
+				  	<p:fileUpload id="photo" value="#{registrator.photo}"  mode="simple" 
 				  					fileUploadListener="#{registrator.handleFileUpload}"
 				  					sizeLimit="200000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 				  					invalidSizeMessage="Превышен максимальный размер файа в 200Кб!"
@@ -150,7 +153,7 @@
 			  	<p:column style="text-align: left">
 				  	<!-- <p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
     								counterTemplate="{0} символов осталось." autoResize="false" /> -->  
-  					<p:editor  id="legend" value="#{registrator.legend}" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+  					<p:editor  id="legend" value="#{registrator.newUser.description}" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
     								counterTemplate="{0} символов осталось." autoResize="false"
     								controls="bold italic underline strikethrough color highlight bullets numbering
     										 alignleft center alignright justify undo redo	rule link unlink cut copy 
@@ -163,7 +166,7 @@
 			    
 			    <h:outputLabel for="fio" value="ФИО: *" style="font-weight:bold" />  
 	            <p:column style="text-align: left">
-		            <p:inputText id="fio" value="#{registrator.FIO}" required="true" label="Фамилия, Имя, Отчество"
+		            <p:inputText id="fio" value="#{registrator.newUser.fio}" required="true" label="Фамилия, Имя, Отчество"
 		            			requiredMessage="Необходимо ввести Ваши ФИО!"
 								validatorMessage="Неверно введены ФИО"/>
 		            <p:watermark for="fio" value="Фамилия Имя Отчество" />  
@@ -172,7 +175,7 @@
 			    
 			    <h:outputLabel for="dateBorn" value="Дата рождения: *" style="font-weight:bold" />
 			    <p:column style="text-align: left">
-			    	<p:calendar id="dateBorn" value="#{registrator.dateBorn}" locale="ru" yearRange="1930:2010"  pattern="dd.MM.yyyy" showButtonPanel="true" navigator="true" required="true"
+			    	<p:calendar id="dateBorn" value="#{registrator.newUser.birthdate}" locale="ru" yearRange="1930:2010"  pattern="dd.MM.yyyy" showButtonPanel="true" navigator="true" required="true"
 			    				requiredMessage="Необходимо ввести дату рождения"
 			    				converterMessage="Неверный формат даты рождения">
 			    				<f:convertDateTime pattern="dd.MM.yyyy" timeZone="GMT+2" />
@@ -183,7 +186,7 @@
 			    
 			    <h:outputLabel for="phone" value="Телефон: *" style="font-weight:bold" />  
 	            <p:column style="text-align: left">
-	            	<p:inputMask id="phone" value="#{registrator.phone}" mask="+38 (999) 99-99-999" required="true" 
+	            	<p:inputMask id="phone" value="#{registrator.newUser.phone}" mask="+38 (999) 99-99-999" required="true" 
 	            				requiredMessage="Необходимо ввести номер телефона!"
 								validatorMessage="Неверно введен номер телефона"/>
 		            <p:watermark for="phone" value="+38 (999) 99-99-999" />  

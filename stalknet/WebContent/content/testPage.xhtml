@@ -11,7 +11,9 @@
 	        <h:form id="regForm" enctype="multipart/form-data">   
 			    <h:outputText value="#{core.getMD5(test.str)}"></h:outputText>
 			    <br />
-			    <p:fileUpload id="photo" value="#{test.photo}"  mode="simple" 
+			    <p:graphicImage value="../resources/img/photo.jpg" alt="Image" title="Image" rendered="#{test.isSend}" />
+			    <!-- <img src="../resources/img/photo.jpg" /> -->
+			    <p:fileUpload id="photo" value="#{test.photo}"  mode="simple"  rendered="#{!test.isSend}"
 				  					sizeLimit="200000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 				  					invalidSizeMessage="Превышен максимальный размер файа в 200Кб!"
 				  					invalidFileMessage="Недопустимый тип файла (не gif, jpg, jpeg или png)"/> 
