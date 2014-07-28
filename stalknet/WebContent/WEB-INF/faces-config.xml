@@ -9,6 +9,8 @@
 			<default-locale>ru_RU</default-locale>
 			<supported-locale>uk_UA</supported-locale>
 		</locale-config>
-		
     </application>
+    <factory>
+    	<exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+	</factory>
 </faces-config>

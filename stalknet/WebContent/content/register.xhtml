@@ -108,7 +108,9 @@
 	            <p:column style="text-align: left">
 		            <p:inputText id="login" value="#{registrator.newUser.login}" required="true" label="Логин"
 		            			requiredMessage="Необходимо ввести логин нового пользователя!"
-								validatorMessage="Неверно введён логин"/>
+								validatorMessage="Неверно введён логин"
+								validator="#{registrator.validateLogin}"
+								/>
 		            <p:watermark for="login" value="Логин *" />  
 		            <p:message for="login"/>  
 		            <h:outputLabel for="login" value="Имя пользователя STALKNET" style="font-size:small"/>

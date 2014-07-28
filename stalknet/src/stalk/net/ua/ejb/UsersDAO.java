@@ -38,4 +38,23 @@ public class UsersDAO {
 			return u; 
 		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:getUser("+login+","+pass+") = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
 	}
+	
+	public Boolean isUserExistsByLogin(String login) {
+		logger.info("User.isUserExistsByLogin called, login = "+login);
+		try{
+			User u = (User) em.createQuery("SELECT OBJECT(u) FROM User u WHERE u.login = :un")
+					.setParameter("un", login)
+					.getSingleResult();
+			logger.info("User.getUser selected, user.login = "+u.getLogin());
+			if (u!=null) {return true;}
+		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:isUserExistsByLogin("+login+") = "+e.getMessage()); return false;}
+		return false;
+	}
+	
+	public Boolean addUser(User newUser) {
+		try {
+			em.persist(newUser);
+			return true;
+		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:addUser("+newUser.getLogin()+") = "+e.getMessage()); return false;}	
+	}
 }
