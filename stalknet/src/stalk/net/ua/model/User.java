@@ -46,7 +46,7 @@ public class User implements Serializable {
 	private int rights;
 
 	//bi-directional many-to-one association to Stalker
-	@OneToMany(mappedBy="userBean")
+	@OneToMany(mappedBy="user")
 	private List<Stalker> stalkers;
 
 	//bi-directional many-to-one association to Tiding
@@ -56,7 +56,7 @@ public class User implements Serializable {
 	//bi-directional many-to-one association to City
 	@ManyToOne
 	@JoinColumn(name="city")
-	private City cityBean;
+	private City city;
 
 	public User() {
 	}
@@ -167,14 +167,14 @@ public class User implements Serializable {
 
 	public Stalker addStalker(Stalker stalker) {
 		getStalkers().add(stalker);
-		stalker.setUserBean(this);
+		stalker.setUser(this);
 
 		return stalker;
 	}
 
 	public Stalker removeStalker(Stalker stalker) {
 		getStalkers().remove(stalker);
-		stalker.setUserBean(null);
+		stalker.setUser(null);
 
 		return stalker;
 	}
@@ -201,12 +201,12 @@ public class User implements Serializable {
 		return tiding;
 	}
 
-	public City getCityBean() {
-		return this.cityBean;
+	public City getCity() {
+		return this.city;
 	}
 
-	public void setCityBean(City cityBean) {
-		this.cityBean = cityBean;
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 }

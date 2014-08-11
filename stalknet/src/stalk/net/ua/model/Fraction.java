@@ -27,18 +27,18 @@ public class Fraction implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Stalker
+	//uni-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="deputy_leader")
-	private Stalker stalker1;
+	private Stalker deputyLeader;
 
-	//bi-directional many-to-one association to Stalker
+	//uni-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="leader")
-	private Stalker stalker2;
+	private Stalker leader;
 
 	//bi-directional many-to-one association to Stalker
-	@OneToMany(mappedBy="fractionBean")
+	@OneToMany(mappedBy="fraction")
 	private List<Stalker> stalkers;
 
 	public Fraction() {
@@ -84,20 +84,20 @@ public class Fraction implements Serializable {
 		this.name = name;
 	}
 
-	public Stalker getStalker1() {
-		return this.stalker1;
+	public Stalker getDeputyLeader() {
+		return this.deputyLeader;
 	}
 
-	public void setStalker1(Stalker stalker1) {
-		this.stalker1 = stalker1;
+	public void setDeputyLeader(Stalker deputyLeader) {
+		this.deputyLeader = deputyLeader;
 	}
 
-	public Stalker getStalker2() {
-		return this.stalker2;
+	public Stalker getLeader() {
+		return this.leader;
 	}
 
-	public void setStalker2(Stalker stalker2) {
-		this.stalker2 = stalker2;
+	public void setLeader(Stalker leader) {
+		this.leader = leader;
 	}
 
 	public List<Stalker> getStalkers() {
@@ -110,14 +110,14 @@ public class Fraction implements Serializable {
 
 	public Stalker addStalker(Stalker stalker) {
 		getStalkers().add(stalker);
-		stalker.setFractionBean(this);
+		stalker.setFraction(this);
 
 		return stalker;
 	}
 
 	public Stalker removeStalker(Stalker stalker) {
 		getStalkers().remove(stalker);
-		stalker.setFractionBean(null);
+		stalker.setFraction(null);
 
 		return stalker;
 	}

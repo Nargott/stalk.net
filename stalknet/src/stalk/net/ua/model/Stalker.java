@@ -2,7 +2,6 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -30,40 +29,19 @@ public class Stalker implements Serializable {
 	@Lob
 	private String legend;
 
+	@Lob
 	@Column(name="legend_master")
-	private int legendMaster;
+	private String legendMaster;
 
 	private int money;
 
 	private String passport;
 
+	private int pda;
+
 	private String photo;
 
 	private int rank;
-
-	//bi-directional many-to-one association to Fraction
-	@OneToMany(mappedBy="stalker1")
-	private List<Fraction> fractions1;
-
-	//bi-directional many-to-one association to Fraction
-	@OneToMany(mappedBy="stalker2")
-	private List<Fraction> fractions2;
-
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="stalker1")
-	private List<Quest> quests1;
-
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="stalker2")
-	private List<Quest> quests2;
-
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="stalker3")
-	private List<Quest> quests3;
-
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="stalker4")
-	private List<Quest> quests4;
 
 	//bi-directional many-to-one association to Event
 	@ManyToOne
@@ -73,12 +51,12 @@ public class Stalker implements Serializable {
 	//bi-directional many-to-one association to Fraction
 	@ManyToOne
 	@JoinColumn(name="fraction")
-	private Fraction fractionBean;
+	private Fraction fraction;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user")
-	private User userBean;
+	private User user;
 
 	public Stalker() {
 	}
@@ -131,11 +109,11 @@ public class Stalker implements Serializable {
 		this.legend = legend;
 	}
 
-	public int getLegendMaster() {
+	public String getLegendMaster() {
 		return this.legendMaster;
 	}
 
-	public void setLegendMaster(int legendMaster) {
+	public void setLegendMaster(String legendMaster) {
 		this.legendMaster = legendMaster;
 	}
 
@@ -155,6 +133,14 @@ public class Stalker implements Serializable {
 		this.passport = passport;
 	}
 
+	public int getPda() {
+		return this.pda;
+	}
+
+	public void setPda(int pda) {
+		this.pda = pda;
+	}
+
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -171,138 +157,6 @@ public class Stalker implements Serializable {
 		this.rank = rank;
 	}
 
-	public List<Fraction> getFractions1() {
-		return this.fractions1;
-	}
-
-	public void setFractions1(List<Fraction> fractions1) {
-		this.fractions1 = fractions1;
-	}
-
-	public Fraction addFractions1(Fraction fractions1) {
-		getFractions1().add(fractions1);
-		fractions1.setStalker1(this);
-
-		return fractions1;
-	}
-
-	public Fraction removeFractions1(Fraction fractions1) {
-		getFractions1().remove(fractions1);
-		fractions1.setStalker1(null);
-
-		return fractions1;
-	}
-
-	public List<Fraction> getFractions2() {
-		return this.fractions2;
-	}
-
-	public void setFractions2(List<Fraction> fractions2) {
-		this.fractions2 = fractions2;
-	}
-
-	public Fraction addFractions2(Fraction fractions2) {
-		getFractions2().add(fractions2);
-		fractions2.setStalker2(this);
-
-		return fractions2;
-	}
-
-	public Fraction removeFractions2(Fraction fractions2) {
-		getFractions2().remove(fractions2);
-		fractions2.setStalker2(null);
-
-		return fractions2;
-	}
-
-	public List<Quest> getQuests1() {
-		return this.quests1;
-	}
-
-	public void setQuests1(List<Quest> quests1) {
-		this.quests1 = quests1;
-	}
-
-	public Quest addQuests1(Quest quests1) {
-		getQuests1().add(quests1);
-		quests1.setStalker1(this);
-
-		return quests1;
-	}
-
-	public Quest removeQuests1(Quest quests1) {
-		getQuests1().remove(quests1);
-		quests1.setStalker1(null);
-
-		return quests1;
-	}
-
-	public List<Quest> getQuests2() {
-		return this.quests2;
-	}
-
-	public void setQuests2(List<Quest> quests2) {
-		this.quests2 = quests2;
-	}
-
-	public Quest addQuests2(Quest quests2) {
-		getQuests2().add(quests2);
-		quests2.setStalker2(this);
-
-		return quests2;
-	}
-
-	public Quest removeQuests2(Quest quests2) {
-		getQuests2().remove(quests2);
-		quests2.setStalker2(null);
-
-		return quests2;
-	}
-
-	public List<Quest> getQuests3() {
-		return this.quests3;
-	}
-
-	public void setQuests3(List<Quest> quests3) {
-		this.quests3 = quests3;
-	}
-
-	public Quest addQuests3(Quest quests3) {
-		getQuests3().add(quests3);
-		quests3.setStalker3(this);
-
-		return quests3;
-	}
-
-	public Quest removeQuests3(Quest quests3) {
-		getQuests3().remove(quests3);
-		quests3.setStalker3(null);
-
-		return quests3;
-	}
-
-	public List<Quest> getQuests4() {
-		return this.quests4;
-	}
-
-	public void setQuests4(List<Quest> quests4) {
-		this.quests4 = quests4;
-	}
-
-	public Quest addQuests4(Quest quests4) {
-		getQuests4().add(quests4);
-		quests4.setStalker4(this);
-
-		return quests4;
-	}
-
-	public Quest removeQuests4(Quest quests4) {
-		getQuests4().remove(quests4);
-		quests4.setStalker4(null);
-
-		return quests4;
-	}
-
 	public Event getEventBean() {
 		return this.eventBean;
 	}
@@ -311,20 +165,20 @@ public class Stalker implements Serializable {
 		this.eventBean = eventBean;
 	}
 
-	public Fraction getFractionBean() {
-		return this.fractionBean;
+	public Fraction getFraction() {
+		return this.fraction;
 	}
 
-	public void setFractionBean(Fraction fractionBean) {
-		this.fractionBean = fractionBean;
+	public void setFraction(Fraction fraction) {
+		this.fraction = fraction;
 	}
 
-	public User getUserBean() {
-		return this.userBean;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setUserBean(User userBean) {
-		this.userBean = userBean;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

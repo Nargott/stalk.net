@@ -35,6 +35,11 @@
 			.panelGridCenter {
     			margin: 0 auto;
     			margin-top: 2%;
+    			width:40%;
+			}
+			
+			.panelGridCenter tr, .panelGridCenter td, .ui-widget-content {
+    			border: none !important;
 			}
 			
 			.leftStyle {
@@ -126,18 +131,6 @@
 					<p:watermark for="email" value="Email-адрес *" />
 					<p:message for="email" />
 			    </p:column>
-			    
-			    <h:outputLabel for="callsign" value="Никнейм в игре: *" style="font-weight:bold"/> 
-	            <p:column style="text-align: left">
-		            <p:inputText id="callsign" value="#{registrator.callsign}" required="true" label="Позывной"
-		            			requiredMessage="Необходимо ввести позывной!"
-								validatorMessage="Неверно введён позывной. Допустимы только русские буквы">
-								<f:validateRegex pattern="([А-Яа-я0-9-].{2,})" />
-					</p:inputText>
-		            <p:watermark for="callsign" value="Позывной *" />  
-		            <p:message for="callsign"/>
-		            <h:outputLabel for="callsign" value="(по-русски)" style="font-size:small; font-weight:bold"/>
-			  	</p:column>
 			  	
 			  	<h:outputLabel for="photo" value="Фото: " style="font-weight:bold"/>
 			  	<p:column style="text-align: left">
@@ -239,7 +232,9 @@
 			    	<p:message for="city"/>
 			    </p:column>
 			    
-			    <!-- <h:outputLabel for="captcha" value="CAPTCHA: *" style="font-weight:bold" />
+			    
+			</p:panelGrid>
+			<!-- <h:outputLabel for="captcha" value="CAPTCHA: *" style="font-weight:bold" />
 			    <p:column style="text-align: left">
 				    <p:captcha id="captcha" label="CAPTCHA" language="ru" theme="blackglass" 
 				    			required="true"
@@ -248,10 +243,37 @@
 	                    		secure="true"/>
 	                <p:message for="captcha"/>	
 			    </p:column>-->
-			    <f:facet name="footer">  
+			<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter" columnClasses="leftStyle, rightStyle"> 
+				<f:facet name="header">  
+			        Регистрация на игру 
+			    </f:facet>
+			    
+			    <h:outputLabel for="callsign" value="Никнейм в игре: *" style="font-weight:bold"/> 
+	            <p:column style="text-align: left">
+		            <p:inputText id="callsign" value="#{registrator.callsign}" required="true" label="Позывной"
+		            			requiredMessage="Необходимо ввести позывной!"
+								validatorMessage="Неверно введён позывной. Допустимы только русские буквы">
+								<f:validateRegex pattern="([А-Яа-я0-9-].{2,})" />
+					</p:inputText>
+		            <p:watermark for="callsign" value="Позывной *" />  
+		            <p:message for="callsign"/>
+		            <h:outputLabel for="callsign" value="(по-русски)" style="font-size:small; font-weight:bold"/>
+			  	</p:column>
+			  	
+			  	<h:outputLabel for="callsign" value="ПДА Луч: " style="font-weight:bold"/> 
+	            <p:column style="text-align: left">
+		            <p:selectBooleanButton value="" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+			  	</p:column>
+			    
+			    <h:outputLabel for="callsign" value="Игровой паспорт: " style="font-weight:bold"/> 
+	            <p:column style="text-align: left">
+		            <p:selectBooleanButton value="" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+			  	</p:column>
+			    
+				<f:facet name="footer">  
 			    	<p:button value="Войти" outcome="/content/login.jsp" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
 			    	<p:commandButton value="Зарегистрироваться" action="#{registrator.register}" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
-			    </f:facet>
+			    </f:facet>			
 			</p:panelGrid>
 		</h:form>
     </h:body>  

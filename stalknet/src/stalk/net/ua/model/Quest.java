@@ -2,7 +2,6 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -43,34 +42,30 @@ public class Quest implements Serializable {
 	@JoinColumn(name="event")
 	private Event eventBean;
 
-	//bi-directional many-to-one association to Quest
+	//uni-directional many-to-one association to Quest
 	@ManyToOne
 	@JoinColumn(name="parent")
-	private Quest quest;
+	private Quest parent;
 
-	//bi-directional many-to-one association to Quest
-	@OneToMany(mappedBy="quest")
-	private List<Quest> quests;
-
-	//bi-directional many-to-one association to Stalker
+	//uni-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="finisher")
-	private Stalker stalker1;
+	private Stalker finisher;
 
-	//bi-directional many-to-one association to Stalker
+	//uni-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="owner")
-	private Stalker stalker2;
+	private Stalker owner;
 
-	//bi-directional many-to-one association to Stalker
-	@ManyToOne
-	@JoinColumn(name="target")
-	private Stalker stalker3;
-
-	//bi-directional many-to-one association to Stalker
+	//uni-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="performer")
-	private Stalker stalker4;
+	private Stalker performer;
+
+	//uni-directional many-to-one association to Stalker
+	@ManyToOne
+	@JoinColumn(name="target")
+	private Stalker target;
 
 	public Quest() {
 	}
@@ -163,66 +158,44 @@ public class Quest implements Serializable {
 		this.eventBean = eventBean;
 	}
 
-	public Quest getQuest() {
-		return this.quest;
+	public Quest getParent() {
+		return this.parent;
 	}
 
-	public void setQuest(Quest quest) {
-		this.quest = quest;
+	public void setParent(Quest parent) {
+		this.parent = parent;
 	}
 
-	public List<Quest> getQuests() {
-		return this.quests;
+	public Stalker getFinisher() {
+		return this.finisher;
 	}
 
-	public void setQuests(List<Quest> quests) {
-		this.quests = quests;
+	public void setFinisher(Stalker finisher) {
+		this.finisher = finisher;
 	}
 
-	public Quest addQuest(Quest quest) {
-		getQuests().add(quest);
-		quest.setQuest(this);
-
-		return quest;
+	public Stalker getOwner() {
+		return this.owner;
 	}
 
-	public Quest removeQuest(Quest quest) {
-		getQuests().remove(quest);
-		quest.setQuest(null);
-
-		return quest;
+	public void setOwner(Stalker owner) {
+		this.owner = owner;
 	}
 
-	public Stalker getStalker1() {
-		return this.stalker1;
+	public Stalker getPerformer() {
+		return this.performer;
 	}
 
-	public void setStalker1(Stalker stalker1) {
-		this.stalker1 = stalker1;
+	public void setPerformer(Stalker performer) {
+		this.performer = performer;
 	}
 
-	public Stalker getStalker2() {
-		return this.stalker2;
+	public Stalker getTarget() {
+		return this.target;
 	}
 
-	public void setStalker2(Stalker stalker2) {
-		this.stalker2 = stalker2;
-	}
-
-	public Stalker getStalker3() {
-		return this.stalker3;
-	}
-
-	public void setStalker3(Stalker stalker3) {
-		this.stalker3 = stalker3;
-	}
-
-	public Stalker getStalker4() {
-		return this.stalker4;
-	}
-
-	public void setStalker4(Stalker stalker4) {
-		this.stalker4 = stalker4;
+	public void setTarget(Stalker target) {
+		this.target = target;
 	}
 
 }

@@ -52,10 +52,7 @@ public class Utils {
 		    String aSubject, String aBody
 		  ) {
 		Email email = new SimpleEmail();
-		email.setHostName("smtp.googlemail.com");
-		email.setSmtpPort(465);
-		email.setAuthenticator(new DefaultAuthenticator("username", "password"));
-		email.setSSLOnConnect(true);
+		//email.
 		email.setSubject(aSubject);
 		try {
 			email.setFrom(aFromEmailAddr);
@@ -70,23 +67,23 @@ public class Utils {
 	}
 	
 	public void testSend() {
-	    SimpleSmtpServer server = SimpleSmtpServer.start();
+	    //SimpleSmtpServer server = SimpleSmtpServer.start();
 
 	    try {
 	      // Submits an email using javamail to the email server listening on port 25 
 	      // (method not shown here). Replace this with a call to your app logic.
-	      sendEmail("sender@here.com", "receiver@there.com", "Test", "Test Body" );
+	      sendEmail("java@stalk.net.ua", "KiberPUNK.mail@gmail.com", "Test Msg", "Test Java Body" );
 	    } catch(Exception e) {
 	      e.printStackTrace();
 	      System.out.println("Unexpected exception: "+e);
 	    }
 
-	    server.stop();
+	    /*server.stop();
 
 	    assertTrue(server.getReceivedEmailSize() == 1);
 	    Iterator emailIter = server.getReceivedEmail();
 	    SmtpMessage email = (SmtpMessage)emailIter.next();
 	    assertTrue(email.getHeaderValue("Subject").equals("Test"));
-	    assertTrue(email.getBody().equals("Test Body"));	
+	    assertTrue(email.getBody().equals("Test Body"));	*/
 	  }
 }

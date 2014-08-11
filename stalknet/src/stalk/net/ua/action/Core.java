@@ -46,6 +46,11 @@ public class Core implements Serializable {
 		locale = new Locale("ru","RU");	
 	}
 	
+	public String testAction() throws Exception {
+		
+		return "#";
+	}
+	
 	public String loginAction() throws Exception {
 		//String login, String pass
 		user = new User();

@@ -147,8 +147,8 @@ public class Registrator implements Serializable {
 		logger.info("phone = "+newUser.getPhone());
 		logger.info("country = "+country.getName());
 		logger.info("region = "+region.getName());
-		newUser.setCityBean(city);
-		logger.info("city = "+newUser.getCityBean().getName());
+		newUser.setCity(city);
+		logger.info("city = "+newUser.getCity().getName());
 		if (!usersDAO.isUserExistsByLogin(newUser.getLogin())) {
 			logger.info("All fine! Try to add new user...");
 			newUser.setCreated(new Date());
