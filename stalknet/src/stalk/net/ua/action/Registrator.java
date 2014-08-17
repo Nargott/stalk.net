@@ -23,11 +23,14 @@ import org.primefaces.model.UploadedFile;
 
 import stalk.net.ua.ejb.CitiesDAO;
 import stalk.net.ua.ejb.CountriesDAO;
+import stalk.net.ua.ejb.FractionsDAO;
 import stalk.net.ua.ejb.RegionsDAO;
 import stalk.net.ua.ejb.UsersDAO;
 import stalk.net.ua.model.City;
 import stalk.net.ua.model.Country;
+import stalk.net.ua.model.Fraction;
 import stalk.net.ua.model.Region;
+import stalk.net.ua.model.Stalker;
 import stalk.net.ua.model.User;
 
 import com.nargott.Utils;
@@ -52,18 +55,22 @@ public class Registrator implements Serializable {
 	private Country country;
 	private Region region;
 	private City city;
+	private Fraction fraction;
 	
 	private Boolean allFine = false;
 	
 	private User newUser;
+	private Stalker newStalker;
 	
 	@EJB CountriesDAO countriesDAO;
 	@EJB RegionsDAO regionsDAO;
 	@EJB CitiesDAO citiesDAO;
 	@EJB UsersDAO usersDAO;
+	@EJB FractionsDAO fractionsDAO;
 	private List<Country> countries;
 	private List<Region> regions;
 	private List<City> cities;
+	private List<Fraction> fractions;
 	
 	public void clean() {
 		newUser = new User();
@@ -156,6 +163,10 @@ public class Registrator implements Serializable {
 				logger.info("New user ("+newUser.getLogin()+") sucessfully added!");
 			}
 		} else {logger.warning("User "+newUser.getLogin()+" is exists already in db!");}
+		
+		newUser.getStalkers();
+		
+						
 		return "#";
 	}
 	
@@ -233,6 +244,33 @@ public class Registrator implements Serializable {
 
 	public void setAllFine(Boolean allFine) {
 		this.allFine = allFine;
+	}
+
+	public List<Fraction> getFractions() {
+		if (fractions == null) {
+			fractions = fractionsDAO.getFractionsList();
+		}
+		return fractions;
+	}
+
+	public void setFractions(List<Fraction> fractions) {
+		this.fractions = fractions;
+	}
+
+	public Fraction getFraction() {
+		return fraction;
+	}
+
+	public void setFraction(Fraction fraction) {
+		this.fraction = fraction;
+	}
+
+	public Stalker getNewStalker() {
+		return newStalker;
+	}
+
+	public void setNewStalker(Stalker newStalker) {
+		this.newStalker = newStalker;
 	}
 	
 	

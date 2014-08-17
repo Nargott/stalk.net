@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import com.dumbster.smtp.SimpleSmtpServer;
-import com.dumbster.smtp.SmtpMessage;
+//import com.dumbster.smtp.SimpleSmtpServer;
+//import com.dumbster.smtp.SmtpMessage;
 
-import org.apache.commons.mail.*;
+//import org.apache.commons.mail.*;
 
 public class Utils {
 
@@ -47,7 +47,7 @@ public class Utils {
 	    return new String(password);
 	}
 	
-	public void sendEmail(
+	/*public void sendEmail(
 		    String aFromEmailAddr, String aToEmailAddr,
 		    String aSubject, String aBody
 		  ) {
@@ -85,5 +85,5 @@ public class Utils {
 	    SmtpMessage email = (SmtpMessage)emailIter.next();
 	    assertTrue(email.getHeaderValue("Subject").equals("Test"));
 	    assertTrue(email.getBody().equals("Test Body"));	*/
-	  }
+	  //}*/
 }

@@ -19,9 +19,13 @@ public class UsersPage implements Serializable {
 	private static final Logger logger = Logger.getLogger(UsersPage.class.getName());
 	
 	@EJB UsersDAO dao; //Подключим наш ДАО-класс
-
+	
+	User u;
+	
 	public List<User> getUsers() { //Метод для получения списка тестов
 		logger.info("UsersPage:getUsers() called!");
 		return dao.getListUsers(); //Вот так просто :)
+		
+		
 	}
 }

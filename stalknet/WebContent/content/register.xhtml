@@ -260,7 +260,7 @@
 		            <h:outputLabel for="callsign" value="(по-русски)" style="font-size:small; font-weight:bold"/>
 			  	</p:column>
 			  	
-			  	<h:outputLabel for="callsign" value="ПДА Луч: " style="font-weight:bold"/> 
+			  	<h:outputLabel for="callsign" value='ПДА "Луч":' style="font-weight:bold"/> 
 	            <p:column style="text-align: left">
 		            <p:selectBooleanButton value="" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
 			  	</p:column>
@@ -269,6 +269,20 @@
 	            <p:column style="text-align: left">
 		            <p:selectBooleanButton value="" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
 			  	</p:column>
+			    
+			    <h:outputLabel for="fraction" value="Группировка: " style="font-weight:bold" />
+		    	<p:selectOneMenu id="fraction" value="#{registrator.fraction}"  effect="fade"
+		    					required="true"
+		    					requiredMessage="Необходимо выбрать группировку!"
+		    					filter="false"
+		    					converter="omnifaces.SelectItemsConverter">
+		    		<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
+		    		<f:selectItems value="#{registrator.fractions}"
+		    						 var="f"
+					                 itemValue="#{f}"
+					                 itemLabel="#{f.name}"
+					                 noSelectionValue="" /> 
+		    	</p:selectOneMenu>
 			    
 				<f:facet name="footer">  
 			    	<p:button value="Войти" outcome="/content/login.jsp" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
