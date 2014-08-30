@@ -23,11 +23,13 @@ import org.primefaces.model.UploadedFile;
 
 import stalk.net.ua.ejb.CitiesDAO;
 import stalk.net.ua.ejb.CountriesDAO;
+import stalk.net.ua.ejb.EventsDAO;
 import stalk.net.ua.ejb.FractionsDAO;
 import stalk.net.ua.ejb.RegionsDAO;
 import stalk.net.ua.ejb.UsersDAO;
 import stalk.net.ua.model.City;
 import stalk.net.ua.model.Country;
+import stalk.net.ua.model.Event;
 import stalk.net.ua.model.Fraction;
 import stalk.net.ua.model.Region;
 import stalk.net.ua.model.Stalker;
@@ -67,10 +69,13 @@ public class Registrator implements Serializable {
 	@EJB CitiesDAO citiesDAO;
 	@EJB UsersDAO usersDAO;
 	@EJB FractionsDAO fractionsDAO;
+	@EJB EventsDAO eventsDAO;
 	private List<Country> countries;
 	private List<Region> regions;
 	private List<City> cities;
 	private List<Fraction> fractions;
+	
+	private Event lastEvent;
 	
 	public void clean() {
 		newUser = new User();
@@ -164,10 +169,13 @@ public class Registrator implements Serializable {
 			}
 		} else {logger.warning("User "+newUser.getLogin()+" is exists already in db!");}
 		
-		newUser.getStalkers();
+		//newUser.getStalkers();
 		
-						
-		return "#";
+		String msgText = "Вы (или кто-то другой) указали этот адрес e-mail при регистрации на сайте stalk.net.ua . \n "
+						 +"Ваш логин для входа: "+newUser.getLogin()+" \n"
+						 +"Ваш пароль для входа: "+newUser.getPass()+" \n \n"
+						 +"Чистой Зоны тебе, Сталкер!";				
+		if (Utils.SendMail(newUser.getEmail(), "Регистрация в STALKNET", msgText)) {return "content/message.jsf";} else {return "#";}
 	}
 	
 	public void validateLogin(FacesContext context, 
@@ -271,6 +279,16 @@ public class Registrator implements Serializable {
 
 	public void setNewStalker(Stalker newStalker) {
 		this.newStalker = newStalker;
+	}
+
+	public Event getLastEvent() {
+		logger.info("MainPage:getLastEvent() called!");
+		if (lastEvent==null) setLastEvent(eventsDAO.getLastActiveEvent());
+		return lastEvent;
+	}
+
+	public void setLastEvent(Event lastEvent) {
+		this.lastEvent = lastEvent;
 	}
 	
 	

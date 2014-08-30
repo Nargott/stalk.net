@@ -50,7 +50,7 @@ public class MainPage implements Serializable {
 	
 	public Event getLastEvent() {
 		logger.info("MainPage:getLastEvent() called!");
-		if (lastEvent==null) setLastEvent(eventsDAO.getListLastEvent().get(0));
+		if (lastEvent==null) setLastEvent(eventsDAO.getLastActiveEvent());
 		return lastEvent;
 	}
 

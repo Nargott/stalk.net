@@ -10,17 +10,7 @@
     	<f:view>
 	        <h:form id="regForm" enctype="multipart/form-data">   
 			    <h:outputText value="#{core.getMD5(test.str)}"></h:outputText>
-			    <br />
-			    <p:graphicImage value="../resources/img/photo.jpg" alt="Image" title="Image" rendered="#{test.isSend}" />
-			    <!-- <img src="../resources/img/photo.jpg" /> -->
-			    <p:fileUpload id="photo" value="#{test.photo}"  mode="simple"  rendered="#{!test.isSend}"
-				  					sizeLimit="200000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
-				  					invalidSizeMessage="Превышен максимальный размер файа в 200Кб!"
-				  					invalidFileMessage="Недопустимый тип файла (не gif, jpg, jpeg или png)"/> 
-				  	<p:watermark for="photo" value="Фото *" />  
-				  	<br /><h:outputLabel for="photo" value="Ваше фото в экипировке, в которой вы собираетесь учавствовать в игре." style="font-size:small"/>
-		            <p:message for="photo"/> 
-		            <p:commandButton value="Отправить" actionListener="#{test.submit}" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
+		            <p:commandButton value="Отправить E-MAIL" actionListener="#{test.send}" icon="ui-icon-pencil" ajax="false"  style="align:right; margin-left: 45%;"/>
 			</h:form>
 		</f:view>
     </h:body>  

@@ -1,9 +1,20 @@
 package com.nargott;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Pattern;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import stalk.net.ua.model.Event;
 
 //import com.dumbster.smtp.SimpleSmtpServer;
 //import com.dumbster.smtp.SmtpMessage;
@@ -47,43 +58,32 @@ public class Utils {
 	    return new String(password);
 	}
 	
-	/*public void sendEmail(
-		    String aFromEmailAddr, String aToEmailAddr,
-		    String aSubject, String aBody
-		  ) {
-		Email email = new SimpleEmail();
-		//email.
-		email.setSubject(aSubject);
+	public static Boolean SendMail(String msgTo, String msgSubject, String msgText) {
+		// Sender's email ID needs to be mentioned
+		String from = "robot@stalk.net.ua";
+		// Assuming you are sending email from localhost
+		String host = "localhost";
+		// Get system properties
+		Properties properties = System.getProperties();
+		// Setup mail server
+		properties.setProperty("mail.smtp.host", host);
+		// Get the default Session object.
+		Session session = Session.getInstance(properties);
 		try {
-			email.setFrom(aFromEmailAddr);
-			email.setMsg(aBody);
-			email.addTo(aToEmailAddr);
-			email.send();
-		} catch (EmailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		    // Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(from));
+			message.addRecipient(Message.RecipientType.TO,
+		                          new InternetAddress(msgTo));
+			message.setSubject(msgSubject);
+			message.setText(msgText);
+
+			Transport.send(message);
+			//System.out.println("Sent message successfully....");
+			return true;
+		  } catch (MessagingException mex) {
+			  mex.printStackTrace();
+			  return false;
+		  }
 	}
-	
-	public void testSend() {
-	    //SimpleSmtpServer server = SimpleSmtpServer.start();
-
-	    try {
-	      // Submits an email using javamail to the email server listening on port 25 
-	      // (method not shown here). Replace this with a call to your app logic.
-	      sendEmail("java@stalk.net.ua", "KiberPUNK.mail@gmail.com", "Test Msg", "Test Java Body" );
-	    } catch(Exception e) {
-	      e.printStackTrace();
-	      System.out.println("Unexpected exception: "+e);
-	    }
-
-	    /*server.stop();
-
-	    assertTrue(server.getReceivedEmailSize() == 1);
-	    Iterator emailIter = server.getReceivedEmail();
-	    SmtpMessage email = (SmtpMessage)emailIter.next();
-	    assertTrue(email.getHeaderValue("Subject").equals("Test"));
-	    assertTrue(email.getBody().equals("Test Body"));	*/
-	  //}*/
 }
