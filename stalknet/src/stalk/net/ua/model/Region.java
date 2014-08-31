@@ -2,7 +2,6 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -19,11 +18,7 @@ public class Region implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to City
-	@OneToMany(mappedBy="region")
-	private List<City> cities;
-
-	//bi-directional many-to-one association to Country
+	//uni-directional many-to-one association to Country
 	@ManyToOne
 	private Country country;
 
@@ -44,28 +39,6 @@ public class Region implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<City> getCities() {
-		return this.cities;
-	}
-
-	public void setCities(List<City> cities) {
-		this.cities = cities;
-	}
-
-	public City addCity(City city) {
-		getCities().add(city);
-		city.setRegion(this);
-
-		return city;
-	}
-
-	public City removeCity(City city) {
-		getCities().remove(city);
-		city.setRegion(null);
-
-		return city;
 	}
 
 	public Country getCountry() {

@@ -22,7 +22,7 @@ public class City implements Serializable {
 	@Column(name="phone_code")
 	private String phoneCode;
 
-	//bi-directional many-to-one association to Region
+	//uni-directional many-to-one association to Region
 	@ManyToOne
 	private Region region;
 

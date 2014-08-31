@@ -2,7 +2,6 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -22,10 +21,6 @@ public class ItemsType implements Serializable {
 	private String description;
 
 	private String name;
-
-	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="itemsType")
-	private List<Item> items;
 
 	public ItemsType() {
 	}
@@ -52,28 +47,6 @@ public class ItemsType implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Item> getItems() {
-		return this.items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public Item addItem(Item item) {
-		getItems().add(item);
-		item.setItemsType(this);
-
-		return item;
-	}
-
-	public Item removeItem(Item item) {
-		getItems().remove(item);
-		item.setItemsType(null);
-
-		return item;
 	}
 
 }

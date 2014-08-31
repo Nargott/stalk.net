@@ -40,7 +40,7 @@ public class Quest implements Serializable {
 	//bi-directional many-to-one association to Event
 	@ManyToOne
 	@JoinColumn(name="event")
-	private Event eventBean;
+	private Event event;
 
 	//uni-directional many-to-one association to Quest
 	@ManyToOne
@@ -150,12 +150,12 @@ public class Quest implements Serializable {
 		this.status = status;
 	}
 
-	public Event getEventBean() {
-		return this.eventBean;
+	public Event getEvent() {
+		return this.event;
 	}
 
-	public void setEventBean(Event eventBean) {
-		this.eventBean = eventBean;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public Quest getParent() {

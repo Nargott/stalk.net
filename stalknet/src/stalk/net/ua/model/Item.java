@@ -22,7 +22,7 @@ public class Item implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to ItemsType
+	//uni-directional many-to-one association to ItemsType
 	@ManyToOne
 	@JoinColumn(name="type")
 	private ItemsType itemsType;

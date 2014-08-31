@@ -15,9 +15,9 @@ public class Stalker implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
-	private byte active;
+	private boolean active;
 
 	private String callsign;
 
@@ -25,6 +25,12 @@ public class Stalker implements Serializable {
 	private String description;
 
 	private int experience;
+
+	@Column(name="has_passport")
+	private boolean hasPassport;
+
+	@Column(name="has_PDA")
+	private boolean hasPDA;
 
 	@Lob
 	private String legend;
@@ -37,18 +43,16 @@ public class Stalker implements Serializable {
 
 	private String passport;
 
-	private int pda;
-
 	private String photo;
 
 	private int rank;
 
-	//bi-directional many-to-one association to Event
+	//uni-directional many-to-one association to Event
 	@ManyToOne
 	@JoinColumn(name="event")
-	private Event eventBean;
+	private Event event;
 
-	//bi-directional many-to-one association to Fraction
+	//uni-directional many-to-one association to Fraction
 	@ManyToOne
 	@JoinColumn(name="fraction")
 	private Fraction fraction;
@@ -61,19 +65,19 @@ public class Stalker implements Serializable {
 	public Stalker() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public byte getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(byte active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -99,6 +103,22 @@ public class Stalker implements Serializable {
 
 	public void setExperience(int experience) {
 		this.experience = experience;
+	}
+
+	public boolean getHasPassport() {
+		return this.hasPassport;
+	}
+
+	public void setHasPassport(boolean hasPassport) {
+		this.hasPassport = hasPassport;
+	}
+
+	public boolean getHasPDA() {
+		return this.hasPDA;
+	}
+
+	public void setHasPDA(boolean hasPDA) {
+		this.hasPDA = hasPDA;
 	}
 
 	public String getLegend() {
@@ -133,14 +153,6 @@ public class Stalker implements Serializable {
 		this.passport = passport;
 	}
 
-	public int getPda() {
-		return this.pda;
-	}
-
-	public void setPda(int pda) {
-		this.pda = pda;
-	}
-
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -157,12 +169,12 @@ public class Stalker implements Serializable {
 		this.rank = rank;
 	}
 
-	public Event getEventBean() {
-		return this.eventBean;
+	public Event getEvent() {
+		return this.event;
 	}
 
-	public void setEventBean(Event eventBean) {
-		this.eventBean = eventBean;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public Fraction getFraction() {

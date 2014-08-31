@@ -2,7 +2,6 @@ package stalk.net.ua.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -17,6 +16,8 @@ public class Fraction implements Serializable {
 
 	@Id
 	private int id;
+
+	private boolean active;
 
 	@Lob
 	private String description;
@@ -37,10 +38,6 @@ public class Fraction implements Serializable {
 	@JoinColumn(name="leader")
 	private Stalker leader;
 
-	//bi-directional many-to-one association to Stalker
-	@OneToMany(mappedBy="fraction")
-	private List<Stalker> stalkers;
-
 	public Fraction() {
 	}
 
@@ -50,6 +47,14 @@ public class Fraction implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getDescription() {
@@ -98,28 +103,6 @@ public class Fraction implements Serializable {
 
 	public void setLeader(Stalker leader) {
 		this.leader = leader;
-	}
-
-	public List<Stalker> getStalkers() {
-		return this.stalkers;
-	}
-
-	public void setStalkers(List<Stalker> stalkers) {
-		this.stalkers = stalkers;
-	}
-
-	public Stalker addStalker(Stalker stalker) {
-		getStalkers().add(stalker);
-		stalker.setFraction(this);
-
-		return stalker;
-	}
-
-	public Stalker removeStalker(Stalker stalker) {
-		getStalkers().remove(stalker);
-		stalker.setFraction(null);
-
-		return stalker;
 	}
 
 }

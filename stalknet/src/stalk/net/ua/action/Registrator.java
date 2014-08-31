@@ -26,6 +26,7 @@ import stalk.net.ua.ejb.CountriesDAO;
 import stalk.net.ua.ejb.EventsDAO;
 import stalk.net.ua.ejb.FractionsDAO;
 import stalk.net.ua.ejb.RegionsDAO;
+import stalk.net.ua.ejb.StalkersDAO;
 import stalk.net.ua.ejb.UsersDAO;
 import stalk.net.ua.model.City;
 import stalk.net.ua.model.Country;
@@ -62,12 +63,14 @@ public class Registrator implements Serializable {
 	private Boolean allFine = false;
 	
 	private User newUser;
+	private User user;
 	private Stalker newStalker;
 	
 	@EJB CountriesDAO countriesDAO;
 	@EJB RegionsDAO regionsDAO;
 	@EJB CitiesDAO citiesDAO;
 	@EJB UsersDAO usersDAO;
+	@EJB StalkersDAO stalkersDAO;
 	@EJB FractionsDAO fractionsDAO;
 	@EJB EventsDAO eventsDAO;
 	private List<Country> countries;
@@ -79,6 +82,7 @@ public class Registrator implements Serializable {
 	
 	public void clean() {
 		newUser = new User();
+		newStalker = new Stalker();
 		callsign = "";
 		country = new Country();
 		region = new Region();
@@ -170,6 +174,14 @@ public class Registrator implements Serializable {
 		} else {logger.warning("User "+newUser.getLogin()+" is exists already in db!");}
 		
 		//newUser.getStalkers();
+		//newStalker.setId(null);
+		usersDAO.addUser(newUser);
+		user = usersDAO.getUser(newUser.getLogin(), newUser.getPass());
+		newStalker.setActive(true);
+		newStalker.setUser(user);
+		stalkersDAO.add(newStalker);
+		//newUser.addStalker(newStalker);
+		
 		
 		String msgText = "Вы (или кто-то другой) указали этот адрес e-mail при регистрации на сайте stalk.net.ua . \n "
 						 +"Ваш логин для входа: "+newUser.getLogin()+" \n"
