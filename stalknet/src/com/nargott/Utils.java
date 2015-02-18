@@ -14,7 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import stalk.net.ua.model.Event;
+import ua.stalknet.model.Event;
 
 //import com.dumbster.smtp.SimpleSmtpServer;
 //import com.dumbster.smtp.SmtpMessage;

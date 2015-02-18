@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.5" xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_5.xsd">
+    <named-query name="City.findAll">
+        <query>select c from City c</query>
+    </named-query>
+    <named-query name="Country.findAll">
+        <query>select c from Country c</query>
+    </named-query>
+    <named-query name="Event.findAll">
+        <query>select e from Event e</query>
+    </named-query>
+    <named-query name="EventType.findAll">
+        <query>select e from EventType e</query>
+    </named-query>
+    <named-query name="Fraction.findAll">
+        <query>select f from Fraction f</query>
+    </named-query>
+    <named-query name="Item.findAll">
+        <query>select i from Item i</query>
+    </named-query>
+    <named-query name="ItemsType.findAll">
+        <query>select i from ItemsType i</query>
+    </named-query>
+    <named-query name="Quest.findAll">
+        <query>select q from Quest q</query>
+    </named-query>
+    <named-query name="Region.findAll">
+        <query>select r from Region r</query>
+    </named-query>
+    <named-query name="Stalker.findAll">
+        <query>select s from Stalker s</query>
+    </named-query>
+    <named-query name="Tiding.findAll">
+        <query>select t from Tiding t</query>
+    </named-query>
+    <named-query name="User.findAll">
+        <query>select u from User u</query>
+    </named-query>
+</entity-mappings>

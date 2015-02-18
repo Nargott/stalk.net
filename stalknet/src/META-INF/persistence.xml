@@ -6,18 +6,18 @@
 	<persistence-unit name="stalk.net.ua"  transaction-type="JTA">
 		<jta-data-source>jdbc/stalknet</jta-data-source>
 		<mapping-file>META-INF/eclipselink-orm.xml</mapping-file>
-		<class>stalk.net.ua.model.City</class>
-		<class>stalk.net.ua.model.Country</class>
-		<class>stalk.net.ua.model.Event</class>
-		<class>stalk.net.ua.model.EventType</class>
-		<class>stalk.net.ua.model.Fraction</class>
-		<class>stalk.net.ua.model.Item</class>
-		<class>stalk.net.ua.model.ItemsType</class>
-		<class>stalk.net.ua.model.Quest</class>
-		<class>stalk.net.ua.model.Region</class>
-		<class>stalk.net.ua.model.Stalker</class>
-		<class>stalk.net.ua.model.Tiding</class>
-		<class>stalk.net.ua.model.User</class>
+		<class>ua.stalknet.model.City</class>
+		<class>ua.stalknet.model.Country</class>
+		<class>ua.stalknet.model.Event</class>
+		<class>ua.stalknet.model.EventType</class>
+		<class>ua.stalknet.model.Fraction</class>
+		<class>ua.stalknet.model.Item</class>
+		<class>ua.stalknet.model.ItemsType</class>
+		<class>ua.stalknet.model.Quest</class>
+		<class>ua.stalknet.model.Region</class>
+		<class>ua.stalknet.model.Stalker</class>
+		<class>ua.stalknet.model.Tiding</class>
+		<class>ua.stalknet.model.User</class>
 		<properties>
 			<property name="eclipselink.logging.logger" value="ServerLogger"/>
 			<property name="eclipselink.logging.level.sql" value="FINE"/>
