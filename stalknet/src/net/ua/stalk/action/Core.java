@@ -12,8 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.apache.log4j.*;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
@@ -21,8 +20,8 @@ import org.primefaces.model.menu.MenuModel;
 import ua.stalk.net.ejb.UsersDAO;
 import ua.stalknet.model.User;
 
-@ManagedBean //Означает, что этот бин будет виден для JSF
-@SessionScoped //Область действия -- сессия
+@ManagedBean
+@SessionScoped
 public class Core implements Serializable {
 
 	private static final long serialVersionUID = -8116411976966855458L;
@@ -64,15 +63,15 @@ public class Core implements Serializable {
 			setUsersList(userDAO.getListUsers());
 			setSelUser(this.user);
 			//return "/templates/menuBar.jsp";
-			return "/content/users.jsp";
+			return "/content/users.jsf";
 		} else {
 			setUser(null);
-			return "/content/main.jsp";
+			return "/content/main.jsf";
 		}
 	}
 	
 	public String regAction() throws Exception {
-		return "/content/register.jsp";
+		return "/content/register.jsf";
 	}
 	
 	public void fiscal() {
@@ -103,26 +102,26 @@ public class Core implements Serializable {
 	public void genMenu() {
 		this.menuModel = new DefaultMenuModel();
         
-		DefaultMenuItem item = new DefaultMenuItem("Главная");  
+		DefaultMenuItem item = new DefaultMenuItem("Р“Р»Р°РІРЅР°СЏ");  
         item.setUrl("/content/main.jsf");  
         item.setIcon("ui-icon-home");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Профиль");  
+        item = new DefaultMenuItem("РџСЂРѕС„РёР»СЊ");  
         item.setUrl("/content/profile.jsf");  
         item.setIcon("ui-icon-person");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Игроки");  
+        item = new DefaultMenuItem("Р�РіСЂРѕРєРё");  
         item.setUrl("/content/users.jsf");  
         item.setIcon("ui-icon-star");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Квесты");  
+        item = new DefaultMenuItem("РљРІРµСЃС‚С‹");  
         item.setUrl("/content/quests.jsf");  
         item.setIcon("ui-icon-note");
-        item = new DefaultMenuItem("Карта");  
+        item = new DefaultMenuItem("РљР°СЂС‚Р°");  
         item.setUrl("/content/map.jsf");  
         item.setIcon("ui-icon-image");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Выход");  
+        item = new DefaultMenuItem("Р’С‹С…РѕРґ");  
         //item.setUrl("http://www.primefaces.org");
         item.setAjax(false);
         item.setCommand("#{core.logout()}");
