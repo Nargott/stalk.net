@@ -1,8 +1,6 @@
 package com.nargott;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -14,15 +12,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import ua.stalknet.model.Event;
-
-//import com.dumbster.smtp.SimpleSmtpServer;
-//import com.dumbster.smtp.SmtpMessage;
-
-//import org.apache.commons.mail.*;
-
 public class Utils {
-
+	
+	/**
+	 * generates MD5-hash from the string
+	 * @param src Source
+	 * @return MD5-hash
+	 */
 	public static final String MD5(String src) {
 		try {
 	        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -49,8 +45,15 @@ public class Utils {
 	    return Arrays.copyOf(potential, size);
 	}
 	
-	public static final String genPass(char[] validchars, int len) {
-	    char[] password = new char[len];
+	/**
+	 * Generates random password
+	 * @param strength -- PasswordStrength enum type
+	 * @param len -- the length of the needle password
+	 * @return
+	 */
+	public static final String genPass(PasswordStrength strength, int len) {
+		char[] validchars = strength.getStrength();
+		char[] password = new char[len];
 	    Random rand = new Random(System.nanoTime());
 	    for (int i = 0; i < len; i++) {
 	        password[i] = validchars[rand.nextInt(validchars.length)];

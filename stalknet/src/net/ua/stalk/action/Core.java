@@ -47,7 +47,7 @@ public class Core implements Serializable {
 	
 	public String testAction() throws Exception {
 		
-		return "#";
+		return com.nargott.Utils.genPass(com.nargott.PasswordStrength.HEX,20);
 	}
 	
 	public String loginAction() throws Exception {
@@ -75,8 +75,7 @@ public class Core implements Serializable {
 	}
 	
 	public void fiscal() {
-		logger.info("fiscal() action");
-		if (user==null) this.logout(); else logger.info("user name is "+user.getId()); 
+		if (user==null) this.logout(); //else logger.info("user name is "+user.getId()); 
 	}
 	
 	public String logout(){

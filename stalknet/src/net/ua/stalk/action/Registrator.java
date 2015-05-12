@@ -38,8 +38,8 @@ import ua.stalknet.model.User;
 
 import com.nargott.Utils;
 
-@ManagedBean //Означает, что этот бин будет виден для JSF
-@SessionScoped //Область действия -- сессия
+@ManagedBean 
+@SessionScoped
 public class Registrator implements Serializable {
 	private static final long serialVersionUID = 2445411524555680008L;
 
@@ -133,7 +133,7 @@ public class Registrator implements Serializable {
 	
 	public String register() {
 		logger.info("login = "+newUser.getLogin());
-		newUser.setPass(Utils.MD5(Utils.genPass("abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789".toCharArray(),8)));
+		newUser.setPass(Utils.MD5(Utils.genPass(com.nargott.PasswordStrength.MEDIUM,8)));
 		logger.info("pass = "+newUser.getPass());
 		//logger.info("passConfirm = "+passConfirm);
 		logger.info("email = "+newUser.getEmail());

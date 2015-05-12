@@ -43,8 +43,6 @@ public class User implements Serializable {
 
 	private String picture;
 
-	private int rights;
-
 	//bi-directional many-to-one association to Stalker
 	@OneToMany(mappedBy="user")
 	private List<Stalker> stalkers;
@@ -147,14 +145,6 @@ public class User implements Serializable {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
-	}
-
-	public int getRights() {
-		return this.rights;
-	}
-
-	public void setRights(int rights) {
-		this.rights = rights;
 	}
 
 	public List<Stalker> getStalkers() {
