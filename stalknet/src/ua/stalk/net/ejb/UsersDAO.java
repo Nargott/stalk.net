@@ -48,7 +48,7 @@ public class UsersDAO {
 					.setParameter("un", login)
 					.getSingleResult();
 			logger.info("User.getUser selected, user.login = "+u.getLogin());
-			if (u!=null) {return true;}
+			if ((u!=null)&&(u.getId()>1)) {return true;}
 		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:isUserExistsByLogin("+login+") = "+e.getMessage()); return false;}
 		return false;
 	}

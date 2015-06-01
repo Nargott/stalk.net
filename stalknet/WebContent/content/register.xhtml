@@ -259,16 +259,6 @@
 		            <p:message for="callsign"/>
 		            <h:outputLabel for="callsign" value="(по-русски)" style="font-size:small; font-weight:bold"/>
 			  	</p:column>
-			  	
-			  	<h:outputLabel for="pda" value='ПДА "Луч":' style="font-weight:bold"/> 
-	            <p:column style="text-align: left">
-		            <p:selectBooleanButton id="pda" value="#{registrator.newStalker.hasPDA}" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-			  	</p:column>
-			    
-			    <h:outputLabel for="passport" value="Игровой паспорт: " style="font-weight:bold"/> 
-	            <p:column style="text-align: left">
-		            <p:selectBooleanButton id="passport" value="#{registrator.newStalker.hasPassport}" onLabel="Есть" offLabel="Нету" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-			  	</p:column>
 			    
 			    <h:outputLabel for="fraction" value="Группировка: " style="font-weight:bold" />
 		    	<p:selectOneMenu id="fraction" value="#{registrator.newStalker.fraction}"  effect="fade"

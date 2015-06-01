@@ -42,30 +42,45 @@ public class Quest implements Serializable {
 	@JoinColumn(name="event")
 	private Event event;
 
-	//uni-directional many-to-one association to Quest
+	//bi-directional many-to-one association to Quest
 	@ManyToOne
 	@JoinColumn(name="parent")
 	private Quest parent;
 
-	//uni-directional many-to-one association to Stalker
+	//bi-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="finisher")
 	private Stalker finisher;
 
-	//uni-directional many-to-one association to Stalker
+	//bi-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="owner")
 	private Stalker owner;
 
-	//uni-directional many-to-one association to Stalker
+	//bi-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="performer")
 	private Stalker performer;
 
-	//uni-directional many-to-one association to Stalker
+	//bi-directional many-to-one association to Stalker
 	@ManyToOne
 	@JoinColumn(name="target")
 	private Stalker target;
+	
+	//bi-directional many-to-one association to Stalker
+	@ManyToOne
+	@JoinColumn(name="fraction")
+	private Fraction fraction;
+	
+	//uni-directional many-to-one association to GPS
+	@OneToOne
+	@JoinColumn(name="gps")
+	private GPS gps;
+	
+	//bi-directional many-to-one association to GPS
+	@ManyToOne
+	@JoinColumn(name="location")
+	private Location location;
 
 	public Quest() {
 	}
@@ -193,9 +208,33 @@ public class Quest implements Serializable {
 	public Stalker getTarget() {
 		return this.target;
 	}
+	
+	public Fraction getFraction() {
+		return fraction;
+	}
+
+	public void setFraction(Fraction fraction) {
+		this.fraction = fraction;
+	}
 
 	public void setTarget(Stalker target) {
 		this.target = target;
 	}
 
+	public GPS getGps() {
+		return gps;
+	}
+
+	public void setGps(GPS gps) {
+		this.gps = gps;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
 }

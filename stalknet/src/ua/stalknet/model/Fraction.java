@@ -1,6 +1,8 @@
 package ua.stalknet.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -37,6 +39,10 @@ public class Fraction implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="leader")
 	private Stalker leader;
+	
+	//bi-directional many-to-one association to Quest
+	@OneToMany(mappedBy="fraction")
+	private List<Quest> quests;
 
 	public Fraction() {
 	}
@@ -105,4 +111,12 @@ public class Fraction implements Serializable {
 		this.leader = leader;
 	}
 
+	public List<Quest> getQuests() {
+		return quests;
+	}
+
+	public void setQuests(List<Quest> quests) {
+		this.quests = quests;
+	}
+	
 }

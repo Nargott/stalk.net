@@ -1,10 +1,11 @@
 package ua.stalknet.model;
 
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2014-08-31T16:41:50.427+0300")
+@Generated(value="Dali", date="2015-06-01T22:41:57.832+0300")
 @StaticMetamodel(Fraction.class)
 public class Fraction_ {
 	public static volatile SingularAttribute<Fraction, Integer> id;
@@ -15,4 +16,5 @@ public class Fraction_ {
 	public static volatile SingularAttribute<Fraction, String> name;
 	public static volatile SingularAttribute<Fraction, Stalker> deputyLeader;
 	public static volatile SingularAttribute<Fraction, Stalker> leader;
+	public static volatile ListAttribute<Fraction, Quest> quests;
 }

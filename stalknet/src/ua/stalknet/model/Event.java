@@ -1,7 +1,9 @@
 package ua.stalknet.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,14 +13,13 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="events")
 @NamedQuery(name="Event.findAll", query="SELECT e FROM Event e")
 public class Event implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int id;
-
-	private boolean active;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_end")
@@ -29,9 +30,23 @@ public class Event implements Serializable {
 	private Date dateStart;
 
 	@Lob
+	@Column(name="description")
 	private String description;
-
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="is_active")
+	private Boolean isActive;
+	
+	@Column(name="is_reg_opened")
+	private Boolean isRegOpened;
+	
+	@Column(name="is_started")
+	private Boolean isStarted;
+	
+	@Column(name="is_private")
+	private Boolean isPrivate;
 
 	//uni-directional many-to-one association to EventType
 	@ManyToOne
@@ -41,7 +56,11 @@ public class Event implements Serializable {
 	//bi-directional many-to-one association to Quest
 	@OneToMany(mappedBy="event")
 	private List<Quest> quests;
-
+	
+	//bi-directional many-to-one association to Quest
+	@ManyToMany(mappedBy="events")
+	private List<Stalker> stalkers;
+	
 	public Event() {
 	}
 
@@ -51,14 +70,6 @@ public class Event implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public boolean getActive() {
-		return this.active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public Date getDateEnd() {
@@ -91,6 +102,38 @@ public class Event implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Boolean getIsRegOpened() {
+		return isRegOpened;
+	}
+
+	public void setIsRegOpened(Boolean isRegOpened) {
+		this.isRegOpened = isRegOpened;
+	}
+
+	public Boolean getIsStarted() {
+		return isStarted;
+	}
+
+	public void setIsStarted(Boolean isStarted) {
+		this.isStarted = isStarted;
+	}
+
+	public Boolean getIsPrivate() {
+		return isPrivate;
+	}
+
+	public void setIsPrivate(Boolean isPrivate) {
+		this.isPrivate = isPrivate;
 	}
 
 	public EventType getEvent() {

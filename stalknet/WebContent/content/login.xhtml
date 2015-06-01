@@ -32,6 +32,18 @@
     			top: 40%;
     			z-index:9;
 			}
+			.footer {
+				width: 100%;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				padding-left: 20px;
+				padding-right: 10px;
+			}
+			.footer .enterButton {
+				position: absolute;
+				float:right;
+				right: 0;
+			}
 			#viewport {
 				position: absolute;
 				width: 80%;
@@ -78,10 +90,11 @@
 			    </p:password>
 			    <p:message for="pass" display="icon"/>  
 			    
-			    <f:facet name="footer">  
-			        <p:commandButton value="Вход" action="#{core.loginAction()}" process="loginForm" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="margin-left: 35px;"/>
-			 	
-			        <p:button value="Регистрация" outcome="/content/register.jsf" icon="ui-icon-pencil" ajax="false" />  
+			    <f:facet name="footer">
+			    	<div class="footer">  
+			        	<p:button rendered="#{core.isRegistrationAvailable}" value="Регистрация" outcome="/content/register.jsf" icon="ui-icon-pencil" ajax="false" />
+			        	<p:commandButton value="Вход" action="#{core.loginAction()}" process="loginForm" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="margin-left: 35px;"/>
+			        </div> 
 			    </f:facet>
 			    
 		</p:panelGrid>

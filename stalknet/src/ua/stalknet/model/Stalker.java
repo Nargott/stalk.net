@@ -1,6 +1,8 @@
 package ua.stalknet.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -26,12 +28,6 @@ public class Stalker implements Serializable {
 
 	private int experience;
 
-	@Column(name="has_passport")
-	private boolean hasPassport;
-
-	@Column(name="has_PDA")
-	private boolean hasPDA;
-
 	@Lob
 	private String legend;
 
@@ -47,10 +43,10 @@ public class Stalker implements Serializable {
 
 	private int rank;
 
-	//uni-directional many-to-one association to Event
-	@ManyToOne
-	@JoinColumn(name="event")
-	private Event event;
+	//bi-directional many-to-many association to Event
+	@ManyToMany
+    @JoinTable(name="stalker_events")
+	private List<Event> events;
 
 	//uni-directional many-to-one association to Fraction
 	@ManyToOne
@@ -62,6 +58,16 @@ public class Stalker implements Serializable {
 	@JoinColumn(name="user")
 	private User user;
 
+	//uni-directional many-to-one association to GPS
+	@OneToOne
+	@JoinColumn(name="gps")
+	private GPS gps;
+	
+	//bi-directional many-to-one association to GPS
+	@ManyToOne
+	@JoinColumn(name="home")
+	private Location home;
+	
 	public Stalker() {
 	}
 
@@ -103,22 +109,6 @@ public class Stalker implements Serializable {
 
 	public void setExperience(int experience) {
 		this.experience = experience;
-	}
-
-	public boolean getHasPassport() {
-		return this.hasPassport;
-	}
-
-	public void setHasPassport(boolean hasPassport) {
-		this.hasPassport = hasPassport;
-	}
-
-	public boolean getHasPDA() {
-		return this.hasPDA;
-	}
-
-	public void setHasPDA(boolean hasPDA) {
-		this.hasPDA = hasPDA;
 	}
 
 	public String getLegend() {
@@ -169,14 +159,6 @@ public class Stalker implements Serializable {
 		this.rank = rank;
 	}
 
-	public Event getEvent() {
-		return this.event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
 	public Fraction getFraction() {
 		return this.fraction;
 	}
@@ -193,4 +175,28 @@ public class Stalker implements Serializable {
 		this.user = user;
 	}
 
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+
+	public GPS getGps() {
+		return gps;
+	}
+
+	public void setGps(GPS gps) {
+		this.gps = gps;
+	}
+
+	public Location getHome() {
+		return home;
+	}
+
+	public void setHome(Location home) {
+		this.home = home;
+	}
+	
 }

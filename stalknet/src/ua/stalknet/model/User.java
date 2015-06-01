@@ -1,7 +1,9 @@
 package ua.stalknet.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +57,11 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="city")
 	private City city;
+	
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_group")
+	private UserGroup group;
 
 	public User() {
 	}
@@ -199,4 +206,12 @@ public class User implements Serializable {
 		this.city = city;
 	}
 
+	public UserGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup(UserGroup group) {
+		this.group = group;
+	}
+	
 }

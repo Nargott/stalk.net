@@ -12,11 +12,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.*;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
 
+import ua.stalk.net.ejb.EventsDAO;
 import ua.stalk.net.ejb.UsersDAO;
 import ua.stalknet.model.User;
 
@@ -28,6 +30,7 @@ public class Core implements Serializable {
 	private static final Logger logger = Logger.getLogger(Core.class.getName());
 
 	@EJB UsersDAO userDAO;
+	@EJB EventsDAO eventsDAO;
 	
 	private User user = null;
 	private User selUser = new User();
@@ -39,6 +42,8 @@ public class Core implements Serializable {
 	private MenuModel menuModel;
 	
 	private Locale locale;
+	
+	private Boolean isRegistrationAvailable = false;
 	
 	@PostConstruct
 	public void InitCore() {
@@ -101,27 +106,37 @@ public class Core implements Serializable {
 	public void genMenu() {
 		this.menuModel = new DefaultMenuModel();
         
-		DefaultMenuItem item = new DefaultMenuItem("Р“Р»Р°РІРЅР°СЏ");  
+		DefaultMenuItem item = new DefaultMenuItem("Главная");  
         item.setUrl("/content/main.jsf");  
         item.setIcon("ui-icon-home");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("РџСЂРѕС„РёР»СЊ");  
+        
+        item = new DefaultMenuItem("Профиль");  
         item.setUrl("/content/profile.jsf");  
         item.setIcon("ui-icon-person");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Р�РіСЂРѕРєРё");  
-        item.setUrl("/content/users.jsf");  
+        
+        item = new DefaultMenuItem("События");  
+        item.setUrl("/content/events.jsf");  
         item.setIcon("ui-icon-star");
         this.menuModel.addElement(item);
-        item = new DefaultMenuItem("РљРІРµСЃС‚С‹");  
+        
+        /*item = new DefaultMenuItem("Игроки");  
+        item.setUrl("/content/users.jsf");  
+        item.setIcon("ui-icon-star");
+        this.menuModel.addElement(item);*/
+        
+        /*item = new DefaultMenuItem("Задания");  
         item.setUrl("/content/quests.jsf");  
         item.setIcon("ui-icon-note");
-        item = new DefaultMenuItem("РљР°СЂС‚Р°");  
+        this.menuModel.addElement(item);*/
+        
+        /*item = new DefaultMenuItem("Карта");  
         item.setUrl("/content/map.jsf");  
         item.setIcon("ui-icon-image");
-        this.menuModel.addElement(item);
-        item = new DefaultMenuItem("Р’С‹С…РѕРґ");  
-        //item.setUrl("http://www.primefaces.org");
+        this.menuModel.addElement(item);*/
+        
+        item = new DefaultMenuItem("Выход");  
         item.setAjax(false);
         item.setCommand("#{core.logout()}");
         item.setIcon("ui-icon-power");
@@ -185,6 +200,19 @@ public class Core implements Serializable {
 
 	public void setLocale(Locale locale) {
 		this.locale = locale;
+	}
+
+	public Boolean getIsRegistrationAvailable() {
+		logger.info("getIsRegistrationAvailable() called!");
+		/*if (eventsDAO!=null) if (eventsDAO.checkIsRegistrationOpened()) {this.setIsRegistrationAvailable(true);}
+			else {this.setIsRegistrationAvailable(false);}*/
+		
+		this.setIsRegistrationAvailable(true); //TODO this is hook
+		return isRegistrationAvailable;
+	}
+
+	public void setIsRegistrationAvailable(Boolean isRegistrationAvailable) {
+		this.isRegistrationAvailable = isRegistrationAvailable;
 	}
 	
 	

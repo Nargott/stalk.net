@@ -3,7 +3,14 @@ package ua.stalknet.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -12,7 +19,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="GPS")
-@NamedQuery(name="EventType.findAll", query="SELECT g FROM GPS g")
+@NamedQuery(name="GPS.findAll", query="SELECT g FROM GPS g")
 public class GPS implements Serializable {
 	private static final long serialVersionUID = 1L;
 

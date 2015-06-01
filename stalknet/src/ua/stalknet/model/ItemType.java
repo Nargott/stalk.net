@@ -9,9 +9,9 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="items_type")
-@NamedQuery(name="ItemsType.findAll", query="SELECT i FROM ItemsType i")
-public class ItemsType implements Serializable {
+@Table(name="item_type")
+@NamedQuery(name="ItemType.findAll", query="SELECT i FROM ItemType i")
+public class ItemType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,7 +22,7 @@ public class ItemsType implements Serializable {
 
 	private String name;
 
-	public ItemsType() {
+	public ItemType() {
 	}
 
 	public int getId() {

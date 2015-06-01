@@ -19,7 +19,7 @@
         <query>select i from Item i</query>
     </named-query>
     <named-query name="ItemsType.findAll">
-        <query>select i from ItemsType i</query>
+        <query>select i from ItemType i</query>
     </named-query>
     <named-query name="Quest.findAll">
         <query>select q from Quest q</query>
@@ -35,5 +35,11 @@
     </named-query>
     <named-query name="User.findAll">
         <query>select u from User u</query>
+    </named-query>
+    <named-query name="UserGroup.findAll">
+        <query>select ug from UserGroup ug</query>
+    </named-query>
+    <named-query name="Location.findAll">
+        <query>select l from Location l</query>
     </named-query>
 </entity-mappings>

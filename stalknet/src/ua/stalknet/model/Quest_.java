@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2014-08-31T16:41:50.434+0300")
+@Generated(value="Dali", date="2015-06-02T00:42:11.796+0300")
 @StaticMetamodel(Quest.class)
 public class Quest_ {
 	public static volatile SingularAttribute<Quest, Integer> id;
@@ -23,4 +23,7 @@ public class Quest_ {
 	public static volatile SingularAttribute<Quest, Stalker> owner;
 	public static volatile SingularAttribute<Quest, Stalker> performer;
 	public static volatile SingularAttribute<Quest, Stalker> target;
+	public static volatile SingularAttribute<Quest, Fraction> fraction;
+	public static volatile SingularAttribute<Quest, GPS> gps;
+	public static volatile SingularAttribute<Quest, Location> location;
 }

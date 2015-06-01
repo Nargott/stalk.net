@@ -21,11 +21,13 @@ public class Item implements Serializable {
 	private String description;
 
 	private String name;
+	
+	private String properties;
 
 	//uni-directional many-to-one association to ItemsType
 	@ManyToOne
 	@JoinColumn(name="type")
-	private ItemsType itemsType;
+	private ItemType itemType;
 
 	public Item() {
 	}
@@ -54,12 +56,20 @@ public class Item implements Serializable {
 		this.name = name;
 	}
 
-	public ItemsType getItemsType() {
-		return this.itemsType;
+	public ItemType getItemType() {
+		return itemType;
 	}
 
-	public void setItemsType(ItemsType itemsType) {
-		this.itemsType = itemsType;
+	public void setItemType(ItemType itemType) {
+		this.itemType = itemType;
 	}
 
+	public String getProperties() {
+		return properties;
+	}
+
+	public void setProperties(String properties) {
+		this.properties = properties;
+	}
+	
 }

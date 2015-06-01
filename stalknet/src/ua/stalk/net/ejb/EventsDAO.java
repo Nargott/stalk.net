@@ -18,12 +18,28 @@ public class EventsDAO {
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	private EntityManager em; //Создаётся EntityManager
 	
-	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
 	public Event getLastActiveEvent() { 
 		try{
-			Event e = (Event) em.createQuery("select e from Event e order by e.id desc").getSingleResult(); //Получаем список всех записей в модели
-			logger.info("Last event id = "+e.getId());
+			Event e = (Event) em.createQuery("select e from Event "
+					+ "WHERE "
+					+ "isActive = true AND"
+					+ "isPrivate = false AND"
+					+ "isRegOpened = true "
+					+ " e order by e.id desc").getSingleResult();
 			return e; 
-		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:getLastActiveEvent() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:getLastActiveEvent() = "+e.getMessage()); return null;}
+	}
+	
+	public Boolean checkIsRegistrationOpened() {
+		try{
+			Event ev = (Event) em.createQuery("select e from Event e"
+					/*+ "WHERE "
+					+ "e.isActive = TRUE AND "
+					+ "e.isPrivate = FALSE AND "
+					+ "e.isRegOpened = TRUE "*/
+					+ " ").getSingleResult();
+			//if (ev != null) {return true;} 
+		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:getLastActiveEvent() = "+e.getMessage()); return null;}
+		return false;
 	}
 }
