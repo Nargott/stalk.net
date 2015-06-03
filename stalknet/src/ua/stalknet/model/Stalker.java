@@ -42,7 +42,10 @@ public class Stalker implements Serializable {
 	private String photo;
 
 	private int rank;
-
+	
+	@Column(name="has_passport")
+	private boolean hasPassport;
+	
 	//bi-directional many-to-many association to Event
 	@ManyToMany
     @JoinTable(name="stalker_events")
@@ -157,6 +160,14 @@ public class Stalker implements Serializable {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+	
+	public boolean isHasPassport() {
+		return hasPassport;
+	}
+
+	public void setHasPassport(boolean hasPassport) {
+		this.hasPassport = hasPassport;
 	}
 
 	public Fraction getFraction() {

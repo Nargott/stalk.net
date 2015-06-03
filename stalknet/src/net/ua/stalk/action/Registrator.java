@@ -19,6 +19,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 
 import ua.stalk.net.ejb.CitiesDAO;
@@ -202,6 +203,10 @@ public class Registrator implements Serializable {
 	      new FacesMessage(message));
 	  }
 	}
+	
+	public String onFlowProcess(FlowEvent event) {
+		return event.getNewStep();
+    }
 	
 	public List<Region> getRegions() {
 		return regions;
