@@ -17,6 +17,7 @@ public class Stalker implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private boolean active;
@@ -57,7 +58,7 @@ public class Stalker implements Serializable {
 	private Fraction fraction;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="user")
 	private User user;
 

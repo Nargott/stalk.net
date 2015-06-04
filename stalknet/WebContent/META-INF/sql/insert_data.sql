@@ -7,6 +7,8 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+SET FOREIGN_KEY_CHECKS = 0; -- Disable foreign key checking.
+
 --
 -- Truncate table before insert `country`
 --
@@ -2532,6 +2534,21 @@ INSERT INTO `city` (`id`, `region_id`, `name`, `phone_code`) VALUES
 (2464, 17, 'Ясногорка', '3655'),
 (2465, 10, 'Ясногородка', '44'),
 (2466, 1, 'Ясное', '6564');
+
+--
+-- Truncate table before insert `fractions`
+--
+
+TRUNCATE TABLE `fractions`;
+
+--
+-- Дамп даних таблиці `fractions`
+--
+
+INSERT INTO `fractions` (`ID`, `ACTIVE`, `DESCRIPTION`, `INFLUENCE`, `MONEY`, `NAME`, `deputy_leader`, `leader`) VALUES
+(1, 1, NULL, 10, NULL, 'Нейтралы', NULL, NULL);
+
+SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -85,8 +85,10 @@ public class Registrator implements Serializable {
 		newUser = new User();
 		newStalker = new Stalker();
 		callsign = "";
-		country = new Country();
-		region = new Region();
+		country = countriesDAO.getCountriesList().get(0); //По-умолчанию используем первую страну, Украину.
+		region = new Region(); 
+		if (this.country!=null) {regions = regionsDAO.getRegionsList(this.country);} 
+			else {logger.info("Registrator:handleRegionsChange() country is NULL!");}
 		city = new City();
 	}
 	
@@ -113,10 +115,8 @@ public class Registrator implements Serializable {
 	
 	public void handleFileUpload(FileUploadEvent event) {
         try {
-            File targetFolder = new File("/var/uploaded/images");
             InputStream inputStream = event.getFile().getInputstream();
-            OutputStream out = new FileOutputStream(new File(targetFolder,
-                    event.getFile().getFileName()));
+            OutputStream out = new FileOutputStream(File.createTempFile("temp-file-name"+event.getFile().getFileName(), ""));
             logger.info("Registrator:handleFileUpload() getFileName()");
             int read = 0;
             byte[] bytes = new byte[1024];
@@ -134,16 +134,17 @@ public class Registrator implements Serializable {
 	
 	public String register() {
 		logger.info("login = "+newUser.getLogin());
-		newUser.setPass(Utils.MD5(Utils.genPass(com.nargott.PasswordStrength.MEDIUM,8)));
+		String notCrypted = Utils.genPass(com.nargott.PasswordStrength.MEDIUM,8);
+		newUser.setPass(Utils.MD5(notCrypted));
 		logger.info("pass = "+newUser.getPass());
 		//logger.info("passConfirm = "+passConfirm);
 		logger.info("email = "+newUser.getEmail());
 		logger.info("callsign = "+callsign);
 		if (photo!=null) {
 			try {
-	            File targetFolder = new File(System.getProperty("catalina.base")+"/eclipseApps/stalknet/resources/img/");
+	            File targetFolder = new File(System.getProperty("catalina.base")+"/eclipseApps/stalknet/resources/img/photos");
 	            InputStream inputStream = photo.getInputstream();
-	            OutputStream out = new FileOutputStream(new File(targetFolder, "photo.jpg"));
+	            OutputStream out = new FileOutputStream(new File(targetFolder, com.nargott.Utils.MD5(newUser.getLogin())+"-photo.jpg"));
 	            int read = 0;
 	            byte[] bytes = new byte[1024];
 
@@ -169,24 +170,25 @@ public class Registrator implements Serializable {
 		if (!usersDAO.isUserExistsByLogin(newUser.getLogin())) {
 			logger.info("All fine! Try to add new user...");
 			newUser.setCreated(new Date());
-			if (usersDAO.addUser(newUser)) {
+			newStalker.setActive(true);
+			newStalker.setUser(newUser);
+			if (stalkersDAO.add(newStalker)) {
 				logger.info("New user ("+newUser.getLogin()+") sucessfully added!");
+				//user = usersDAO.getUser(newUser.getLogin(), newUser.getPass());
+				logger.info("New stalker ("+newStalker.getCallsign()+") sucessfully added!");
 			}
 		} else {logger.warning("User "+newUser.getLogin()+" is exists already in db!");}
 		
 		//newUser.getStalkers();
 		//newStalker.setId(null);
-		usersDAO.addUser(newUser);
-		user = usersDAO.getUser(newUser.getLogin(), newUser.getPass());
-		newStalker.setActive(true);
-		newStalker.setUser(user);
-		stalkersDAO.add(newStalker);
+		//usersDAO.addUser(newUser);
+		
 		//newUser.addStalker(newStalker);
 		
 		
 		String msgText = "Вы (или кто-то другой) указали этот адрес e-mail при регистрации на сайте stalk.net.ua . \n "
 						 +"Ваш логин для входа: "+newUser.getLogin()+" \n"
-						 +"Ваш пароль для входа: "+newUser.getPass()+" \n \n"
+						 +"Ваш пароль для входа: "+notCrypted+" \n \n"
 						 +"Чистой Зоны тебе, Сталкер!";				
 		if (Utils.SendMail(newUser.getEmail(), "Регистрация в STALKNET", msgText)) {return "content/message.jsf";} else {return "#";}
 	}
@@ -272,7 +274,7 @@ public class Registrator implements Serializable {
 	}
 
 	public List<Fraction> getFractions() {
-		if (fractions == null) {
+		if ((fractions == null) || (fractions.size()<1)) {
 			fractions = fractionsDAO.getFractionsList();
 		}
 		return fractions;

@@ -160,27 +160,6 @@
 				<p:message for="photo" />
 			</p:column>
 
-			<h:outputLabel for="legend" value="Легенда: "
-				style="font-weight:bold" />
-			<p:column style="text-align: left">
-				<!-- <p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
-	    								counterTemplate="{0} символов осталось." autoResize="false" /> -->
-				<p:editor id="legend" styleClass="editor" value="#{registrator.newUser.description}"
-					rows="5" cols="50" counter="legendCounter" maxlength="5000"
-					counterTemplate="{0} символов осталось." autoResize="false"
-					controls="bold italic underline strikethrough color size highlight bullets numbering
-	    										 alignleft center alignright justify undo redo	rule link unlink cut copy 
-	    										 paste pastetext source" />
-				<br />
-				<h:outputText id="legendCounter" style="font-size:small" />
-				<p:watermark for="legend" value="Легенда" />
-				<br />
-				<h:outputLabel for="legendCounter"
-					value="Эта легенда будет видна всем игрокам."
-					style="font-size:small" />
-				<p:message for="legend" />
-			</p:column>
-
 			<h:outputLabel for="fio" value="ФИО: *" style="font-weight:bold" />
 			<p:column style="text-align: left">
 				<p:inputText id="fio" value="#{registrator.newUser.fio}"
@@ -219,16 +198,7 @@
 			<h:outputText value="Откуда вы? *" style="font-weight:bold" />
 			<p:column style="text-align: left">
 				<p:panelGrid id="place" columns="2" styleClass="placeGrid">
-					<h:outputLabel for="country" value="Страна: "
-						style="font-weight:bold" />
-					<p:selectOneMenu id="country" value="#{registrator.country}"
-						effect="fade" converter="omnifaces.SelectItemsConverter">
-						<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
-						<f:selectItems value="#{registrator.countries}" var="c"
-							itemValue="#{c}" itemLabel="#{c.name}" noSelectionValue="" />
-						<p:ajax update="region city"
-							listener="#{registrator.handleRegionsChange}" />
-					</p:selectOneMenu>
+					
 					<h:outputLabel for="region" value="Регион: "
 						style="font-weight:bold" />
 					<p:selectOneMenu id="region" value="#{registrator.region}"
@@ -237,7 +207,7 @@
 						<f:selectItem itemLabel="Выбрать" noSelectionOption="true" />
 						<f:selectItems value="#{registrator.regions}" var="r"
 							itemValue="#{r}" itemLabel="#{r.name}" noSelectionValue="" />
-						<p:ajax update="city" listener="#{registrator.handleCitiesChange}" />
+						<p:ajax update="city" listener="#{registrator.handleCitiesChange()}" />
 					</p:selectOneMenu>
 					<h:outputLabel for="city" value="Город: " style="font-weight:bold" />
 					<p:selectOneMenu id="city" value="#{registrator.city}"
@@ -266,11 +236,10 @@
 		<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter"
 			columnClasses="leftStyle, rightStyle">
 			<f:facet name="header">  
-			        Регистрация на игру "<h:outputText
-					value="#{registrator.lastEvent.name}" />"
+			        Создание нового персонажа (Сталкера)
 			    </f:facet>
 
-			<h:outputLabel for="callsign" value="Никнейм в игре: *"
+			<h:outputLabel for="callsign" value="Позывной в игре: *"
 				style="font-weight:bold" />
 			<p:column style="text-align: left">
 				<p:inputText id="callsign"
@@ -295,13 +264,59 @@
 				<f:selectItems value="#{registrator.fractions}" var="f"
 					itemValue="#{f}" itemLabel="#{f.name}" noSelectionValue="" />
 			</p:selectOneMenu>
+			
+			<h:outputLabel for="is_pass" value="Наличие паспорта: "
+				style="font-weight:bold" />
+			<p:inputSwitch id="is_pass" onLabel="Есть" offLabel="Нету" value="#{registrator.newStalker.hasPassport}" />
+			
+			<h:outputLabel for="legend" value="Легенда: "
+				style="font-weight:bold" />
+			<p:column style="text-align: left">
+				<!-- <p:inputTextarea id="legend" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+	    								counterTemplate="{0} символов осталось." autoResize="false" /> -->
+				<p:editor id="legend" styleClass="editor" value="#{registrator.newStalker.legend}"
+					rows="5" cols="50" counter="legendCounter" maxlength="5000"
+					counterTemplate="{0} символов осталось." autoResize="false"
+					controls="bold italic underline strikethrough color size highlight bullets numbering
+	    										 alignleft center alignright justify undo redo	rule link unlink cut copy 
+	    										 paste pastetext source" />
+				<br />
+				<h:outputText id="legendCounter" style="font-size:small" />
+				<p:watermark for="legend" value="Легенда" />
+				<h:outputLabel for="legendCounter"
+					value="Эта легенда будет видна всем игрокам."
+					style="font-size:small" />
+				<p:message for="legend" />
+			</p:column>
+			
+			<h:outputLabel for="legendMaster" value="Легенда игромастерская: "
+				style="font-weight:bold" />
+			<p:column style="text-align: left">
+				<!-- <p:inputTextarea id="legendMaster" rows="5" cols="50" counter="legendCounter" maxlength="5000"       
+	    								counterTemplate="{0} символов осталось." autoResize="false" /> -->
+				<p:editor id="legendMaster" styleClass="editor" value="#{registrator.newStalker.legendMaster}"
+					rows="5" cols="50" counter="legendMasterCounter" maxlength="5000"
+					counterTemplate="{0} символов осталось." autoResize="false"
+					controls="bold italic underline strikethrough color size highlight bullets numbering
+	    										 alignleft center alignright justify undo redo	rule link unlink cut copy 
+	    										 paste pastetext source" />
+				<br />
+				<h:outputText id="legendMasterCounter" style="font-size:small" />
+				<p:watermark for="legendMaster" value="Легенда игромастерская" />
+				<h:outputLabel for="legendMasterCounter"
+					value="Эта легенда будет видна &lt;u&gt;только&lt;/u&gt; игромастерам."
+					style="font-size:small" escape="false" />
+				<p:message for="legendMaster" />
+			</p:column>
 
 			<f:facet name="footer">
-				<p:button value="Войти" outcome="/content/login.jsp"
-					icon="ui-icon-arrowreturnthick-1-e" ajax="false" />
-				<p:commandButton value="Зарегистрироваться"
-					action="#{registrator.register}" icon="ui-icon-pencil" ajax="false"
-					style="align:right; margin-left: 45%;" />
+				<div style="margin: 5px;">
+					<p:button value="Войти" outcome="/content/login.jsp"
+						icon="ui-icon-arrowreturnthick-1-e" ajax="false" />
+					<p:commandButton value="Зарегистрироваться"
+						action="#{registrator.register}" icon="ui-icon-pencil" ajax="false"
+						style="float:right; clear:right;" />
+				</div>	
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
