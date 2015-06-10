@@ -78,9 +78,10 @@ public class Utils {
 			message.setFrom(new InternetAddress(from));
 			message.addRecipient(Message.RecipientType.TO,
 		                          new InternetAddress(msgTo));
+			message.addHeader("Content-Type", "text/plain; charset=UTF-8");
 			message.setSubject(msgSubject);
-			message.setText(msgText);
-
+			message.setText(msgText, "UTF-8");
+			
 			Transport.send(message);
 			//System.out.println("Sent message successfully....");
 			return true;

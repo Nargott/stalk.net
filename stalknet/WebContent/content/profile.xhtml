@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Hello, Stalker!</title>
+</h:head>
+<h:body>
+	<ui:composition template="/templates/menuBar.xhtml">
+		<ui:define name="title">
+		        STALKNET
+		    </ui:define>
+		<ui:define name="left">
+			<f:facet name="header">
+				<h:outputText value="Разделы информации" />
+			</f:facet>
+			<h:form id="leftForm">
+				<p:menu>
+					<p:menuitem value="Основная информация" icon="fa fa-user" />
+					<p:menuitem value="Задания" icon="fa fa-file-text-o" />
+					<p:menuitem value="Инвентарь" icon="fa fa-inbox" />
+				</p:menu>
+			</h:form>
+		</ui:define>
+		<ui:define name="right">
+			<f:facet name="header">
+				<h:outputText value="Профиль" />
+			</f:facet>
+			<h:form id="rightForm">
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<h:outputText value="ID:" />
+					<h:outputText value="#{core.selUser.id}" />
+					<h:outputText value="Name:" />
+					<h:outputText value="#{core.selUser.login}" />
+
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

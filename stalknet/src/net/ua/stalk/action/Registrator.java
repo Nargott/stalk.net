@@ -189,7 +189,7 @@ public class Registrator implements Serializable {
 		String msgText = "Вы (или кто-то другой) указали этот адрес e-mail при регистрации на сайте stalk.net.ua . \n "
 						 +"Ваш логин для входа: "+newUser.getLogin()+" \n"
 						 +"Ваш пароль для входа: "+notCrypted+" \n \n"
-						 +"Чистой Зоны тебе, Сталкер!";				
+						 +"Спокойной Зоны тебе, Сталкер!";				
 		if (Utils.SendMail(newUser.getEmail(), "Регистрация в STALKNET", msgText)) {return "content/message.jsf";} else {return "#";}
 	}
 	
