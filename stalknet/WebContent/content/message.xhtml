@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core"  
     xmlns:p="http://primefaces.org/ui">  
     <h:head>  
-  		<title>Hello, PrimeFaces and EJB!</title>
+  		<title>Сообщение системы</title>
   		<style>
 			/*html, body {height:100%;margin:0;}*/
 			body {
@@ -38,7 +38,8 @@
 			    </f:facet>
 			    <h:panelGrid columns="1" cellpadding="10">
 	    			<h:outputLabel>На Ваш почтовый адрес #{registrator.newUser.email} выслан пароль, по которому Вы сможете войти в систему.</h:outputLabel>
-	    			<h:outputLabel>После входа Вы сможете изменить пароль в личном кабинете. Администрации Ваш пароль не известен.</h:outputLabel>
+	    			<h:outputLabel>После входа Вы сможете изменить пароль в личном кабинете.</h:outputLabel>
+	    			<h:outputLabel>Администрации Ваш пароль не известен.</h:outputLabel>
 	    			
     			</h:panelGrid>
     			<f:facet name="footer">  

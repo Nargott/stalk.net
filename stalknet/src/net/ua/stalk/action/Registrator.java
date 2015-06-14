@@ -64,7 +64,6 @@ public class Registrator implements Serializable {
 	private Boolean allFine = false;
 	
 	private User newUser;
-	private User user;
 	private Stalker newStalker;
 	
 	@EJB CountriesDAO countriesDAO;
@@ -190,7 +189,8 @@ public class Registrator implements Serializable {
 						 +"Ваш логин для входа: "+newUser.getLogin()+" \n"
 						 +"Ваш пароль для входа: "+notCrypted+" \n \n"
 						 +"Спокойной Зоны тебе, Сталкер!";				
-		if (Utils.SendMail(newUser.getEmail(), "Регистрация в STALKNET", msgText)) {return "content/message.jsf";} else {return "#";}
+		if (Utils.SendMail(newUser.getEmail(), "Регистрация в STALKNET", msgText)) {} else {}
+		return "/content/message.jsf";
 	}
 	
 	public void validateLogin(FacesContext context, 
@@ -205,10 +205,6 @@ public class Registrator implements Serializable {
 	      new FacesMessage(message));
 	  }
 	}
-	
-	public String onFlowProcess(FlowEvent event) {
-		return event.getNewStep();
-    }
 	
 	public List<Region> getRegions() {
 		return regions;
