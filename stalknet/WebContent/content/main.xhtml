@@ -29,11 +29,12 @@
        				<h:outputText value="Ближайшее событие (игра)" />
        			</f:facet>
        			<h:form id="rightForm">
-       				<p:outputPanel deferred="true">
+       				<p:outputPanel deferred="true" rendered="#{mainPage.lastEvent != null}">
        					<p:panel header="#{mainPage.lastEvent.name}" footer="#{mainPage.getEventTime(mainPage.lastEvent)}">  
 					        <h:outputText value="#{mainPage.lastEvent.description}" />  
 					    </p:panel>  
-       				</p:outputPanel>   
+       				</p:outputPanel>
+       				<p:outputLabel rendered="#{mainPage.lastEvent == null}">Событий нет</p:outputLabel> 
 		        </h:form>
 		    </ui:define>
 		</ui:composition>

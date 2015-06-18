@@ -1,5 +1,7 @@
 package ua.stalk.net.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,15 +20,18 @@ public class EventsDAO {
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	private EntityManager em; //Создаётся EntityManager
 	
+	@SuppressWarnings("unchecked")
 	public Event getLastActiveEvent() { 
 		try{
-			Event e = (Event) em.createQuery("select e from Event "
+			List<Event> events = (List<Event>) em.createQuery("select e from Event e "
 					+ "WHERE "
-					+ "isActive = true AND"
-					+ "isPrivate = false AND"
-					+ "isRegOpened = true "
-					+ " e order by e.id desc").getSingleResult();
-			return e; 
+					+ "e.isActive = TRUE AND "
+					+ "e.isPrivate = FALSE AND "
+					+ "e.isRegOpened = TRUE "
+					+ "order by e.id desc").getResultList();
+			if ((events!=null)&&(!events.isEmpty())) {
+				return events.get(0);
+			} else return null;	
 		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:getLastActiveEvent() = "+e.getMessage()); return null;}
 	}
 	
@@ -39,7 +44,7 @@ public class EventsDAO {
 					+ "e.isRegOpened = TRUE "*/
 					+ " ").getSingleResult();
 			//if (ev != null) {return true;} 
-		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:getLastActiveEvent() = "+e.getMessage()); return null;}
+		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:checkIsRegistrationOpened() = "+e.getMessage()); return null;}
 		return false;
 	}
 }

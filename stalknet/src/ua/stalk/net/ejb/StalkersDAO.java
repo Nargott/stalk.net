@@ -12,21 +12,33 @@ import net.ua.stalk.action.Core;
 import org.apache.log4j.Logger;
 
 import ua.stalknet.model.Stalker;
+import ua.stalknet.model.User;
 
-@Stateful //Означает, что хранить данные вне сессий, можно назвать "кэшем"
+@Stateful
 public class StalkersDAO {
-	private static final Logger logger = Logger.getLogger(Core.class.getName()); //Создать логгер для дебага
+	private static final Logger logger = Logger.getLogger(Core.class.getName());
 	
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
-	private EntityManager em; //Создаётся EntityManager
+	private EntityManager em;
 	
-	@SuppressWarnings("unchecked") //Это чтобы не ругалось на "возможное" несоответствие типов
-	public List<Stalker> getListStalkers() { 
+	@SuppressWarnings("unchecked")
+	public List<Stalker> getAllStalkersList() { 
 		try{
-			List<Stalker> s = (List<Stalker>) em.createQuery("select s from Stalker s").getResultList(); //Получаем список всех записей в модели
-			logger.info("List size = "+s.size()); //Выведем на уровень инфо, сколько записей получили
+			List<Stalker> s = (List<Stalker>) em.createQuery("select s from Stalker s").getResultList();
+			logger.info("List size = "+s.size());
 			return s; 
-		} catch (Exception e) {logger.fatal("!Exception in StalkersDAO:getListStalkers() = "+e.getMessage()); return null;} //Вывод ошибки, если ничего не вернулось
+		} catch (Exception e) {logger.fatal("!Exception in StalkersDAO:getListStalkers() = "+e.getMessage()); return null;}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Stalker> getStalkersByUser(User user) { 
+		try{
+			List<Stalker> s = (List<Stalker>) em.createQuery("select s from Stalker s where s.user = :user")
+												.setParameter("user", user)
+												.getResultList();
+			logger.info("List size = "+s.size());
+			return s; 
+		} catch (Exception e) {logger.fatal("!Exception in StalkersDAO:getListStalkers() = "+e.getMessage()); return null;}
 	}
 	
 	public Boolean isNameExists(String name) {

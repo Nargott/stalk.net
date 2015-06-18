@@ -68,7 +68,7 @@ public class Core implements Serializable {
 			setUsersList(userDAO.getListUsers());
 			setSelUser(this.user);
 			//return "/templates/menuBar.jsp";
-			return "/content/users.jsf";
+			return "/content/main.jsf";
 		} else {
 			setUser(null);
 			return "/content/main.jsf";

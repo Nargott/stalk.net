@@ -6,16 +6,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.*;
 
-import ua.stalk.net.ejb.EventsDAO;
-import ua.stalk.net.ejb.NewsDAO;
-import ua.stalknet.model.Event;
-import ua.stalknet.model.Tiding;
+import ua.stalk.net.ejb.*;
+import ua.stalknet.model.*;
 
-@ManagedBean //Означает, что этот бин будет виден для JSF
-@SessionScoped //Область действия -- сессия
+@ManagedBean
+@SessionScoped
 public class MainPage implements Serializable {
 	private static final long serialVersionUID = 4409790560087029586L;
 
@@ -26,11 +23,6 @@ public class MainPage implements Serializable {
 
 	List<Tiding> newsList;
 	Event lastEvent;
-	
-	/*public List<New> getNews() { //Метод для получения списка тестов
-		logger.info("MainPage:getNews() called!");
-		return newsDAO.getListNews(); //Вот так просто :)
-	}*/
 	
 	public String getEventTime(Event e) {
 		logger.info("MainPage:getEventTime called!");
@@ -50,15 +42,12 @@ public class MainPage implements Serializable {
 	
 	public Event getLastEvent() {
 		logger.info("MainPage:getLastEvent() called!");
-		if (lastEvent==null) setLastEvent(eventsDAO.getLastActiveEvent());
+		Event ev = eventsDAO.getLastActiveEvent();
+		if ((ev!=null)&&(lastEvent==null)) setLastEvent(ev);
 		return lastEvent;
 	}
 
 	public void setLastEvent(Event lastEvent) {
 		this.lastEvent = lastEvent;
 	}
-	
-	
-	
-
 }

@@ -17,11 +17,14 @@
 				<h:outputText value="Разделы информации" />
 			</f:facet>
 			<h:form id="leftForm">
-				<p:menu>
-					<p:menuitem value="Основная информация" icon="fa fa-user" />
-					<p:menuitem value="Задания" icon="fa fa-file-text-o" />
-					<p:menuitem value="Инвентарь" icon="fa fa-inbox" />
-				</p:menu>
+				<p:menu style="width:100%; border: 0px; background: transparent;" model="#{profilePage.menuModel}" />
+				<!-- 
+					<p:menuitem style="width:100%;" value="Основная информация" icon="fa fa-user" update="rightForm" />
+					<p:menuitem style="width:100%;" value="Персонажи" icon="fa fa-inbox" update="rightForm" />
+					<p:menuitem style="width:100%;" value="Задания" icon="fa fa-file-text-o" update="rightForm" />
+					<p:menuitem style="width:100%;" value="Инвентарь" icon="fa fa-inbox" update="rightForm" />
+					</p:menu>
+				 -->
 			</h:form>
 		</ui:define>
 		<ui:define name="right">
@@ -39,5 +42,6 @@
 			</h:form>
 		</ui:define>
 	</ui:composition>
+	
 </h:body>
 </html>

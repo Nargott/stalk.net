@@ -86,7 +86,7 @@
 			    
 			    <f:facet name="footer">
 			    	<div class="footer">  
-			        	<p:button rendered="#{core.isRegistrationAvailable}" value="Регистрация" 
+			        	<p:button rendered="#{core.isRegistrationAvailable == true}" value="Регистрация" 
 			        				outcome="/content/register.jsf" icon="ui-icon-pencil" ajax="false" />
 			        	<p:commandButton value="Вход" action="#{core.loginAction()}" 
 			        						process="loginForm" icon="ui-icon-arrowreturnthick-1-e" 
