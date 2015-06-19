@@ -1,11 +1,6 @@
 package net.ua.stalk.action;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,25 +12,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
+import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 
-import ua.stalk.net.ejb.CitiesDAO;
-import ua.stalk.net.ejb.CountriesDAO;
-import ua.stalk.net.ejb.EventsDAO;
-import ua.stalk.net.ejb.FractionsDAO;
-import ua.stalk.net.ejb.RegionsDAO;
-import ua.stalk.net.ejb.StalkersDAO;
-import ua.stalk.net.ejb.UsersDAO;
-import ua.stalknet.model.City;
-import ua.stalknet.model.Country;
-import ua.stalknet.model.Event;
-import ua.stalknet.model.Fraction;
-import ua.stalknet.model.Region;
-import ua.stalknet.model.Stalker;
-import ua.stalknet.model.User;
+import ua.stalk.net.ejb.*;
+import ua.stalknet.model.*;
 
 import com.nargott.Utils;
 
@@ -139,11 +123,18 @@ public class Registrator implements Serializable {
 		//logger.info("passConfirm = "+passConfirm);
 		logger.info("email = "+newUser.getEmail());
 		logger.info("callsign = "+callsign);
+		String newFileName = "";
 		if (photo!=null) {
 			try {
-	            File targetFolder = new File(System.getProperty("catalina.base")+"/eclipseApps/stalknet/resources/img/photos");
+				ServletContext servletContext = (ServletContext) FacesContext
+					    .getCurrentInstance().getExternalContext().getContext();
+	            File targetFolder = new File(servletContext.getRealPath("")
+	            							+File.separator+"resources"+File.separator
+	            							+"img"+File.separator+"photos"+File.separator);
 	            InputStream inputStream = photo.getInputstream();
-	            OutputStream out = new FileOutputStream(new File(targetFolder, com.nargott.Utils.MD5(newUser.getLogin())+"-photo.jpg"));
+	            newFileName = com.nargott.Utils.MD5(newUser.getLogin())
+										+"."+FilenameUtils.getExtension(photo.getContentType());
+	            OutputStream out = new FileOutputStream(new File(targetFolder, newFileName));
 	            int read = 0;
 	            byte[] bytes = new byte[1024];
 
@@ -153,10 +144,11 @@ public class Registrator implements Serializable {
 	            inputStream.close();
 	            out.flush();
 	            out.close();
+	            newUser.setPicture(newFileName);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-			logger.info("photo = "+photo.getFileName());
+			logger.info("photo = "+newFileName);
 		}
 		logger.info("legend = "+newUser.getDescription());
 		logger.info("FIO = "+newUser.getFio());

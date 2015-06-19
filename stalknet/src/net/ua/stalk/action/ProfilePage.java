@@ -23,7 +23,7 @@ public class ProfilePage implements Serializable {
 	@EJB StalkersDAO stalkersDAO;
 	
 	@ManagedProperty(value="#{core.user}")
-    User user;
+    private User user;
 	
 	private List<Stalker> userStalkers;
 	
@@ -88,5 +88,15 @@ public class ProfilePage implements Serializable {
 	public void setUserStalkers(List<Stalker> userStalkers) {
 		this.userStalkers = userStalkers;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 	
 }

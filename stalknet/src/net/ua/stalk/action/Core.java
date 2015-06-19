@@ -1,7 +1,6 @@
 package net.ua.stalk.action;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,12 +10,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.primefaces.model.menu.DefaultMenuItem;
-import org.primefaces.model.menu.DefaultMenuModel;
-import org.primefaces.model.menu.MenuModel;
+import org.primefaces.model.menu.*;
 
 import ua.stalk.net.ejb.EventsDAO;
 import ua.stalk.net.ejb.UsersDAO;
@@ -51,8 +49,9 @@ public class Core implements Serializable {
 	}
 	
 	public String testAction() throws Exception {
-		
-		return com.nargott.Utils.genPass(com.nargott.PasswordStrength.HEX,20);
+		ServletContext servletContext = (ServletContext) FacesContext
+			    .getCurrentInstance().getExternalContext().getContext();
+		return servletContext.getRealPath(" ") + File.separator;
 	}
 	
 	public String loginAction() throws Exception {

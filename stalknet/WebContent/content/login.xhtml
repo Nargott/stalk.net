@@ -71,7 +71,8 @@
    		<p:panelGrid columns="3" styleClass="panelGridCenter" > 
 			    <f:facet name="header">  
 			        Вход в STALKNET
-			    </f:facet>  
+			    </f:facet>
+			    <!-- <h:outputText value="#{core.testAction()}" />-->
 			    <h:outputLabel for="login" value="Логин:" />  
 			    <p:inputText id="login" value="#{core.login}" required="true" label="Логин">
 			    	<f:validateLength minimum="3" />  
