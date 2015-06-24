@@ -2,13 +2,17 @@ package net.ua.stalk.action;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
-import ua.stalk.net.ejb.*;
+import ua.stalk.net.ejb.EventsDAO;
+import ua.stalk.net.ejb.NewsDAO;
 import ua.stalknet.model.*;
 
 @ManagedBean
@@ -20,14 +24,36 @@ public class MainPage implements Serializable {
 	
 	@EJB NewsDAO newsDAO;
 	@EJB EventsDAO eventsDAO;
+	
+	@ManagedProperty(value = "#{core.user}")
+	private User user;
 
 	List<Tiding> newsList;
 	Event lastEvent;
 	
-	public String getEventTime(Event e) {
+	public String addStalkerToEvent() {
+		logger.info("MainPage:addStalkerToEvent() called!");
+		if ((lastEvent!=null) && (user!=null)) {
+			if (user.getActiveStalker()!=null) {
+				lastEvent.addStalker(user.getActiveStalker());
+				if (eventsDAO.update(lastEvent)) {
+					//TODO is not merged :-(
+					addMessage(FacesMessage.SEVERITY_INFO, "Вы успешно подали заявку на участие в событии!");
+				}
+			}	
+		}
+		return "";
+	}
+	
+	public void addMessage(FacesMessage.Severity type, String summary) {
+        FacesMessage message = new FacesMessage(type, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
+	public String getEventTime(Date d) {
 		logger.info("MainPage:getEventTime called!");
 		SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		return "Начало игры: " + formatter.format(e.getDateStart()) + " <BR /> Окончание игры: " + formatter.format(e.getDateEnd());
+		return formatter.format(d);
 	}
 	
 	public List<Tiding> getNewsList() {
@@ -50,4 +76,13 @@ public class MainPage implements Serializable {
 	public void setLastEvent(Event lastEvent) {
 		this.lastEvent = lastEvent;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

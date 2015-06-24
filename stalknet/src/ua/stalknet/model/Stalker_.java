@@ -5,7 +5,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2015-06-03T23:27:48.562+0300")
+@Generated(value="Dali", date="2015-06-24T23:01:22.435+0300")
 @StaticMetamodel(Stalker.class)
 public class Stalker_ {
 	public static volatile SingularAttribute<Stalker, Integer> id;
@@ -25,4 +25,5 @@ public class Stalker_ {
 	public static volatile SingularAttribute<Stalker, User> user;
 	public static volatile SingularAttribute<Stalker, GPS> gps;
 	public static volatile SingularAttribute<Stalker, Location> home;
+	public static volatile ListAttribute<Stalker, Payment> payments;
 }

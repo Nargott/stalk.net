@@ -62,6 +62,9 @@ public class Event implements Serializable {
 	@ManyToMany(mappedBy="events")
 	private List<Stalker> stalkers;
 	
+	@OneToMany(mappedBy="event")
+	private List<Payment> payments;
+	
 	public Event() {
 	}
 
@@ -165,6 +168,29 @@ public class Event implements Serializable {
 		quest.setEvent(null);
 
 		return quest;
+	}
+	
+	public List<Stalker> getStalkers() {
+		return stalkers;
+	}
+
+	public void setStalkers(List<Stalker> stalkers) {
+		this.stalkers = stalkers;
+	}
+	
+	public Stalker addStalker(Stalker stalker) {
+		getStalkers().add(stalker);
+		stalker.addEvent(this);
+
+		return stalker;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 
 }

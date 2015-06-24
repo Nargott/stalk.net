@@ -17,12 +17,13 @@
        				<h:outputText value="Новости" />
        			</f:facet>
        			<h:form id="leftForm">
-    				<p:accordionPanel value="#{mainPage.newsList}" var="new" multiple="true"> 
+    				<p:accordionPanel value="#{mainPage.newsList}"  rendered="#{mainPage.newsList.size() &gt; 0}" var="new" multiple="true"> 
 		       			<p:tab title="#{new.name}"> 
 		     				<h:outputText value="#{new.description}" escape="false" />  
 					    </p:tab> 
      				</p:accordionPanel>
-				</h:form>    
+				</h:form>  
+				<p:outputLabel rendered="#{mainPage.newsList.size() == 0}">Новостей нет</p:outputLabel>   
 		    </ui:define>
 		    <ui:define name="right">
 		        <f:facet name="header">
@@ -30,8 +31,26 @@
        			</f:facet>
        			<h:form id="rightForm">
        				<p:outputPanel deferred="true" rendered="#{mainPage.lastEvent != null}">
-       					<p:panel header="#{mainPage.lastEvent.name}" footer="#{mainPage.getEventTime(mainPage.lastEvent)}">  
-					        <h:outputText value="#{mainPage.lastEvent.description}" />  
+       					<p:panel>
+       						<f:facet name="header">
+       							#{mainPage.lastEvent.name}
+       						</f:facet>
+					        <h:outputText escape="false" value="#{mainPage.lastEvent.description}" />
+					        <f:facet name="footer">
+       							<table style="border:0px;">
+	       							<tr>
+	       								<td align="right">Начало игры: </td>
+	       								<td><h:outputText value="#{mainPage.getEventTime(mainPage.lastEvent.dateStart)}" /></td>
+	       								<td rowspan="2" style="width:30%">
+	       									<p:commandButton value="Подать заявку" actionListener="#{mainPage.addStalkerToEvent()}" />
+	       								</td>
+	       							</tr>
+	       							<tr>
+	       								<td align="right">Окончание игры: </td>
+	       								<td><h:outputText value="#{mainPage.getEventTime(mainPage.lastEvent.dateEnd)}" /></td>
+	       							</tr>
+       							</table>
+       						</f:facet>
 					    </p:panel>  
        				</p:outputPanel>
        				<p:outputLabel rendered="#{mainPage.lastEvent == null}">Событий нет</p:outputLabel> 

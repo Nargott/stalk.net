@@ -176,6 +176,17 @@ public class User implements Serializable {
 
 		return stalker;
 	}
+	
+	public Stalker getActiveStalker() {
+		Stalker stalker = null;
+		for (Stalker st : this.getStalkers()) {
+			if (st.getActive()) {
+				stalker = st;
+				break;
+			}
+		}
+		return stalker;
+	}
 
 	public List<Tiding> getTidings() {
 		return this.tidings;

@@ -72,6 +72,9 @@ public class Stalker implements Serializable {
 	@JoinColumn(name="home")
 	private Location home;
 	
+	@OneToMany(mappedBy="stalker")
+	private List<Payment> payments;
+	
 	public Stalker() {
 	}
 
@@ -210,5 +213,20 @@ public class Stalker implements Serializable {
 	public void setHome(Location home) {
 		this.home = home;
 	}
-	
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public Event addEvent(Event event) {
+		getEvents().add(event);
+		//event.addStalker(this);
+
+		return event;
+	}
+
 }
