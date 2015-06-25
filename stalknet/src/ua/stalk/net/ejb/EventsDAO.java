@@ -68,11 +68,27 @@ public class EventsDAO {
 		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:add("+event.getId()+") = "+e.getMessage()); return false;}	
 	}
 	
-	public Boolean update(Event event) {
+	public Boolean requestUpdate(Event event, Stalker stalker) {
 		logger.info("EventsDAO:update() called!");
 		try {
 			em.merge(event);
+			em.merge(stalker);
 			return true;
 		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:update("+event.getId()+") = "+e.getMessage()); return false;}	
+	}
+	
+	public Boolean isStalkerInEvent(Event event, Stalker stalker) {
+		logger.info("EventsDAO:isStalkerInEvent() called!");
+		try{
+			Event ev = (Event) em.createQuery("select e from Event e "
+					+ "WHERE e=:event AND :stalker MEMBER OF e.stalkers "
+					+ " ")
+					.setParameter("stalker", stalker)
+					.setParameter("event", event)
+					.getSingleResult();
+			logger.info("EventId is "+ev.getId());
+			if (ev != null) {return true;} 
+		} catch (Exception e) {logger.fatal("!Exception in EventsDAO:checkIsRegistrationOpened() = "+e.getMessage()); return false;}
+		return false;
 	}
 }

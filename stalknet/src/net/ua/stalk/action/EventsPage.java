@@ -7,11 +7,6 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-import org.primefaces.model.map.DefaultMapModel;  
-import org.primefaces.model.map.LatLng;  
-import org.primefaces.model.map.MapModel;  
-import org.primefaces.model.map.Polygon; 
-
 @ManagedBean
 @SessionScoped
 public class EventsPage implements Serializable {

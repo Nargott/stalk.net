@@ -30,6 +30,7 @@
        				<h:outputText value="Ближайшее событие (игра)" />
        			</f:facet>
        			<h:form id="rightForm">
+       				<p:growl id="growl" showDetail="false" />
        				<p:outputPanel deferred="true" rendered="#{mainPage.lastEvent != null}">
        					<p:panel>
        						<f:facet name="header">
@@ -42,7 +43,10 @@
 	       								<td align="right">Начало игры: </td>
 	       								<td><h:outputText value="#{mainPage.getEventTime(mainPage.lastEvent.dateStart)}" /></td>
 	       								<td rowspan="2" style="width:30%">
-	       									<p:commandButton value="Подать заявку" actionListener="#{mainPage.addStalkerToEvent()}" />
+	       									<h:panelGroup id="reqBut">
+		       									<p:commandButton rendered="#{!mainPage.checkIsStalkerInEvent()}" value="Подать заявку" actionListener="#{mainPage.addStalkerToEvent()}" update="growl reqBut" />
+		       									<p:button disabled="true" rendered="#{mainPage.checkIsStalkerInEvent()}" value="Заявка подана" />
+	       									</h:panelGroup>
 	       								</td>
 	       							</tr>
 	       							<tr>
@@ -53,7 +57,7 @@
        						</f:facet>
 					    </p:panel>  
        				</p:outputPanel>
-       				<p:outputLabel rendered="#{mainPage.lastEvent == null}">Событий нет</p:outputLabel> 
+       				<p:outputLabel rendered="#{mainPage.lastEvent == null}">Событий нет</p:outputLabel>
 		        </h:form>
 		    </ui:define>
 		</ui:composition>

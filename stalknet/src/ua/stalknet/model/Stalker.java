@@ -48,7 +48,7 @@ public class Stalker implements Serializable {
 	private boolean hasPassport;
 	
 	//bi-directional many-to-many association to Event
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="stalker_events")
 	private List<Event> events;
 
@@ -58,7 +58,7 @@ public class Stalker implements Serializable {
 	private Fraction fraction;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user")
 	private User user;
 
@@ -223,7 +223,7 @@ public class Stalker implements Serializable {
 	}
 
 	public Event addEvent(Event event) {
-		getEvents().add(event);
+		this.getEvents().add(event);
 		//event.addStalker(this);
 
 		return event;

@@ -31,13 +31,18 @@ public class MainPage implements Serializable {
 	List<Tiding> newsList;
 	Event lastEvent;
 	
+	public Boolean checkIsStalkerInEvent() {
+		
+		return eventsDAO.isStalkerInEvent(lastEvent, user.getActiveStalker());
+	}
+	
 	public String addStalkerToEvent() {
 		logger.info("MainPage:addStalkerToEvent() called!");
 		if ((lastEvent!=null) && (user!=null)) {
 			if (user.getActiveStalker()!=null) {
 				lastEvent.addStalker(user.getActiveStalker());
-				if (eventsDAO.update(lastEvent)) {
-					//TODO is not merged :-(
+				logger.info(lastEvent.getStalkers().get(0).getId().toString());
+				if (eventsDAO.requestUpdate(lastEvent, user.getActiveStalker())) {
 					addMessage(FacesMessage.SEVERITY_INFO, "Вы успешно подали заявку на участие в событии!");
 				}
 			}	

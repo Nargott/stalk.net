@@ -179,7 +179,7 @@ public class Event implements Serializable {
 	}
 	
 	public Stalker addStalker(Stalker stalker) {
-		getStalkers().add(stalker);
+		this.getStalkers().add(stalker);
 		stalker.addEvent(this);
 
 		return stalker;
