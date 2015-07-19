@@ -40,6 +40,7 @@ public class ProfilePage implements Serializable {
 		DefaultMenuItem item = new DefaultMenuItem("Основная информация");  
 		item.setIcon("fa fa-user");
 		item.setUpdate("rightForm");
+		item.setStyleClass("ui-state-active");
         menuModel.addElement(item);
         
         DefaultSubMenu stalkersMenu = new DefaultSubMenu("Персонажи");
@@ -50,10 +51,13 @@ public class ProfilePage implements Serializable {
         		userStalkers.forEach(stalker -> {
         			DefaultMenuItem itemS = new DefaultMenuItem(stalker.getCallsign());
                 	itemS.setIcon("fa fa-user-secret");
+                	itemS.setUpdate("rightForm");
         	        stalkersMenu.addElement(itemS);
         		});
         	} else {
-        		
+        		DefaultMenuItem itemNone = new DefaultMenuItem("Активных персонажей нет");
+            	itemNone.setDisabled(true);
+    	        stalkersMenu.addElement(itemNone);
         	}
         	
 	        	
