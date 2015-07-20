@@ -30,7 +30,7 @@
 	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
 	    <servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
-  	 	
+  	<!--  	
   	<error-page>
 		<error-code>500</error-code>
 		<location>/content/login.xhtml</location>
@@ -47,7 +47,7 @@
 	    <exception-type>java.lang.RuntimeException</exception-type>
 	    <location>/content/login.xhtml</location>
 	</error-page>
-	
+	-->
 	<!-- keys gotten from recaptcha -->
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>

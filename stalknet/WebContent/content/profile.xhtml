@@ -4,10 +4,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Hello, Stalker!</title>
-</h:head>
-<h:body>
 	<ui:composition template="/templates/menuBar.xhtml">
 		<ui:define name="title">
 		        STALKNET
@@ -31,12 +27,9 @@
 			</f:facet>
 			<h:form id="rightForm">
 				<h:panelGrid id="display" columns="2" cellpadding="4">
-					
-
+					<ui:include src="/partials/#{profilePage.rightContent}.xhtml" />
 				</h:panelGrid>
 			</h:form>
 		</ui:define>
 	</ui:composition>
-	
-</h:body>
 </html>

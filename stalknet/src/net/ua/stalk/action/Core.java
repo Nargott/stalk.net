@@ -51,7 +51,8 @@ public class Core implements Serializable {
 	public String testAction() throws Exception {
 		ServletContext servletContext = (ServletContext) FacesContext
 			    .getCurrentInstance().getExternalContext().getContext();
-		return servletContext.getRealPath(" ") + File.separator;
+		//return servletContext.getRealPath(" ") + File.separator;
+		return com.nargott.Utils.MD5("fallout2075");
 	}
 	
 	public String loginAction() throws Exception {

@@ -59,4 +59,11 @@ public class UsersDAO {
 			return true;
 		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:addUser("+newUser.getLogin()+") = "+e.getMessage()); return false;}	
 	}
+	
+	public Boolean save(User user) {
+		try {
+			em.merge(user);
+			return true;
+		} catch (Exception e) {logger.fatal("!Exception in UsersDAO:saveUser("+user.getLogin()+") = "+e.getMessage()); return false;}	
+	}
 }

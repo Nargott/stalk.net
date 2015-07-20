@@ -56,4 +56,21 @@ public class StalkersDAO {
 			return true;
 		} catch (Exception e) {logger.fatal("!Exception in StalkersDAO:add("+newStalker.getCallsign()+") = "+e.getMessage()); return false;}	
 	}
+	
+	public Boolean save(Stalker stalker) {
+		try {
+			logger.info("Trying to save stalker with id = "+stalker.getId());
+			em.merge(stalker);// persist(stalker);
+			return true;
+		} catch (Exception e) {logger.fatal("!Exception in StalkersDAO:save("+stalker.getCallsign()+") = "+e.getMessage()); return false;}
+	}
+	
+	public Stalker getById(Integer id) {
+		try {
+			Stalker s = (Stalker) em.createQuery("select s from Stalker s where s.id = :id")
+					.setParameter("id", id)
+					.getSingleResult();
+			if (s != null) {return s;} else {return null;}
+		}  catch (Exception e) {logger.fatal("!Exception in StalkersDAO:getById() = "+e.getMessage()); return null;}
+	}
 }

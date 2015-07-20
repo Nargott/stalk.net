@@ -14,83 +14,8 @@
 		<f:event type="preRenderView" listener="#{registrator.clean()}" />
 	</f:metadata>
 	<title>STALKNET</title>
-	<style>
-		/*html, body {height:100%;margin:0;}*/
-		body {
-			margin: 0 auto;
-			padding: 0;
-			color: #FFFFFF;
-			background-color: #000000;
-			background-image: url(../resources/img/stalker1.jpg);
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-position: top center;
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
-		}
-		
-		.panelGridCenter {
-			margin: 0 auto;
-			margin-top: 2%;
-			width: 40%;
-		}
-		
-		/*.panelGridCenter tr, .panelGridCenter td, .ui-widget-content {
-			border: none !important;
-		}*/
-		
-		.leftStyle {
-			text-align: right;
-		}
-		
-		.rightStyle {
-			text-align: left;
-		}
-		
-		.placeGrid > tbody > .ui-widget > *, .placeGrid > tbody > .ui-widget-content > * {
-			background: none;
-			border: none !important;
-		}
-		
-		.editor > .ui-widget-content {
-			background : #ffffff !important;
-		}
-	</style>
-	<script>
-		PrimeFaces.locales['ru'] = {
-			closeText : 'Закрыть',
-			prevText : 'Назад',
-			nextText : 'Вперёд',
-			monthNames : [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май',
-					'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь',
-					'Декабрь' ],
-			monthNamesShort : [ 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
-					'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
-			dayNames : [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
-					'Четверг', 'Пятница', 'Субота' ],
-			dayNamesShort : [ 'Воск', 'Пон', 'Втор', 'Сред', 'Четв', 'Пят',
-					'Суб' ],
-			dayNamesMin : [ 'Вс', 'Пн', 'Вт', 'Ср ', 'Чт', 'Пт', 'Сб' ],
-			weekHeader : 'Неделя',
-			firstDay : 1,
-			isRTL : false,
-			showMonthAfterYear : false,
-			yearSuffix : '',
-			timeOnlyTitle : 'Только время',
-			timeText : 'Время',
-			hourText : 'Час',
-			minuteText : 'Минута',
-			secondText : 'Секунда',
-			currentText : 'Сегодня',
-			ampm : false,
-			month : 'Месяц',
-			week : 'неделя',
-			day : 'День',
-			allDayText : 'Весь день'
-		}
-	</script>
+	<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
+	<script type="text/javascript" src="../resources/js/stalknet.js"></script>
 </h:head>
 <!-- 
 			    <h:outputLabel for="pass" value="Пароль: *" />
@@ -114,7 +39,7 @@
 	<h:form id="regForm" enctype="multipart/form-data"
 		acceptcharset="utf-8">
 
-		<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenter"
+		<p:panelGrid columns="2" cellpadding="5" styleClass="panelGridCenterRegister"
 			columnClasses="leftStyle, rightStyle">
 			<f:facet name="header">  
 			        Регистрация в STALKNET 

@@ -6,58 +6,8 @@
     xmlns:p="http://primefaces.org/ui">  
     <h:head>  
   		<title>STALKNET</title>
-  		<style>
-			/*html, body {height:100%;margin:0;}*/
-			body {
-				margin: 0 auto;
-				padding: 0;
-				color: #FFFFFF;
-				background-color: #000000;
-				background-image: url('../resources/img/stalker1.jpg');
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-position: top center;
-				-webkit-background-size: cover;
-			    -moz-background-size: cover;
-			    -o-background-size: cover;
-			    background-size: cover;
-			    height:100%;
-			}
-			html {
-				height:100%;
-			}
-			.panelGridCenter {
-				position: absolute;
-    			left:40%;
-    			top: 40%;
-    			z-index:9;
-			}
-			.footer {
-				margin-top: 5px;
-				margin-bottom: 5px;
-				padding-left: 10px;
-				padding-right: 10px;
-			}
-			#viewport {
-				position: absolute;
-				width: 80%;
-				height: 100%;
-				left:0%;
-				top:0%;
-				overflow: hidden;
-				/*background-color: red;*/
-				z-index:-1;
-			}
-			#viewport .smoke {
-			  position: absolute;
-			  width: 250px;
-			  height: 250px;
-			  background:url('../resources/img/smoke-texture.png') no-repeat;
-			  margin-left:0px;
-			  opacity: 0;
-			}
-		</style>
-		
+  		<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
+		<script type="text/javascript" src="../resources/js/stalknet.js"></script>
     </h:head>  
     <h:body>
     <!--
@@ -68,11 +18,11 @@
     -->
     <div id="viewport"></div>
     <h:form id="loginForm" name="loginForm">  
-   		<p:panelGrid columns="3" styleClass="panelGridCenter" > 
+   		<p:panelGrid columns="3" styleClass="panelGridCenterLogin" > 
 			    <f:facet name="header">  
 			        Вход в STALKNET
 			    </f:facet>
-			    <!-- <h:outputText value="#{core.testAction()}" />-->
+			    <!-- <h:outputText value="#{core.testAction()}" /> -->
 			    <h:outputLabel for="login" value="Логин:" />  
 			    <p:inputText id="login" value="#{core.login}" required="true" label="Логин">
 			    	<f:validateLength minimum="3" />  
