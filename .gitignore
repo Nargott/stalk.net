@@ -1,1 +1,3 @@
-/stalknet/
+.idea
+**/logs
+/node_modules/
