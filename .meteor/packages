@@ -22,3 +22,13 @@ xolvio:cleaner
 hwillson:stub-collections
 dispatch:mocha-phantomjs
 shell-server@0.2.1
+aldeed:simple-schema
+accounts-base
+accounts-password
+alanning:roles
+twbs:bootstrap
+fortawesome:fontawesome
+meteortoys:allthings
+aldeed:collection2
+momentjs:moment
+dburles:collection-helpers

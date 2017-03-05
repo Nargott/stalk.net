@@ -1,5 +1,5 @@
-import {DemoCollection} from "../../../both/collections/demo.collection";
-import {Demo} from "../../../both/models/demo.model";
+import {StalkersCollection} from "./../../../both/collections/stalkers.collection";
+import { StalkersInterface } from "./../../../both/models/stalkers.model";
 
 export class Main {
   start(): void {
@@ -7,19 +7,19 @@ export class Main {
   }
 
   initFakeData(): void {
-    if (DemoCollection.find({}).cursor.count() === 0) {
-      const data: Demo[] = [{
-        name: "Dotan",
-        age: 25
+    if (StalkersCollection.find({}).cursor.count() === 0) {
+      const data: StalkersInterface[] = [{
+        nickname: "Dotan",
+        createdAt: new Date()
       }, {
-        name: "Liran",
-        age: 26
+        nickname: "Liran",
+        createdAt: new Date()
       }, {
-        name: "Uri",
-        age: 30
+        nickname: "Uri",
+        createdAt: new Date()
       }];
-      data.forEach((obj: Demo) => {
-        DemoCollection.insert(obj);
+      data.forEach((obj: StalkersInterface) => {
+        StalkersCollection.insert(obj);
       });
     }
   }

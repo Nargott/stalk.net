@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-import { DemoComponent } from "./demo/demo.component";
-import { DemoDataService } from "./demo/demo-data.service";
+import { StalkersComponent } from "./stalkers/stalkers.component";
+import { StalkersDataService } from "./stalkers/stalkers-data.service";
 
 @NgModule({
   // Components, Pipes, Directive
   declarations: [
     AppComponent,
-    DemoComponent
+    StalkersComponent
   ],
   // Entry Components
   entryComponents: [
@@ -16,7 +16,7 @@ import { DemoDataService } from "./demo/demo-data.service";
   ],
   // Providers
   providers: [
-    DemoDataService
+    StalkersDataService
   ],
   // Modules
   imports: [

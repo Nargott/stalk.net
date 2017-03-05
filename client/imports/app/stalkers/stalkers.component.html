@@ -3,6 +3,6 @@
 This is the available data:
 <ul>
     <li *ngFor="let item of data | async">
-        {{item.name}} ({{item.age}})
+        <b>{{item.nickname}}</b> <i>({{item.createdAtDate()}})</i>
     </li>
 </ul>
