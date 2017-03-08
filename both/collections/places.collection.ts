@@ -2,18 +2,18 @@ import { MongoObservable } from "meteor-rxjs";
 import { Mongo } from 'meteor/mongo';
 import * as moment from "moment";
 
-import { StalkersModel } from '../models/stalkers.model';
+import { PlacesModel } from '../models/places.model';
 
-let Stalkers = new Mongo.Collection('stalkers');
+let Places = new Mongo.Collection('places');
 
 // fraction() {
 //     return Fractions.findOne(this.fractionId);
 // }
 
-Stalkers.helpers({
+Places.helpers({
     getCreatedAtDate() {
         return moment(this.createdAt).format("DD.MM.YYYY HH:mm");
     }
 });
-Stalkers.attachSchema(StalkersModel);
-export const StalkersCollection = new MongoObservable.Collection(Stalkers);
+Places.attachSchema(PlacesModel);
+export const PlacesCollection = new MongoObservable.Collection(Places);

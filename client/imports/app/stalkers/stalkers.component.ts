@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { StalkersDataService } from "./stalkers-data.service";
-import { StalkersInterface } from "../../../../both/models/stalkers.model";
 import template from "./stalkers.component.html";
 import style from "./stalkers.component.scss";
 
@@ -12,7 +11,7 @@ import style from "./stalkers.component.scss";
 })
 export class StalkersComponent implements OnInit {
   greeting: string;
-  data: Observable<StalkersInterface[]>;
+  data: Observable<any[]>;
 
   constructor(private stalkersDataService: StalkersDataService) {
     this.greeting = "Hello Stalkers Component!";

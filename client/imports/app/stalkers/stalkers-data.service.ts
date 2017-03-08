@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
 import { ObservableCursor } from "meteor-rxjs";
 import { StalkersCollection } from "../../../../both/collections/stalkers.collection";
-import { StalkersInterface } from "../../../../both/models/stalkers.model";
 
 @Injectable()
 export class StalkersDataService {
-  private data: ObservableCursor<StalkersInterface>;
+  private data: ObservableCursor<any>;
 
   constructor() {
     this.data = StalkersCollection.find({});
   }
 
-  public getData(): ObservableCursor<StalkersInterface> {
+  public getData(): ObservableCursor<any> {
     return this.data;
   }
 }
