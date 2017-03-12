@@ -1,0 +1,8 @@
+<div class="col-sm-6">
+    <h3 class="block-title">{{greeting}}</h3>
+    <ul class="lists-mark">
+        <li *ngFor="let item of data | async">
+            <b>{{item.nickname}}</b> <i>({{item.getCreatedAtDate()}})</i>
+        </li>
+    </ul>
+</div>

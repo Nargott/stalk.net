@@ -1,5 +1,4 @@
-import {StalkersCollection} from "./../../../both/collections/stalkers.collection";
-import { StalkersInterface } from "./../../../both/models/stalkers.model";
+import {CharactersCollection} from "../../../both/collections/characters.collection";
 
 export class Main {
   start(): void {
@@ -7,19 +6,16 @@ export class Main {
   }
 
   initFakeData(): void {
-    if (StalkersCollection.find({}).cursor.count() === 0) {
-      const data: StalkersInterface[] = [{
-        nickname: "Dotan",
-        createdAt: new Date()
+    if (CharactersCollection.find({}).cursor.count() === 0) {
+      const data: any[] = [{
+        nickname: "Dotan"
       }, {
-        nickname: "Liran",
-        createdAt: new Date()
+        nickname: "Liran"
       }, {
-        nickname: "Uri",
-        createdAt: new Date()
+        nickname: "Uri"
       }];
-      data.forEach((obj: StalkersInterface) => {
-        StalkersCollection.insert(obj);
+      data.forEach((obj: any) => {
+        CharactersCollection.insert(obj);
       });
     }
   }

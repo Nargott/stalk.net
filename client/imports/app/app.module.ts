@@ -1,14 +1,16 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-import { StalkersComponent } from "./stalkers/stalkers.component";
-import { StalkersDataService } from "./stalkers/stalkers-data.service";
+import { CharactersComponent } from "./stalkers/characters.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { CharactersDataService } from "./stalkers/characters-data.service";
 
 @NgModule({
   // Components, Pipes, Directive
   declarations: [
     AppComponent,
-    StalkersComponent
+    CharactersComponent,
+    SidebarComponent
   ],
   // Entry Components
   entryComponents: [
@@ -16,7 +18,7 @@ import { StalkersDataService } from "./stalkers/stalkers-data.service";
   ],
   // Providers
   providers: [
-    StalkersDataService
+    CharactersDataService
   ],
   // Modules
   imports: [
