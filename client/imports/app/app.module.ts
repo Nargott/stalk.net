@@ -1,16 +1,21 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { AppComponent } from "./app.component";
-import { CharactersComponent } from "./stalkers/characters.component";
+import { routes } from './app.routes';
+
 import { SidebarComponent } from "./sidebar/sidebar.component";
-import { CharactersDataService } from "./stalkers/characters-data.service";
+import { CharactersDataService } from "./characters/characters-data.service";
+import { CharactersComponent } from "./characters/characters.component";
 
 @NgModule({
   // Components, Pipes, Directive
   declarations: [
     AppComponent,
-    CharactersComponent,
-    SidebarComponent
+    SidebarComponent,
+    CharactersComponent
   ],
   // Entry Components
   entryComponents: [
@@ -22,7 +27,10 @@ import { CharactersDataService } from "./stalkers/characters-data.service";
   ],
   // Modules
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ],
   // Main Component
   bootstrap: [ AppComponent ]
